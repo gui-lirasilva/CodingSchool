@@ -13,7 +13,7 @@ public class test {
         System.out.println(subcategory1);
 
         Course course1 = new Course("The course name", "45asd98-a54s", 15, "Astolfo", subcategory1);
-        System.out.println(course1)
+        System.out.println(course1);
 
         Section section1 = new Section("Section name", "5sa4s6a5-987", course1);
         System.out.println(section1);
