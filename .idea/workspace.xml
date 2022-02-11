@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdddfdcf-6598-487a-9ba7-5e0200b8789a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="fdddfdcf-6598-487a-9ba7-5e0200b8789a" name="Changes" comment="Primeiro commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,8 +70,16 @@
       <updated>1644419574282</updated>
       <workItem from="1644419575449" duration="11497000" />
       <workItem from="1644500133366" duration="30504000" />
-      <workItem from="1644587604085" duration="12126000" />
+      <workItem from="1644587604085" duration="12438000" />
     </task>
+    <task id="LOCAL-00001" summary="Primeiro commit">
+      <created>1644605672413</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1644605672413</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,5 +95,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Primeiro commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Primeiro commit" />
   </component>
 </project>

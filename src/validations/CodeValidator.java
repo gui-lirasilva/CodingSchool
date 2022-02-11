@@ -1,0 +1,10 @@
+package validations;
+
+public class CodeValidator {
+
+    public static void cantBeOutPattern(String code, String error) {
+        if (!code.matches("[a-z0-9^-]+")){
+            throw new IllegalArgumentException(error);
+        }
+    }
+}
