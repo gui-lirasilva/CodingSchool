@@ -12,7 +12,7 @@
 *.rar
 
 # Files #
-out/
+out/*
 .idea/misc.xml
 .idea/modules.xml
 .idea/uiDesigner.xml
