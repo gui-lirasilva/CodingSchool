@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdddfdcf-6598-487a-9ba7-5e0200b8789a" name="Changes" comment="Primeiro commit" />
+    <list default="true" id="fdddfdcf-6598-487a-9ba7-5e0200b8789a" name="Changes" comment="Primeiro commit">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Alternative.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Alternative.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Course.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Explanation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Explanation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Section.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Subcategory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Subcategory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/school/Video.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/school/Video.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/test/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/test/test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/validations/CodeValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/validations/CodeValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CodingSchool/validations/StringValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CodingSchool/validations/StringValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Alternative.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Alternative.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Explanation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Explanation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Section.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Subcategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Subcategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/school/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Video.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validations/CodeValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/validations/CodeValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validations/StringValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/validations/StringValidator.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +94,8 @@
       <workItem from="1644419575449" duration="11497000" />
       <workItem from="1644500133366" duration="30504000" />
       <workItem from="1644587604085" duration="17788000" />
-      <workItem from="1644630253225" duration="3334000" />
+      <workItem from="1644630253225" duration="3597000" />
+      <workItem from="1644690671019" duration="3198000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro commit">
       <created>1644605672413</created>
@@ -91,7 +115,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Semana_01" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

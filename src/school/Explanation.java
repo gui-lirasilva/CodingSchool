@@ -1,5 +1,6 @@
 package school;
 
+import validations.ObjectValidator;
 import validations.StringValidator;
 
 public class Explanation extends Activity{

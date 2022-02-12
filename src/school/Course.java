@@ -52,13 +52,13 @@ public class Course {
         ObjectValidator.cantBeNull(subcategory, "The sub category can't be null");
         this.subcategory = subcategory;
 
-        StringValidator.cantBeNull(target, "The target can't be null");
+        ObjectValidator.cantBeNull(target, "The target can't be null");
         this.target = target;
 
-        StringValidator.cantBeNull(description, "The description can't be null");
+        ObjectValidator.cantBeNull(description, "The description can't be null");
         this.description = description;
 
-        StringValidator.cantBeNull(developedSkills, "The developed skills can't be null");
+        ObjectValidator.cantBeNull(developedSkills, "The developed skills can't be null");
         this.developedSkills = developedSkills;
 
         this.visible = visible;

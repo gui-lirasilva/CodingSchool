@@ -8,7 +8,7 @@ public class Alternative {
     private String explanatoryText;
     private int order;
     private boolean correct;
-    private String explanation;
+    private String justification;
     private Question question;
 
     public Alternative(String explanatoryText, boolean correct, Question question) {
@@ -22,7 +22,7 @@ public class Alternative {
         this.correct = correct;
     }
 
-    public Alternative(String explanatoryText, int order, boolean correct, String explanation, Question question) {
+    public Alternative(String explanatoryText, int order, boolean correct, String justification, Question question) {
 
         StringValidator.cantBeBlank(explanatoryText, "The explanatory text can't be empty or null");
         this.explanatoryText = explanatoryText;
@@ -30,8 +30,8 @@ public class Alternative {
         ObjectValidator.cantBeNull(question, "The question can't be null");
         this.question = question;
 
-        StringValidator.cantBeNull(explanation, "The explanation can't be null");
-        this.explanation = explanation;
+        ObjectValidator.cantBeNull(justification, "The explanation can't be null");
+        this.justification = justification;
 
         this.order = order;
         this.correct = correct;
@@ -49,8 +49,8 @@ public class Alternative {
         return correct;
     }
 
-    public String getExplanation() {
-        return explanation;
+    public String getJustification() {
+        return justification;
     }
 
     public Question getQuestion() {
@@ -63,7 +63,7 @@ public class Alternative {
                 "explanatoryText='" + explanatoryText + '\'' +
                 ", order=" + order +
                 ", correct=" + correct +
-                ", explanation='" + explanation + '\'' +
+                ", justification='" + justification + '\'' +
                 ", question=" + question +
                 '}';
     }

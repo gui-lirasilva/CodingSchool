@@ -37,10 +37,10 @@ public class Subcategory {
         ObjectValidator.cantBeNull(category, "The category can't be null");
         this.category = category;
 
-        StringValidator.cantBeNull(description, "The description can't be null");
+        ObjectValidator.cantBeNull(description, "The description can't be null");
         this.description = description;
 
-        StringValidator.cantBeNull(studyGuide, "The study guide can't be null");
+        ObjectValidator.cantBeNull(studyGuide, "The study guide can't be null");
         this.studyGuide = studyGuide;
 
         this.active = active;

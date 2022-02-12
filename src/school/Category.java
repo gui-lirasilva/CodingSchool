@@ -1,6 +1,7 @@
 package school;
 
 import validations.CodeValidator;
+import validations.ObjectValidator;
 import validations.StringValidator;
 
 public class Category {
@@ -31,16 +32,16 @@ public class Category {
         CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
         this.code = code;
 
-        StringValidator.cantBeNull(description, "The description can't be null");
+        ObjectValidator.cantBeNull(description, "The description can't be null");
         this.description = description;
 
-        StringValidator.cantBeNull(studyGuide, "The study guide can't be null");
+        ObjectValidator.cantBeNull(studyGuide, "The study guide can't be null");
         this.studyGuide = studyGuide;
 
         StringValidator.cantBeBlank(icon, "The path to the icon can't be null");
         this.icon = icon;
 
-        StringValidator.cantBeNull(icon, "The hexadecimal code for color can't be null");
+        ObjectValidator.cantBeNull(icon, "The hexadecimal code for color can't be null");
         this.color = color;
 
         this.active = active;

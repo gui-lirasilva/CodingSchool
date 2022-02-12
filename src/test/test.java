@@ -27,5 +27,8 @@ public class test {
         Alternative alternative1 = new Alternative("Explanatory text", true, question1);
         System.out.println(alternative1);
 
+        Explanation explanation1 = new Explanation("Explanation title", "65s4da-asd1", section1, "The explanation text");
+        System.out.println(explanation1);
+
     }
 }

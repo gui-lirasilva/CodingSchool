@@ -4,7 +4,7 @@ public class CodeValidator {
 
     public static void cantBeOutPattern(String code, String error) {
 
-        StringValidator.cantBeNull(code, error);
+        ObjectValidator.cantBeNull(code, error);
 
         StringValidator.cantBeEmpty(code, error);
 

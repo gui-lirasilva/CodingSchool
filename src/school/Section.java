@@ -15,7 +15,7 @@ public class Section {
 
     public Section(String name, String code, Course course) {
 
-        StringValidator.cantBeBlank(name, "The name can't be null or empty");
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
         this.name = name;
 
         CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
@@ -27,7 +27,7 @@ public class Section {
 
     public Section(String name, String code, int order, boolean active, boolean test, Course course) {
 
-        StringValidator.cantBeBlank(name, "The name can't be null or empty");
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
         this.name = name;
 
         CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
