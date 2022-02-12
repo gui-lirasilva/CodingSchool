@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdddfdcf-6598-487a-9ba7-5e0200b8789a" name="Changes" comment="Primeiro commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Alternative.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Alternative.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/QuestionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/QuestionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Section.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Subcategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Subcategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/school/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/school/Video.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validations/CodeValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/validations/CodeValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validations/StringValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/validations/StringValidator.java" afterDir="false" />
-    </list>
+    <list default="true" id="fdddfdcf-6598-487a-9ba7-5e0200b8789a" name="Changes" comment="Primeiro commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +71,7 @@
       <workItem from="1644419575449" duration="11497000" />
       <workItem from="1644500133366" duration="30504000" />
       <workItem from="1644587604085" duration="17788000" />
-      <workItem from="1644630253225" duration="3004000" />
+      <workItem from="1644630253225" duration="3334000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro commit">
       <created>1644605672413</created>

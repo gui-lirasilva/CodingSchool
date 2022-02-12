@@ -30,7 +30,7 @@ public class Alternative {
         ObjectValidator.cantBeNull(question, "The question can't be null");
         this.question = question;
 
-        StringValidator.cantBeNull(explanation, "THe explanation can't be null");
+        StringValidator.cantBeNull(explanation, "The explanation can't be null");
         this.explanation = explanation;
 
         this.order = order;
