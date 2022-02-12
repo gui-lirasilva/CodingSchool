@@ -16,7 +16,7 @@ public class StringValidator {
 
    public static void cantBeBlank(String field, String error) {
         if(field.isBlank()) {
-            throw new NullPointerException(error);
+            throw new IllegalArgumentException(error);
         }
    }
 }

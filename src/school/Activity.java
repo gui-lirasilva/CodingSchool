@@ -17,7 +17,6 @@ public abstract class Activity {
         StringValidator.cantBeEmpty(title, "The title can't be empty");
         this.title = title;
 
-        StringValidator.cantBeEmpty(code, "The code can't be empty");
         CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
         this.code = code;
 
@@ -30,7 +29,6 @@ public abstract class Activity {
         StringValidator.cantBeEmpty(title, "The title can't be empty");
         this.title = title;
 
-        StringValidator.cantBeEmpty(code, "The code can't be empty");
         CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
         this.code = code;
 

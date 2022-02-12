@@ -12,6 +12,7 @@ public class Alternative {
     private Question question;
 
     public Alternative(String explanatoryText, boolean correct, Question question) {
+
         StringValidator.cantBeBlank(explanatoryText, "The explanatory text can't be empty or null");
         this.explanatoryText = explanatoryText;
 
@@ -29,9 +30,11 @@ public class Alternative {
         ObjectValidator.cantBeNull(question, "The question can't be null");
         this.question = question;
 
+        StringValidator.cantBeNull(explanation, "THe explanation can't be null");
+        this.explanation = explanation;
+
         this.order = order;
         this.correct = correct;
-        this.explanation = explanation;
     }
 
     public String getExplanatoryText() {

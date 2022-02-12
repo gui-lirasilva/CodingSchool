@@ -3,5 +3,5 @@ package school;
 public enum QuestionType {
     UNIC,
     MULTIPLE,
-    TRUEORFALSE
+    TRUE_OR_FALSE
 }

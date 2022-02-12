@@ -6,17 +6,17 @@ import validations.StringValidator;
 
 public class Subcategory {
 
-    private String name; // Obrigatório e não vazio
-    private String code; // Obrigatório, não vazio e Regex
+    private String name;
+    private String code;
     private String description;
     private String studyGuide;
     private boolean active;
     private int order;
-    private Category category; // Obrigatória
+    private Category category;
 
     public Subcategory(String name, String code, Category category) {
 
-        StringValidator.cantBeEmpty(name, "The name can't be empty");
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
         this.name = name;
 
         CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
@@ -28,7 +28,7 @@ public class Subcategory {
 
     public Subcategory(String name, String code, String description, String studyGuide, boolean active, int order, Category category) {
 
-        StringValidator.cantBeEmpty(name, "The name can't be empty");
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
         this.name = name;
 
         CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
@@ -37,8 +37,12 @@ public class Subcategory {
         ObjectValidator.cantBeNull(category, "The category can't be null");
         this.category = category;
 
+        StringValidator.cantBeNull(description, "The description can't be null");
         this.description = description;
+
+        StringValidator.cantBeNull(studyGuide, "The study guide can't be null");
         this.studyGuide = studyGuide;
+
         this.active = active;
         this.order = order;
     }

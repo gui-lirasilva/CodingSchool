@@ -16,7 +16,7 @@ public class Category {
 
     public Category(String name, String code) {
 
-        StringValidator.cantBeEmpty(name, "The name can't be empty");
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
         this.name = name;
 
         CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
@@ -25,18 +25,26 @@ public class Category {
 
     public Category(String name, String code, String description, String studyGuide, boolean active, int order, String icon, String color) {
 
-        StringValidator.cantBeEmpty(name, "The name can't be empty");
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
         this.name = name;
 
         CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
         this.code = code;
 
+        StringValidator.cantBeNull(description, "The description can't be null");
         this.description = description;
+
+        StringValidator.cantBeNull(studyGuide, "The study guide can't be null");
         this.studyGuide = studyGuide;
+
+        StringValidator.cantBeBlank(icon, "The path to the icon can't be null");
+        this.icon = icon;
+
+        StringValidator.cantBeNull(icon, "The hexadecimal code for color can't be null");
+        this.color = color;
+
         this.active = active;
         this.order = order;
-        this.icon = icon;
-        this.color = color;
     }
 
     public String getName() {

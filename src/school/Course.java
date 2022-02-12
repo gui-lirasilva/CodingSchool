@@ -22,7 +22,6 @@ public class Course {
         StringValidator.cantBeBlank(name, "The name can't be null or empty");
         this.name = name;
 
-        StringValidator.cantBeEmpty(code, "The code can't be empty");
         CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
         this.code = code;
 
@@ -41,7 +40,6 @@ public class Course {
         StringValidator.cantBeBlank(name, "The name can't be null or empty");
         this.name = name;
 
-        StringValidator.cantBeEmpty(code, "The code can't be empty");
         CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
         this.code = code;
 
@@ -54,9 +52,15 @@ public class Course {
         ObjectValidator.cantBeNull(subcategory, "The sub category can't be null");
         this.subcategory = subcategory;
 
+        StringValidator.cantBeNull(target, "The target can't be null");
         this.target = target;
+
+        StringValidator.cantBeNull(description, "The description can't be null");
         this.description = description;
+
+        StringValidator.cantBeNull(developedSkills, "The developed skills can't be null");
         this.developedSkills = developedSkills;
+
         this.visible = visible;
     }
 

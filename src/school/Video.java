@@ -14,8 +14,10 @@ public class Video extends Activity{
         StringValidator.cantBeBlank(url, "The URL can't be empty or null");
         this.url = url;
 
-        this.videoTime = videoTime;
+        StringValidator.cantBeNull(transcription, "The transcription can't be null");
         this.transcription = transcription;
+
+        this.videoTime = videoTime;
     }
 
     public String getUrl() {
