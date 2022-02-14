@@ -39,35 +39,4 @@ public abstract class Activity {
         this.order = order;
 
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public Section getSection() {
-        return section;
-    }
-
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "title='" + title + '\'' +
-                ", code='" + code + '\'' +
-                ", active=" + active +
-                ", order=" + order +
-                ", section=" + section +
-                '}';
-    }
 }
