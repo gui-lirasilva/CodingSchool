@@ -41,7 +41,7 @@ public class Category {
         StringValidator.cantBeBlank(icon, "The path to the icon can't be null");
         this.icon = icon;
 
-        ObjectValidator.cantBeNull(icon, "The hexadecimal code for color can't be null");
+        CodeValidator.shouldBeHexadecimal(color, "The color code should be hexadecimal");
         this.color = color;
 
         this.active = active;

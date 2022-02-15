@@ -6,7 +6,7 @@ public class test {
 
     public static void main(String[] args) {
 
-        Category category1 = new Category("Category Name", "45a4sa-5as4d5q");
+        Category category1 = new Category("Category Name", "45a4sa-5as4d5q", "Description", "studyGuide", true, 1, "www.iconpath.com", "#ff5733");
         System.out.println(category1);
 
         Subcategory subcategory1 = new Subcategory("Sub category name", "56as4d96sq-sdasc", category1);
