@@ -1,8 +1,8 @@
 package school;
 
-import validations.CodeValidator;
-import validations.ObjectValidator;
-import validations.StringValidator;
+import static validations.CodeValidator.cantBeOutPattern;
+import static validations.ObjectValidator.cantBeNull;
+import static validations.StringValidator.cantBeBlank;
 
 public class Subcategory {
 
@@ -16,11 +16,11 @@ public class Subcategory {
 
     public Subcategory(String name, String code, Category category) {
 
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
+        cantBeBlank(name, "The name can't be empty or null");
 
-        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
+        cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
 
-        ObjectValidator.cantBeNull(category, "The category can't be null");
+        cantBeNull(category, "The category can't be null");
 
         this.name = name;
         this.code = code;

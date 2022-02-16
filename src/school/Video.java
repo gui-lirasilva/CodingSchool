@@ -1,7 +1,7 @@
 package school;
 
-import validations.ObjectValidator;
-import validations.StringValidator;
+import static validations.ObjectValidator.cantBeNull;
+import static validations.StringValidator.cantBeBlank;
 
 public class Video extends Activity{
 
@@ -13,9 +13,9 @@ public class Video extends Activity{
 
         super(title, code, section);
 
-        StringValidator.cantBeBlank(url, "The URL can't be empty or null");
+        cantBeBlank(url, "The URL can't be empty or null");
 
-        ObjectValidator.cantBeNull(transcription, "The transcription can't be null");
+        cantBeNull(transcription, "The transcription can't be null");
 
         this.url = url;
         this.transcription = transcription;

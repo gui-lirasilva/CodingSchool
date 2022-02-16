@@ -1,7 +1,7 @@
 package school;
 
-import validations.ObjectValidator;
-import validations.StringValidator;
+import static validations.ObjectValidator.cantBeNull;
+import static validations.StringValidator.cantBeBlank;
 
 public class Question extends Activity{
 
@@ -12,9 +12,9 @@ public class Question extends Activity{
 
         super(title, code, section);
 
-        StringValidator.cantBeBlank(statement, "The statement can't be empty or null");
+        cantBeBlank(statement, "The statement can't be empty or null");
 
-        ObjectValidator.cantBeNull(questionType, "The question type can't be null");
+        cantBeNull(questionType, "The question type can't be null");
 
         this.statement = statement;
         this.questionType = questionType;

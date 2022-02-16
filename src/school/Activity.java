@@ -1,8 +1,8 @@
 package school;
 
-import validations.CodeValidator;
-import validations.ObjectValidator;
-import validations.StringValidator;
+import static validations.CodeValidator.cantBeOutPattern;
+import static validations.ObjectValidator.cantBeNull;
+import static validations.StringValidator.cantBeEmpty;
 
 public abstract class Activity {
 
@@ -14,11 +14,11 @@ public abstract class Activity {
 
     public Activity(String title, String code, Section section) {
 
-        StringValidator.cantBeEmpty(title, "The title can't be empty");
+        cantBeEmpty(title, "The title can't be empty");
 
-        CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
+        cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
 
-        ObjectValidator.cantBeNull(section, "The section can't be null");
+        cantBeNull(section, "The section can't be null");
 
         this.title = title;
         this.code = code;

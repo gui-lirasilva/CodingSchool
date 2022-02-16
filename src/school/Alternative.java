@@ -1,7 +1,7 @@
 package school;
 
-import validations.ObjectValidator;
-import validations.StringValidator;
+import static validations.ObjectValidator.cantBeNull;
+import static validations.StringValidator.cantBeBlank;
 
 public class Alternative {
 
@@ -13,9 +13,9 @@ public class Alternative {
 
     public Alternative(String explanatoryText, boolean correct, Question question) {
 
-        StringValidator.cantBeBlank(explanatoryText, "The explanatory text can't be empty or null");
+        cantBeBlank(explanatoryText, "The explanatory text can't be empty or null");
 
-        ObjectValidator.cantBeNull(question, "The question can't be null");
+        cantBeNull(question, "The question can't be null");
 
         this.explanatoryText = explanatoryText;
         this.question = question;

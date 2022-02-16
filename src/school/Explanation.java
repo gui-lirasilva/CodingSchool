@@ -1,6 +1,6 @@
 package school;
 
-import validations.StringValidator;
+import static validations.StringValidator.cantBeBlank;
 
 public class Explanation extends Activity{
 
@@ -10,13 +10,9 @@ public class Explanation extends Activity{
 
         super(title, code, section);
 
-        StringValidator.cantBeBlank(text, "The text can't be empty or null");
+        cantBeBlank(text, "The text can't be empty or null");
 
         this.text = text;
-    }
-
-    public String getText() {
-        return text;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package school;
 
-import validations.CodeValidator;
-import validations.ObjectValidator;
-import validations.StringValidator;
+import static validations.CodeValidator.cantBeOutPattern;
+import static validations.ObjectValidator.cantBeNull;
+import static validations.StringValidator.cantBeBlank;
 
 public class Section {
 
@@ -15,11 +15,11 @@ public class Section {
 
     public Section(String name, String code, Course course) {
 
-        StringValidator.cantBeBlank(name, "The name can't be null or empty");
+        cantBeBlank(name, "The name can't be null or empty");
 
-        CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
+        cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
 
-        ObjectValidator.cantBeNull(course, "The course can't be null");
+        cantBeNull(course, "The course can't be null");
 
         this.name = name;
         this.code = code;

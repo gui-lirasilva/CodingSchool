@@ -1,7 +1,7 @@
 package school;
 
-import validations.CodeValidator;
-import validations.StringValidator;
+import static validations.CodeValidator.cantBeOutPattern;
+import static validations.StringValidator.cantBeBlank;
 
 public class Category {
 
@@ -16,9 +16,9 @@ public class Category {
 
     public Category(String name, String code) {
 
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
+        cantBeBlank(name, "The name can't be empty or null");
 
-        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
+        cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
 
         this.name = name;
         this.code = code;
