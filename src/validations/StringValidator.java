@@ -4,7 +4,7 @@ public class StringValidator {
 
     public static void cantBeEmpty(String field, String error) {
         ObjectValidator.cantBeNull(field, error);
-        if(field.isEmpty()){
+        if(field.isEmpty()) {
             throw new IllegalArgumentException(error);
         }
     }
