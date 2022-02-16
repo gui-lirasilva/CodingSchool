@@ -1,6 +1,5 @@
 package school;
 
-import validations.ObjectValidator;
 import validations.StringValidator;
 
 public class Explanation extends Activity{
@@ -8,9 +7,11 @@ public class Explanation extends Activity{
     private String text;
 
     public Explanation(String title, String code, Section section, String text) {
+
         super(title, code, section);
 
         StringValidator.cantBeBlank(text, "The text can't be empty or null");
+
         this.text = text;
     }
 
