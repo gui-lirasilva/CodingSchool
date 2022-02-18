@@ -14,4 +14,4 @@
 # Files #
 out/
 .idea/
-CodingSchool.iml
+*.iml

@@ -1,27 +1,42 @@
 package school;
 
 import static validations.CodeValidator.cantBeOutPattern;
+import static validations.CodeValidator.shouldBeHexadecimal;
+import static validations.ObjectValidator.cantBeNull;
 import static validations.StringValidator.cantBeBlank;
 
 public class Category {
 
-    private  String name;
+    private String name;
     private String code;
+    private Integer order;
     private String description;
-    private String studyGuide;
     private boolean active;
-    private int order;
-    private String icon;
-    private String color;
+    private String iconPath;
+    private String colorCode;
+    private String studyGuide;
 
-    public Category(String name, String code) {
+    public Category(String name, String code, Integer order, String description, boolean active, String iconPath, String colorCode) {
 
         cantBeBlank(name, "The name can't be empty or null");
 
         cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
 
+        cantBeNull(order, "The order cant't be null");
+
+        cantBeBlank(description, "The category description can't be empty or null");
+
+        cantBeBlank(iconPath, "The icon path can't be empty or null");
+
+        shouldBeHexadecimal(colorCode, "The color code should be hexadecimal");
+
         this.name = name;
         this.code = code;
+        this.order = order;
+        this.description = description;
+        this.active = active;
+        this.iconPath = iconPath;
+        this.colorCode = colorCode;
     }
 
     @Override
@@ -33,8 +48,8 @@ public class Category {
                 ", studyGuide='" + studyGuide + '\'' +
                 ", active=" + active +
                 ", order=" + order +
-                ", icon='" + icon + '\'' +
-                ", color='" + color + '\'' +
+                ", icon='" + iconPath + '\'' +
+                ", color='" + colorCode + '\'' +
                 '}';
     }
 }
