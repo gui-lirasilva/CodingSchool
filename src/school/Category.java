@@ -16,6 +16,10 @@ public class Category {
     private String colorCode;
     private String studyGuide;
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     public Category(String name, String code, Integer order, String description, boolean active, String iconPath, String colorCode) {
 
         cantBeBlank(name, "The name can't be empty or null");

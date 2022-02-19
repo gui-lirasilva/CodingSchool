@@ -1,6 +1,7 @@
 package FileReaders;
 
 import school.Category;
+import school.Subcategory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,17 +11,17 @@ import java.util.List;
 import static validations.BooleanValidator.isActive;
 import static validations.NumberValidator.transformOnInteger;
 
-public class CategoryReader {
+public class SubcategoryReader {
 
-    public static void listCategories(String path) throws Exception {
+    public static void listSubcategories(String path) throws Exception {
 
-        List<Category> categories = csvReader(path);
-        categories.forEach(System.out::println);
+        List<Subcategory> subcategories = csvReader(path);
+        subcategories.forEach(System.out::println);
     }
 
-    private static List<Category> csvReader(String path) throws Exception {
+    private static List<Subcategory> csvReader(String path) throws Exception {
 
-        List<Category> categories = new ArrayList<>();
+        List<Subcategory> subcategories = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader((new FileReader(path)))) {
             br.readLine();
@@ -28,26 +29,23 @@ public class CategoryReader {
 
             while (line != null) {
                 String[] csvData = line.split(",");
-                Category category = parseCategory(csvData);
-                categories.add(category);
+                Subcategory subcategory = parseSubcategory(csvData);
+                subcategories.add(subcategory);
                 line = br.readLine();
             }
-            return categories;
+            return subcategories;
         }
     }
 
-    private static Category parseCategory(String[] csvData) {
+    private static Subcategory parseSubcategory(String[] csvData) {
 
-        return new Category(
+        return new Subcategory(
                 csvData[0],
                 csvData[1],
                 transformOnInteger(csvData[2]),
                 csvData[3],
                 isActive(csvData[4]),
-                csvData[5],
-                csvData[6]
+                new Category(csvData[5])
         );
     }
-
 }
-

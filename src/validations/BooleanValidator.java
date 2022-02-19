@@ -1,9 +1,11 @@
 package validations;
 
+import static validations.ObjectValidator.cantBeNull;
+
 public class BooleanValidator {
 
     public static boolean isActive(String isActive) {
-        ObjectValidator.cantBeNull(isActive, "The field 'active' is null");
+        cantBeNull(isActive, "The field 'active' is null");
         return isActive.equals("ATIVA");
     }
 }
