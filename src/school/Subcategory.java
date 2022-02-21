@@ -14,6 +14,10 @@ public class Subcategory {
     private Category category;
     private String studyGuide;
 
+    public Subcategory(String name) {
+        this.name = name;
+    }
+
     public Subcategory(String name, String code, Integer order, String description, boolean active, Category category) {
 
         cantBeBlank(name, "The name can't be empty or null");

@@ -10,14 +10,24 @@ public class Course {
     private String name;
     private String code;
     private int estimatedTime;
+    private boolean visible;
     private String target;
     private String instructor;
     private String description;
     private String developedSkills;
-    private boolean visible;
     private Subcategory subcategory;
 
-    public Course(String name, String code, int estimatedTime, String instructor, Subcategory subcategory) {
+    public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor, String description) {
+        this.name = name;
+        this.code = code;
+        this.estimatedTime = estimatedTime;
+        this.visible = visible;
+        this.target = target;
+        this.instructor = instructor;
+        this.description = description;
+    }
+
+    public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor, String description, String developedSkills, Subcategory subcategory) {
 
         cantBeBlank(name, "The name can't be null or empty");
 
@@ -32,7 +42,11 @@ public class Course {
         this.name = name;
         this.code = code;
         this.estimatedTime = estimatedTime;
+        this.visible = visible;
+        this.target = target;
         this.instructor = instructor;
+        this.description = description;
+        this.developedSkills = developedSkills;
         this.subcategory = subcategory;
     }
 
