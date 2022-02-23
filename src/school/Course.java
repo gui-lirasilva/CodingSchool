@@ -52,7 +52,7 @@ public class Course {
         return estimatedTime;
     }
 
-    public boolean isVisible() {
+    public boolean getVisible() {
         return visible;
     }
 

@@ -5,7 +5,7 @@ import static validations.CodeValidator.shouldBeHexadecimal;
 import static validations.ObjectValidator.cantBeNull;
 import static validations.StringValidator.cantBeBlank;
 
-public class Category implements Comparable<Category>{
+public class Category {
 
     private String name;
     private String code;
@@ -73,11 +73,6 @@ public class Category implements Comparable<Category>{
 
     public String getColorCode() {
         return colorCode;
-    }
-
-    @Override
-    public int compareTo(Category anotherCategory) {
-        return this.order.compareTo(anotherCategory.order);
     }
 
     @Override

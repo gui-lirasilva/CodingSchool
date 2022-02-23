@@ -4,7 +4,7 @@ import static validations.CodeValidator.cantBeOutPattern;
 import static validations.ObjectValidator.cantBeNull;
 import static validations.StringValidator.cantBeBlank;
 
-public class Subcategory implements Comparable<Subcategory>{
+public class Subcategory {
 
     private String name;
     private String code;
@@ -56,11 +56,6 @@ public class Subcategory implements Comparable<Subcategory>{
 
     public Category getCategory() {
         return category;
-    }
-
-    @Override
-    public int compareTo(Subcategory anotherSubCategory) {
-        return this.order.compareTo(anotherSubCategory.order);
     }
 
     @Override
