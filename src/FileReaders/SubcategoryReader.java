@@ -8,18 +8,18 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static validations.BooleanValidator.isActive;
-import static validations.NumberValidator.transformOnInteger;
+import static Helpers.HelperCsv.isActive;
+import static Helpers.HelperCsv.transformToInteger;
 
 public class SubcategoryReader {
 
-    public static void listSubcategories(String path) throws Exception {
+    public static void listSubcategories(List<Category> categoryList, String path) throws Exception {
 
-        List<Subcategory> subcategories = csvReader(path);
+        List<Subcategory> subcategories = csvReader(categoryList, path);
         subcategories.forEach(System.out::println);
     }
 
-    private static List<Subcategory> csvReader(String path) throws Exception {
+    public static List<Subcategory> csvReader(List<Category> categoryList, String path) throws Exception {
 
         List<Subcategory> subcategories = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class SubcategoryReader {
 
             while (line != null) {
                 String[] csvData = line.split(",");
-                Subcategory subcategory = parseSubcategory(csvData);
+                Subcategory subcategory = parseSubcategory(categoryList, csvData);
                 subcategories.add(subcategory);
                 line = br.readLine();
             }
@@ -37,15 +37,22 @@ public class SubcategoryReader {
         }
     }
 
-    private static Subcategory parseSubcategory(String[] csvData) {
+    private static Subcategory parseSubcategory(List<Category> categoryList, String[] csvData) {
+
+        Category category = categoryList.stream()
+                .filter(c -> c.getCode().equals(csvData[5]))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("The category is necessary"));
+
+
 
         return new Subcategory(
                 csvData[0],
                 csvData[1],
-                transformOnInteger(csvData[2]),
+                transformToInteger(csvData[2]),
                 csvData[3],
                 isActive(csvData[4]),
-                new Category(csvData[5])
+                category
         );
     }
 }

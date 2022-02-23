@@ -8,19 +8,18 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static validations.BooleanValidator.isVisible;
-import static validations.NumberValidator.transformOnInteger;
-import static validations.StringValidator.makeEmpty;
+import static Helpers.HelperCsv.isVisible;
+import static Helpers.HelperCsv.transformToInteger;
 
 public class CourseReader {
 
-    public static void listCourses(String path) throws Exception {
+    public static void listCourses(List<Subcategory> subcategoryList, String path) throws Exception {
 
-        List<Course> courses = csvReader(path);
+        List<Course> courses = csvReader(subcategoryList, path);
         courses.forEach(System.out::println);
     }
 
-    private static List<Course> csvReader(String path) throws Exception {
+    public static List<Course> csvReader(List<Subcategory> subcategoryList, String path) throws Exception {
 
         List<Course> courses = new ArrayList<>();
 
@@ -30,7 +29,7 @@ public class CourseReader {
 
             while (line != null) {
                 String[] csvData = line.split(",");
-                Course course = parseCourse(csvData);
+                Course course = parseCourse(subcategoryList, csvData);
                 courses.add(course);
                 line = br.readLine();
             }
@@ -38,23 +37,23 @@ public class CourseReader {
         }
     }
 
-    private static Course parseCourse(String[] csvData) {
+    private static Course parseCourse(List<Subcategory> subcategoryList, String[] csvData) {
 
-       if (csvData.length < 9) {
-           throw new IllegalArgumentException("Arquivo csv com dados incorretos");
-       }
+        Subcategory subcategory = subcategoryList.stream()
+                .filter(s -> s.getCode().equalsIgnoreCase(csvData[8]))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("The subcategory is necessary"));
 
         return new Course(
-                csvData[0], // nome
-                csvData[1], // Código
-                transformOnInteger(csvData[2]), // Tempo estimado
-                isVisible(csvData[3]), // Visibilidade
-                csvData[4], // Publico alvo
-                csvData[5], // Instrutor
-                csvData[6], // Ementa ou descrição
-                csvData[7], // Habilidades desenvolvidas
-                new Subcategory(makeEmpty(csvData[8])) // Subcategoria
+                csvData[0],
+                csvData[1],
+                transformToInteger(csvData[2]),
+                isVisible(csvData[3]),
+                csvData[4],
+                csvData[5],
+                csvData[6],
+                csvData[7],
+                subcategory
         );
-
     }
 }

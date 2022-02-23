@@ -18,8 +18,4 @@ public class StringValidator {
         }
    }
 
-   public static String makeEmpty(String text) {
-        return text == null ? text = "" : text;
-   }
-
 }

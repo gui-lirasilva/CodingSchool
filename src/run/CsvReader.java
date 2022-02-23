@@ -1,19 +1,30 @@
 package run;
 
-import static FileReaders.CategoryReader.listCategories;
-import static FileReaders.CourseReader.listCourses;
-import static FileReaders.SubcategoryReader.listSubcategories;
+import FileReaders.CategoryReader;
+import FileReaders.CourseReader;
+import FileReaders.SubcategoryReader;
+import school.Category;
+import school.Course;
+import school.Subcategory;
+
+import java.util.List;
 
 public class CsvReader {
 
+    static String CATEGORY_CSV_PATH = "/home/guilherme/Documentos/Level Up/planilha-dados-escola - Categoria.csv";
+    static String SUBCATEGORY_CSV_PATH = "/home/guilherme/Documentos/Level Up/planilha-dados-escola - Subcategoria.csv";
+    static  String COURSE_CSV_PATH = "/home/guilherme/Documentos/Level Up/planilha-dados-escola-curso(copia).csv";
+
     public static void main(String[] args) throws Exception{
 
-        listCategories("/home/guilherme/Documentos/Level Up/planilha-dados-escola - Categoria.csv");
+        List<Category> categoryList = CategoryReader.csvReader(CATEGORY_CSV_PATH);
 
-        listSubcategories("/home/guilherme/Documentos/Level Up/planilha-dados-escola - Subcategoria.csv");
+        List<Subcategory> subcategoryList = SubcategoryReader.csvReader(categoryList, SUBCATEGORY_CSV_PATH);
 
-        listCourses("/home/guilherme/Documentos/Level Up/planilha-dados-escola-curso(copia).csv");
+        List<Course> courseList = CourseReader.csvReader(subcategoryList, COURSE_CSV_PATH);
 
-        listCourses("/home/guilherme/Documentos/Level Up/planilha-dados-escola - Curso.csv");
+        System.out.println(categoryList);
+        System.out.println(subcategoryList);
+        System.out.println(courseList);
     }
 }

@@ -17,16 +17,6 @@ public class Course {
     private String developedSkills;
     private Subcategory subcategory;
 
-    public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor, String description) {
-        this.name = name;
-        this.code = code;
-        this.estimatedTime = estimatedTime;
-        this.visible = visible;
-        this.target = target;
-        this.instructor = instructor;
-        this.description = description;
-    }
-
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor, String description, String developedSkills, Subcategory subcategory) {
 
         cantBeBlank(name, "The name can't be null or empty");
@@ -48,6 +38,42 @@ public class Course {
         this.description = description;
         this.developedSkills = developedSkills;
         this.subcategory = subcategory;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public int getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDevelopedSkills() {
+        return developedSkills;
+    }
+
+    public Subcategory getSubcategory() {
+        return subcategory;
     }
 
     @Override

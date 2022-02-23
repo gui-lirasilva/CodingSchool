@@ -7,8 +7,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static validations.BooleanValidator.isActive;
-import static validations.NumberValidator.transformOnInteger;
+import static Helpers.HelperCsv.isActive;
+import static Helpers.HelperCsv.transformToInteger;
 
 public class CategoryReader {
 
@@ -18,7 +18,7 @@ public class CategoryReader {
         categories.forEach(System.out::println);
     }
 
-    private static List<Category> csvReader(String path) throws Exception {
+    public static List<Category> csvReader(String path) throws Exception {
 
         List<Category> categories = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class CategoryReader {
         return new Category(
                 csvData[0],
                 csvData[1],
-                transformOnInteger(csvData[2]),
+                transformToInteger(csvData[2]),
                 csvData[3],
                 isActive(csvData[4]),
                 csvData[5],

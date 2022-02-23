@@ -5,7 +5,7 @@ import static validations.CodeValidator.shouldBeHexadecimal;
 import static validations.ObjectValidator.cantBeNull;
 import static validations.StringValidator.cantBeBlank;
 
-public class Category {
+public class Category implements Comparable<Category>{
 
     private String name;
     private String code;
@@ -18,6 +18,11 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+    }
+
+    public Category(String name, String code) {
+        this(name);
+        this.code = code;
     }
 
     public Category(String name, String code, Integer order, String description, boolean active, String iconPath, String colorCode) {
@@ -41,6 +46,38 @@ public class Category {
         this.active = active;
         this.iconPath = iconPath;
         this.colorCode = colorCode;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    @Override
+    public int compareTo(Category anotherCategory) {
+        return this.order.compareTo(anotherCategory.order);
     }
 
     @Override
