@@ -55,4 +55,18 @@ public class SubcategoryReader {
                 category
         );
     }
+
+    public static List<Subcategory> getSubcategoriesWithoutDescription(List<Subcategory> subCategories) throws Exception {
+
+        return subCategories.stream().filter(s -> s.getDescription().equals("")).toList();
+    }
+
+    public static long activeSubcategoriesWithDescription(List<Subcategory> subCategories) throws Exception {
+
+        return subCategories.stream()
+                .filter(Subcategory::getActive)
+                .filter(subcategory -> subcategory
+                        .getDescription().trim().length() > 0 && subcategory.getDescription() != null)
+                .count();
+    }
 }

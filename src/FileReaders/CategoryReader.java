@@ -49,5 +49,9 @@ public class CategoryReader {
         );
     }
 
+    public static List<Category> getActiveCategories(List<Category> categories) throws Exception {
+
+        return categories.stream().filter(Category::getActive).toList();
+    }
 }
 
