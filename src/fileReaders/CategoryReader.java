@@ -1,4 +1,4 @@
-package FileReaders;
+package fileReaders;
 
 import school.Category;
 
@@ -7,13 +7,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Helpers.HelperCsv.isActive;
-import static Helpers.HelperCsv.transformToInteger;
+import static helpers.HelperCsv.isActive;
+import static helpers.HelperCsv.transformToInteger;
 
 public class CategoryReader {
 
     public static void listCategories(String path) throws Exception {
-
         List<Category> categories = csvReader(path);
         categories.forEach(System.out::println);
     }
@@ -37,7 +36,6 @@ public class CategoryReader {
     }
 
     private static Category parseCategory(String[] csvData) {
-
         return new Category(
                 csvData[0],
                 csvData[1],
@@ -49,8 +47,7 @@ public class CategoryReader {
         );
     }
 
-    public static List<Category> getActiveCategories(List<Category> categories) throws Exception {
-
+    public static List<Category> getActiveCategories(List<Category> categories) {
         return categories.stream().filter(Category::getActive).toList();
     }
 }

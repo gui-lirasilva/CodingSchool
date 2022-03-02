@@ -1,9 +1,9 @@
-package FileWriters;
+package fileWriters;
 
 
-import FileReaders.CategoryReader;
-import FileReaders.CourseReader;
-import FileReaders.SubcategoryReader;
+import fileReaders.CategoryReader;
+import fileReaders.CourseReader;
+import fileReaders.SubcategoryReader;
 import school.Category;
 import school.Course;
 import school.Subcategory;
@@ -14,7 +14,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static Helpers.HelperCsv.isActive;
+import static helpers.HelperCsv.isActive;
 
 public class HtmlWriter {
 

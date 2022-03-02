@@ -1,6 +1,6 @@
 package run;
 
-import FileWriters.HtmlWriter;
+import fileWriters.HtmlWriter;
 
 public class HtmlTester {
 

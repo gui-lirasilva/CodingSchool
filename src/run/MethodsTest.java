@@ -1,17 +1,16 @@
 package run;
 
-import FileReaders.CategoryReader;
-import FileReaders.CourseReader;
-import FileReaders.SubcategoryReader;
+import fileReaders.CategoryReader;
+import fileReaders.CourseReader;
+import fileReaders.SubcategoryReader;
 import school.Category;
 import school.Course;
 import school.Subcategory;
 
 import java.util.List;
-import java.util.Set;
 
-import static FileReaders.CategoryReader.getActiveCategories;
-import static FileReaders.SubcategoryReader.getSubcategoriesWithoutDescription;
+import static fileReaders.CategoryReader.getActiveCategories;
+import static fileReaders.SubcategoryReader.getSubcategoriesWithoutDescription;
 
 public class MethodsTest {
 
@@ -27,6 +26,8 @@ public class MethodsTest {
         List<Course> courseList = CourseReader.csvReader(subcategoryList, COURSE_CSV_PATH);
 
         // Card 2
+        System.out.println();
+
         List<Category> activeCategoryList = getActiveCategories(categoryList);
         System.out.println(activeCategoryList);
 
@@ -47,9 +48,6 @@ public class MethodsTest {
         System.out.println("***********************************************************************************");
 
         // Card 5
-        // Usando Set
-        Set<String> instructors = CourseReader.getInstructors(courseList);
-        System.out.println(instructors);
         // Usando List
         List<String> instructorsList = CourseReader.getInstructorsList(courseList);
         System.out.println(instructorsList);
