@@ -1,15 +1,15 @@
-package FileReaders;
+package fileReaders;
 
 import school.Course;
 import school.Subcategory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static Helpers.HelperCsv.isVisible;
-import static Helpers.HelperCsv.transformToInteger;
+import static helpers.HelperCsv.isVisible;
+import static helpers.HelperCsv.transformToInteger;
 
 public class CourseReader {
 
@@ -56,4 +56,20 @@ public class CourseReader {
                 subcategory
         );
     }
+
+    public static List<Course> getPrivateCourses(List<Course> courses) {
+        return courses.stream().filter(c -> c.getVisible().equals(false)).toList();
+    }
+
+    public static List<String> getInstructorsList(List<Course> courses) {
+        return courses.stream().map(Course::getInstructor)
+                .distinct().collect(Collectors.toList());
+    }
+
+    public static Map<String, Long> getInstructorsAndCourses(List<Course> courses) {
+        return courses.stream()
+                .collect(Collectors.groupingBy(Course::getInstructor, Collectors.counting()));
+    }
+
+
 }

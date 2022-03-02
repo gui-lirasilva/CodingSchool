@@ -1,4 +1,4 @@
-package FileReaders;
+package fileReaders;
 
 import school.Category;
 import school.Subcategory;
@@ -8,8 +8,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Helpers.HelperCsv.isActive;
-import static Helpers.HelperCsv.transformToInteger;
+import static helpers.HelperCsv.isActive;
+import static helpers.HelperCsv.transformToInteger;
 
 public class SubcategoryReader {
 
@@ -44,8 +44,6 @@ public class SubcategoryReader {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("The category is necessary"));
 
-
-
         return new Subcategory(
                 csvData[0],
                 csvData[1],
@@ -54,5 +52,17 @@ public class SubcategoryReader {
                 isActive(csvData[4]),
                 category
         );
+    }
+
+    public static List<Subcategory> getSubcategoriesWithoutDescription(List<Subcategory> subCategories) {
+        return subCategories.stream().filter(s -> s.getDescription().equals("")).toList();
+    }
+
+    public static long activeSubcategoriesWithDescription(List<Subcategory> subCategories) {
+        return subCategories.stream()
+                .filter(Subcategory::getActive)
+                .filter(subcategory -> subcategory
+                        .getDescription().trim().length() > 0 && subcategory.getDescription() != null)
+                .count();
     }
 }

@@ -10,7 +10,7 @@ public class Course {
     private String name;
     private String code;
     private int estimatedTime;
-    private boolean visible;
+    private Boolean visible = false;
     private String target;
     private String instructor;
     private String description;
@@ -52,7 +52,7 @@ public class Course {
         return estimatedTime;
     }
 
-    public boolean getVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
