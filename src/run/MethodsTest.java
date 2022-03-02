@@ -25,43 +25,45 @@ public class MethodsTest {
         List<Subcategory> subcategoryList = SubcategoryReader.csvReader(categoryList, SUBCATEGORY_CSV_PATH);
         List<Course> courseList = CourseReader.csvReader(subcategoryList, COURSE_CSV_PATH);
 
-        // Card 2
-        System.out.println();
+
+        System.out.println("Show active categories: Card 2");
 
         List<Category> activeCategoryList = getActiveCategories(categoryList);
         System.out.println(activeCategoryList);
 
         System.out.println("***********************************************************************************");
 
-        // Card 3
+        System.out.println("Show subcategories without description: Card 3");
 
         List<Subcategory> subcategoriesWithoutDescription = getSubcategoriesWithoutDescription(subcategoryList);
         System.out.println(subcategoriesWithoutDescription);
 
         System.out.println("***********************************************************************************");
 
-        // Card 4
+        System.out.println("Show private courses: Card 4");
 
         List<Course> privateCourses = CourseReader.getPrivateCourses(courseList);
         System.out.println(privateCourses);
 
         System.out.println("***********************************************************************************");
 
-        // Card 5
-        // Usando List
+        System.out.println("Show instructors: Card 5");
+
         List<String> instructorsList = CourseReader.getInstructorsList(courseList);
         System.out.println(instructorsList);
 
         System.out.println("***********************************************************************************");
 
-        // Card 6
+        System.out.println("Show number of active categories with description: Card 6");
+
         long numberOfActiveSubcategoriesWithDescription = SubcategoryReader
                 .activeSubcategoriesWithDescription(subcategoryList);
         System.out.println(numberOfActiveSubcategoriesWithDescription);
 
         System.out.println("***********************************************************************************");
 
-        // Card 7
+        System.out.println("Show instructors with couses: Card 7");
+
         System.out.println(CourseReader.getInstructorsAndCourses(courseList));
 
     }
