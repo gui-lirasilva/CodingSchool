@@ -46,19 +46,15 @@ CREATE TABLE section (
   course int,
   foreign key (course) references course(id)
 );
-CREATE TABLE activity (
+CREATE TABLE explanation(
   id int PRIMARY KEY AUTO_INCREMENT,
+  explanatory_text text,
   title varchar(100) not null,
   code varchar(100),
   active boolean,
   `order` int,
-  type ENUM('EXPLANATION', 'VIDEO', 'QUESTION'),
   section int,
   foreign key (section) references section(id)
-);
-CREATE TABLE explanation(
-  id int PRIMARY KEY AUTO_INCREMENT,
-  explanatory_text varchar(100)
 );
 CREATE TABLE video(
   id int PRIMARY KEY AUTO_INCREMENT,
@@ -66,12 +62,23 @@ CREATE TABLE video(
   video_time int,
   transcription varchar(100),
   activity int,
-  foreign key (activity) references activity(id)
+  title varchar(100) not null,
+  code varchar(100),
+  active boolean,
+  `order` int,
+  section int,
+  foreign key (section) references section(id)
 );
 CREATE TABLE question(
   id int PRIMARY KEY AUTO_INCREMENT,
   statement varchar(100),
   question_type ENUM('UNIQUE', 'MULTIPLE', 'TRUE_OR_FALSE')
+  title varchar(100) not null,
+  code varchar(100),
+  active boolean,
+  `order` int,
+  section int,
+  foreign key (section) references section(id)
 );
 CREATE TABLE alternative(
   id int PRIMARY KEY AUTO_INCREMENT,

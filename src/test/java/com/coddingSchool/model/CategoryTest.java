@@ -55,6 +55,38 @@ public class CategoryTest {
     }
 
     @Test
+    void notAcceptAEmptyDescription() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            new Category(name, code, order, "", active, iconPath, colorCode);
+        });
+        assertEquals("The category description can't be empty or null", ex.getMessage());
+    }
+
+    @Test
+    void notAcceptANullDescription() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            new Category(name, code, order, "", active, iconPath, colorCode);
+        });
+        assertEquals("The category description can't be empty or null", ex.getMessage());
+    }
+
+    @Test
+    void notAcceptAEmptyIconPath() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            new Category(name, code, order, description, active, "", colorCode);
+        });
+        assertEquals("The icon path can't be empty or null", ex.getMessage());
+    }
+
+    @Test
+    void notAcceptANullIconPath() {
+        Exception ex = assertThrows(NullPointerException.class, () -> {
+            new Category(name, code, order, description, active, null, colorCode);
+        });
+        assertEquals("The icon path can't be empty or null", ex.getMessage());
+    }
+
+    @Test
     void notAcceptAInvalidHexadecimalColorCode() {
         Exception ex = assertThrows(IllegalArgumentException.class, () -> {
             new Category(name, code, order, description, active, iconPath, "#FF");

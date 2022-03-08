@@ -63,6 +63,14 @@ public class SubcategoryTest {
     }
 
     @Test
+    void doesNotAcceptANullDescription() {
+        Exception ex = assertThrows(NullPointerException.class, () -> {
+            new Subcategory(name, code, order, null, active, category);
+        });
+        assertEquals("The subcategory description can't be null", ex.getMessage());
+    }
+
+    @Test
     void notAcceptANullCategory() {
         Exception ex = assertThrows(NullPointerException.class, () -> {
             new Subcategory(name, code, order, description, active, null);
