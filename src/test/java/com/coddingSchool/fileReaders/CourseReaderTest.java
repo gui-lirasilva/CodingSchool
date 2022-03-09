@@ -3,6 +3,7 @@ package com.coddingSchool.fileReaders;
 import com.coddingSchool.model.Category;
 import com.coddingSchool.model.Course;
 import com.coddingSchool.model.Subcategory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,19 +15,30 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CourseReaderTest {
 
-    CourseReaderTest() throws Exception {
+    private String CATEGORY_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/" +
+            "planilha-dados-escola - Categoria.csv";
+
+    private String SUBCATEGORY_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/" +
+            "planilha-dados-escola - Subcategoria.csv";
+
+    private String COURSE_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/" +
+            "planilha-dados-escola-curso.csv";
+
+    private String INVALID_COURSE_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/" +
+            "planilha-dados-escola-curso invalido.csv";
+
+    private List<Category> categoryList;
+    private List<Subcategory> subcategoryList;
+    private List<Course> courseList;
+    private List<Course> privateCourses;
+
+    @BeforeEach
+    void setup() throws Exception{
+        categoryList = CategoryReader.csvReader(CATEGORY_CSV_PATH);
+        subcategoryList = SubcategoryReader.csvReader(categoryList, SUBCATEGORY_CSV_PATH);
+        courseList = CourseReader.csvReader(subcategoryList, COURSE_CSV_PATH);
+        privateCourses = courseList.stream().filter(c -> c.getVisible().equals(false)).toList();
     }
-
-    static String CATEGORY_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/planilha-dados-escola - Categoria.csv";
-    static String SUBCATEGORY_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/planilha-dados-escola - Subcategoria.csv";
-    static String COURSE_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/planilha-dados-escola-curso.csv";
-    static String INVALID_COURSE_CSV_PATH = "/home/guilherme/Documentos/Level Up/csvParaTestes/planilha-dados-escola-curso invalido.csv";
-
-    List<Category> categoryList = CategoryReader.csvReader(CATEGORY_CSV_PATH);
-    List<Subcategory> subcategoryList = SubcategoryReader.csvReader(categoryList, SUBCATEGORY_CSV_PATH);
-    List<Course> courseList = CourseReader.csvReader(subcategoryList, COURSE_CSV_PATH);
-    List<Course> privateCourses = courseList.stream().filter(c -> c.getVisible().equals(false)).toList();
-
 
     @Test
     void csvReader_dontThrowExceptionIfRecieveAValidCsvFile() {

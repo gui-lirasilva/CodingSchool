@@ -29,7 +29,7 @@ public class CourseTest {
     private String code = "course-code30";
     private int estimatedTime = 15;
     private boolean visible = true;
-    private String target = "Cildren";
+    private String target = "Children";
     private String instructor = "Paulo Silveira";
     private String descrioption = "Course description";
     private String developedSkills = "Skills";

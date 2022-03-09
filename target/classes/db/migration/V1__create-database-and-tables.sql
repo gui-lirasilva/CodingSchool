@@ -1,9 +1,9 @@
 CREATE DATABASE codding_school;
 USE codding_school;
 CREATE TABLE category (
-  id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(100) not null,
-  code varchar(100),
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(100) not null,
+  `code` varchar(100),
   `order` int,
   description text,
   active boolean,

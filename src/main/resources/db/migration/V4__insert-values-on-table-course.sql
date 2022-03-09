@@ -11,6 +11,7 @@ true,
 5,
 ''
 );
+
 INSERT INTO course VALUES (
 2,
 'Java e JPA: Consultas avançadas performance e modelos complexos',
@@ -24,6 +25,7 @@ true,
 2,
 ''
 );
+
 INSERT INTO course VALUES (
 3,
 'Java OO: Introdução à Orientação a Objetos',
@@ -37,6 +39,7 @@ true,
 1,
 ''
 );
+
 INSERT INTO course VALUES (
 4,
 'Java JRE e JDK: Escreva o seu primeiro código com Eclipse',

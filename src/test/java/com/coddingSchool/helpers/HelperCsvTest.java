@@ -7,57 +7,57 @@ import static org.junit.jupiter.api.Assertions.*;
 class HelperCsvTest {
 
     @Test
-    void isActive_MethodShouldReturnTrueIfRecieve_ATIVA() {
+    void isActive__methodShouldReturnTrueIfRecieveAtiva() {
         assertTrue(HelperCsv.isActive("ATIVA"));
     }
 
     @Test
-    void isActive_MethodShouldReturnFalseIfDontRecieve_ATIVA() {
+    void isActive__methodShouldReturnFalseIfDontRecieveAtiva() {
         assertFalse(HelperCsv.isActive(""));
     }
 
     @Test
-    void isVisible_MethodShouldReturnTrueIfRecieve_PUBLICA() {
+    void isVisible__methodShouldReturnTrueIfRecievePublica() {
         assertTrue(HelperCsv.isVisible("PÚBLICA"));
     }
 
     @Test
-    void isVisible_MethodShouldReturnFalseIfDontRecieve_PUBLICA() {
+    void isVisible__methodShouldReturnFalseIfDontRecievePublica() {
         assertFalse(HelperCsv.isVisible(""));
     }
 
     @Test
-    void isPublic_MethodShouldReturn_PUBLICO_IfRecieveTrue() {
+    void isPublic__methodShouldReturnPublicoIfRecieveTrue() {
         assertEquals("PÚBLICO",HelperCsv.isPublic(true));
     }
 
     @Test
-    void isPublic_MethodShouldReturn_PRIVADO_IfRecieveFalse() {
+    void isPublic__methodShouldReturnPrivadoIfRecieveFalse() {
         assertEquals("PRIVADO",HelperCsv.isPublic(false));
     }
 
     @Test
-    void isActive_MethodShouldReturn_ATIVA_IfRecieveTrue() {
+    void isActive__methodShouldReturnAtivaIfRecieveTrue() {
         assertEquals("ATIVA",HelperCsv.isActive(true));
     }
 
     @Test
-    void isActive_MethodShouldReturn_INATIVA_IfRecieveFalse() {
+    void isActive__methodShouldReturnInativaIfRecieveFalse() {
         assertEquals("INATIVA",HelperCsv.isActive(false));
     }
 
     @Test
-    void transformToInteger_MethodShouldReturnZeroIfRecieveAEmptyString() {
+    void transformToInteger__methodShouldReturnZeroIfRecieveAEmptyString() {
         assertEquals(0, HelperCsv.transformToInteger(""));
     }
 
     @Test
-    void transformToInteger_MethodShouldReturnAIntegerNumberIfRecieveAStringNumber() {
+    void transformToInteger__methodShouldReturnAIntegerNumberIfRecieveAStringNumber() {
         assertEquals(5, HelperCsv.transformToInteger("5"));
     }
 
     @Test
-    void transformToInteger_MethodDontAcceptOneLetterOrNotNumberCaracter() {
+    void transformToInteger__methodDontAcceptOneLetterOrNotNumberCaracter() {
         assertThrows(NumberFormatException.class, ()-> HelperCsv.transformToInteger("a"));
     }
 }
