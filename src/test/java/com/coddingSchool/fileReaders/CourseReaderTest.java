@@ -33,7 +33,7 @@ class CourseReaderTest {
     private List<Course> privateCourses;
 
     @BeforeEach
-    void setup() throws Exception{
+    void setup() throws Exception {
         categoryList = CategoryReader.csvReader(CATEGORY_CSV_PATH);
         subcategoryList = SubcategoryReader.csvReader(categoryList, SUBCATEGORY_CSV_PATH);
         courseList = CourseReader.csvReader(subcategoryList, COURSE_CSV_PATH);

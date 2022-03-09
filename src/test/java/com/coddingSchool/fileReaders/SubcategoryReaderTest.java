@@ -32,7 +32,7 @@ class SubcategoryReaderTest {
     private List<Subcategory> inativeSubcategories;
 
     @BeforeEach
-    void setup() throws Exception{
+    void setup() throws Exception {
         categoryList = CategoryReader.csvReader(CATEGORY_CSV_PATH);
         subcategories = SubcategoryReader.csvReader(categoryList, SUBCATEGORY_CSV_PATH);
         subcategoriesWithDescription = SubcategoryReader.csvReader(categoryList, SUBCATEGORIES_WITH_DESCRIPTION_CSV_PATH);
