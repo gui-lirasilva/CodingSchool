@@ -2,7 +2,7 @@ CREATE DATABASE codding_school;
 
 USE codding_school;
 
-CREATE TABLE category (
+CREATE TABLE categories (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -14,7 +14,7 @@ CREATE TABLE category (
   `study_guide` text
 );
 
-CREATE TABLE subcategory (
+CREATE TABLE subcategories (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -26,7 +26,7 @@ CREATE TABLE subcategory (
   foreign key (category_id) references category(id)
 );
 
-CREATE TABLE course (
+CREATE TABLE courses (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -41,7 +41,7 @@ CREATE TABLE course (
   foreign key (subcategory_id) references subcategory(id)
 );
 
-CREATE TABLE section (
+CREATE TABLE sections (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -52,7 +52,7 @@ CREATE TABLE section (
   foreign key (course_id) references course(id)
 );
 
-CREATE TABLE explanation(
+CREATE TABLE explanations (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `explanatory_text` text,
   `title` varchar(100) not null,
@@ -63,7 +63,7 @@ CREATE TABLE explanation(
   foreign key (section_id) references section(id)
 );
 
-CREATE TABLE video(
+CREATE TABLE videos (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `url` varchar(100),
   `video_time` int,
@@ -77,7 +77,7 @@ CREATE TABLE video(
   foreign key (section_id) references section(id)
 );
 
-CREATE TABLE question(
+CREATE TABLE questions (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `statement` varchar(100),
   `question_type` ENUM('UNIQUE', 'MULTIPLE', 'TRUE_OR_FALSE')
@@ -89,7 +89,7 @@ CREATE TABLE question(
   foreign key (section_id) references section(id)
 );
 
-CREATE TABLE alternative(
+CREATE TABLE alternatives (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `explanatory_text` varchar(100),
   `order` int,

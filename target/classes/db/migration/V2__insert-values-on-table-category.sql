@@ -10,6 +10,7 @@ INSERT INTO category VALUES(
  '#00c86f',
  ''
  );
+
 INSERT INTO category VALUES(
  2,
  'DevOps',
@@ -21,6 +22,7 @@ INSERT INTO category VALUES(
  '#f16165',
  ''
  );
+
 INSERT INTO category VALUES(
  3,
  'Business',
