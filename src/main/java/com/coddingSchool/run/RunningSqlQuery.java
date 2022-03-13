@@ -1,7 +1,9 @@
 package com.coddingSchool.run;
 
+import com.coddingSchool.helpers.HelperCsv;
 import com.coddingSchool.infrastructure.ConnectionFactory;
 
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -190,34 +192,78 @@ public class RunningSqlQuery {
             stmt1.execute("SELECT * FROM `course` where `visible` = true");
             ResultSet resultSet1 = stmt1.getResultSet();
 
-            while(resultSet1.next()) {
-                id = resultSet1.getInt("id");
-                name = resultSet1.getString("name");
-                code = resultSet1.getString("code");
-                estimatedTime = resultSet1.getInt("estimated_time");
-                visible = resultSet1.getBoolean("visible");
-                target = resultSet1.getString("target");
-                instructor = resultSet1.getString("instructor");
-                description = resultSet1.getString("description");
-                developedSkills = resultSet1.getString("developed_skills");
-                subcategoryId = resultSet1.getInt("subcategory_id");
-                studyGuide = resultSet1.getString("study_guide");
-                subcategoryName = findSubcategoryName(connection, subcategoryId);
+            try (OutputStream os = new FileOutputStream("sqlReport.html")) {
+                PrintStream ps = new PrintStream(os);
 
-                System.out.printf("id = %d, name = %s, code = %s, estimated time = %d, visible = %b, target = %s," +
-                                " instructor = %s, description = %s, developed skills = %s, subcategory id = %d," +
-                                " study guide = %s" +
-                                "\n---------------------------------------------------------------------------------\n",
-                        id, name, code, estimatedTime, visible, target, instructor, description, developedSkills,
-                        subcategoryId, studyGuide);
+                ps.println("<html>");
+                ps.println("<head>");
+                ps.println("<meta charset=\"UTF-8\">");
+                ps.println("</head>");
+                ps.println("<body>");
 
-                System.out.println(subcategoryName);
+                while(resultSet1.next()) {
+                    id = resultSet1.getInt("id");
+                    name = resultSet1.getString("name");
+                    code = resultSet1.getString("code");
+                    estimatedTime = resultSet1.getInt("estimated_time");
+                    visible = resultSet1.getBoolean("visible");
+                    target = resultSet1.getString("target");
+                    instructor = resultSet1.getString("instructor");
+                    description = resultSet1.getString("description");
+                    developedSkills = resultSet1.getString("developed_skills");
+                    subcategoryId = resultSet1.getInt("subcategory_id");
+                    studyGuide = resultSet1.getString("study_guide");
+                    subcategoryName = findSubcategoryName(connection, subcategoryId);
 
+                    ps.println( String.format("""
+                                    <ul> 
+                                        <li>Course id = %d</li>
+                                        <br>
+                                        <li>Course name = %s</li>
+                                        <br>
+                                        <li>Course code = %s</li>
+                                        <br>
+                                        <li>Estimated time = %d</li>
+                                        <br>
+                                        <li>Visibility = %s</li>
+                                        <br>
+                                        <li>Target = %s</li>
+                                        <br>
+                                        <li>Instructor = %s</li>
+                                        <br>
+                                        <li>Description = %s</li>
+                                        <br>
+                                        <li>Developed skills = %s</li>
+                                        <br>
+                                        <li> Subcategory: </li>
+                                        <ul> 
+                                            <li> id = %d</li>
+                                            <li> name = %s</li>
+                                        </ul>
+                                    </ul>
+                                    <p>------------------------------------------------------------------------------------------------------------------</p>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    """,
+                            id, name, code, estimatedTime, HelperCsv.isPublic(visible), target, instructor, description,
+                            developedSkills, subcategoryId, subcategoryName));
+
+                }
+
+                ps.println("</body>");
+                ps.println("</html>");
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args)  {
