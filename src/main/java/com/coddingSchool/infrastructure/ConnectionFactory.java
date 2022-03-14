@@ -1,17 +1,25 @@
 package com.coddingSchool.infrastructure;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    public Connection getConnection() {
-        try {
-            return DriverManager.getConnection(
-                    "jdbc:mysql://localhost/codding_school", "root", "133708");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private DataSource dataSource;
+
+    public ConnectionFactory() {
+        ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+        comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost/codding_school");
+        comboPooledDataSource.setUser("root");
+        comboPooledDataSource.setPassword("133708");
+        comboPooledDataSource.setMaxPoolSize(3);
+        this.dataSource = comboPooledDataSource;
+    }
+
+    public Connection getConnection() throws SQLException {
+        return this.dataSource.getConnection();
     }
 }

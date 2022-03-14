@@ -1,6 +1,5 @@
-package com.coddingSchool.run;
+package com.coddingSchool.run.sql;
 
-import com.coddingSchool.helpers.HelperCsv;
 import com.coddingSchool.infrastructure.ConnectionFactory;
 
 import java.io.*;
@@ -9,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RunningSqlQuery {
+public class RunningSqlReport {
 
     private static void firstQuery() {
         int id;
@@ -176,21 +175,14 @@ public class RunningSqlQuery {
     private static void courseReport() {
         int id;
         String name;
-        String code;
         int estimatedTime;
-        boolean visible;
-        String target;
-        String instructor;
-        String description;
-        String developedSkills;
         int subcategoryId;
-        String studyGuide;
         String subcategoryName;
 
-        try(Connection connection = new ConnectionFactory().getConnection()) {
-            Statement stmt1 = connection.createStatement();
-            stmt1.execute("SELECT * FROM `course` where `visible` = true");
-            ResultSet resultSet1 = stmt1.getResultSet();
+        try(Connection connection = new ConnectionFactory().getConnection();
+            Statement stmt = connection.createStatement();) {
+
+            stmt.execute("SELECT * FROM `course` where `visible` = true");
 
             try (OutputStream os = new FileOutputStream("sqlReport.html")) {
                 PrintStream ps = new PrintStream(os);
@@ -201,18 +193,15 @@ public class RunningSqlQuery {
                 ps.println("</head>");
                 ps.println("<body>");
 
-                while(resultSet1.next()) {
-                    id = resultSet1.getInt("id");
-                    name = resultSet1.getString("name");
-                    code = resultSet1.getString("code");
-                    estimatedTime = resultSet1.getInt("estimated_time");
-                    visible = resultSet1.getBoolean("visible");
-                    target = resultSet1.getString("target");
-                    instructor = resultSet1.getString("instructor");
-                    description = resultSet1.getString("description");
-                    developedSkills = resultSet1.getString("developed_skills");
-                    subcategoryId = resultSet1.getInt("subcategory_id");
-                    studyGuide = resultSet1.getString("study_guide");
+                ResultSet resultSet = stmt.getResultSet();
+                while(resultSet.next()) {
+                    id = resultSet.getInt("id");
+                    name = resultSet.getString("name");
+
+                    estimatedTime = resultSet.getInt("estimated_time");
+
+                    subcategoryId = resultSet.getInt("subcategory_id");
+
                     subcategoryName = findSubcategoryName(connection, subcategoryId);
 
                     ps.println( String.format("""
@@ -221,19 +210,7 @@ public class RunningSqlQuery {
                                         <br>
                                         <li>Course name = %s</li>
                                         <br>
-                                        <li>Course code = %s</li>
-                                        <br>
-                                        <li>Estimated time = %d</li>
-                                        <br>
-                                        <li>Visibility = %s</li>
-                                        <br>
-                                        <li>Target = %s</li>
-                                        <br>
-                                        <li>Instructor = %s</li>
-                                        <br>
-                                        <li>Description = %s</li>
-                                        <br>
-                                        <li>Developed skills = %s</li>
+                                        <li>Estimated time = %d hours</li>
                                         <br>
                                         <li> Subcategory: </li>
                                         <ul> 
@@ -246,8 +223,7 @@ public class RunningSqlQuery {
                                     <br>
                                     <br>
                                     """,
-                            id, name, code, estimatedTime, HelperCsv.isPublic(visible), target, instructor, description,
-                            developedSkills, subcategoryId, subcategoryName));
+                            id, name, estimatedTime, subcategoryId, subcategoryName));
 
                 }
 
