@@ -3,169 +3,22 @@ package com.coddingSchool.run.sql;
 import com.coddingSchool.infrastructure.ConnectionFactory;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class RunningSqlReport {
 
-    private static void firstQuery() {
-        int id;
-        String name;
-        String code;
-        int order;
-        String description;
-        boolean active;
-        String iconPath;
-        String colorCode;
-
-        try(Connection connection = new ConnectionFactory().getConnection()) {
-            Statement stmt = connection.createStatement();
-            stmt.execute("SELECT * FROM `category` where `active` = true ORDER BY `order`");
-            ResultSet resultSet = stmt.getResultSet();
-
-            while(resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name");
-                code = resultSet.getString("code");
-                order = resultSet.getInt("order");
-                description = resultSet.getString("description");
-                active = resultSet.getBoolean("active");
-                iconPath = resultSet.getString("iconPath");
-                colorCode = resultSet.getString("colorCode");
-
-                System.out.printf("id = %d, name = %s, code = %s, order = %d, description = %s, active = %b," +
-                                " icon path = %s, color code = %s" +
-                                "\n-----------------------------------------------------------------------------------\n",
-                        id, name, code, order, description, active, iconPath, colorCode);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void secondQuery() {
-        int id;
-        String name;
-        String code;
-        int order;
-        String description;
-        boolean active;
-        int categoryId;
-        String study_guide;
-
-        try(Connection connection = new ConnectionFactory().getConnection()) {
-            Statement stmt = connection.createStatement();
-            stmt.execute("SELECT * FROM `subcategory` where `active` = true ORDER BY `order`");
-            ResultSet resultSet = stmt.getResultSet();
-
-            while(resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name");
-                code = resultSet.getString("code");
-                order = resultSet.getInt("order");
-                description = resultSet.getString("description");
-                active = resultSet.getBoolean("active");
-                categoryId = resultSet.getInt("category_id");
-                study_guide = resultSet.getString("study_guide");
-
-                System.out.printf("id = %d, name = %s, code = %s, order = %d, description = %s, active = %b," +
-                                " category id = %d, study guide = %s" +
-                                "\n-----------------------------------------------------------------------------------\n",
-                        id, name, code, order, description, active, categoryId, study_guide);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void thirdQuery() {
-        int id;
-        String name;
-        String code;
-        int estimatedTime;
-        boolean visible;
-        String target;
-        String instructor;
-        String description;
-        String developedSkills;
-        int subcategoryId;
-        String studyGuide;
-
-        try(Connection connection = new ConnectionFactory().getConnection()) {
-            Statement stmt = connection.createStatement();
-            stmt.execute("SELECT * FROM `course` where `visible` = true");
-            ResultSet resultSet = stmt.getResultSet();
-
-            while(resultSet.next()) {
-                id = resultSet.getInt("id");
-                name = resultSet.getString("name");
-                code = resultSet.getString("code");
-                estimatedTime = resultSet.getInt("estimated_time");
-                visible = resultSet.getBoolean("visible");
-                target = resultSet.getString("target");
-                instructor = resultSet.getString("instructor");
-                description = resultSet.getString("description");
-                developedSkills = resultSet.getString("developed_skills");
-                subcategoryId = resultSet.getInt("subcategory_id");
-                studyGuide = resultSet.getString("study_guide");
-
-                System.out.printf("id = %d, name = %s, code = %s, estimated time = %d, visible = %b, target = %s," +
-                                " instructor = %s, description = %s, developed skills = %s, subcategory id = %d," +
-                                " study guide = %s" +
-                                "\n---------------------------------------------------------------------------------\n",
-                        id, name, code, estimatedTime, visible, target, instructor, description, developedSkills,
-                        subcategoryId, studyGuide);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void fourthQuery() {
-        int id;
-        String name;
-        String code;
-        int order;
-        String description;
-        boolean active;
-        int categoryId;
-        String study_guide;
-
-        try(Connection connection = new ConnectionFactory().getConnection()) {
-            Statement stmt = connection.createStatement();
-            stmt.execute("SELECT `name` FROM `subcategory` where `description` = ''");
-            ResultSet resultSet = stmt.getResultSet();
-
-            while(resultSet.next()) {
-                name = resultSet.getString("name");
-                System.out.println(name);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static String findSubcategoryName(Connection connection, int subcategoryId) {
 
-        String queryForSearchSubcategory = String.format("SELECT `name` FROM subcategory WHERE `id` = %d",
-                subcategoryId);
         String subcategoryName = "";
 
-       try{
-           Statement stmt = connection.createStatement();
-           stmt.execute(queryForSearchSubcategory);
-           ResultSet resultSet = stmt.getResultSet();
-
-           while(resultSet.next()) {
-               subcategoryName = resultSet.getString("name");
-           };
-
+       try(PreparedStatement stmt = connection.prepareStatement("SELECT `name` FROM subcategory WHERE `id` = ?")){
+           stmt.setLong(1, subcategoryId);
+           stmt.execute();
+           try(ResultSet resultSet = stmt.getResultSet()) {
+               while(resultSet.next()) {
+                   subcategoryName = resultSet.getString("name");
+               };
+           }
            return subcategoryName;
        } catch (SQLException e) {
            return e.getMessage();
@@ -180,9 +33,11 @@ public class RunningSqlReport {
         String subcategoryName;
 
         try(Connection connection = new ConnectionFactory().getConnection();
-            Statement stmt = connection.createStatement();) {
-
-            stmt.execute("SELECT * FROM `course` where `visible` = true");
+            PreparedStatement stmt = connection.prepareStatement("SELECT c.id, c.name, c.estimated_time," +
+                    " c.subcategory_id, s.name FROM courses c INNER JOIN subcategories s ON c.subcategory_id = s.id" +
+                    " WHERE visible = ?")) {
+            stmt.setBoolean(1 ,true);
+            stmt.execute();
 
             try (OutputStream os = new FileOutputStream("sqlReport.html")) {
                 PrintStream ps = new PrintStream(os);
@@ -193,18 +48,15 @@ public class RunningSqlReport {
                 ps.println("</head>");
                 ps.println("<body>");
 
-                ResultSet resultSet = stmt.getResultSet();
-                while(resultSet.next()) {
-                    id = resultSet.getInt("id");
-                    name = resultSet.getString("name");
+                try(ResultSet resultSet = stmt.getResultSet()){
+                    while(resultSet.next()) {
+                        id = resultSet.getInt("id");
+                        name = resultSet.getString("name");
+                        estimatedTime = resultSet.getInt("estimated_time");
+                        subcategoryId = resultSet.getInt("subcategory_id");
+                        subcategoryName = resultSet.getString(5);
 
-                    estimatedTime = resultSet.getInt("estimated_time");
-
-                    subcategoryId = resultSet.getInt("subcategory_id");
-
-                    subcategoryName = findSubcategoryName(connection, subcategoryId);
-
-                    ps.println( String.format("""
+                        ps.println( String.format("""
                                     <ul> 
                                         <li>Course id = %d</li>
                                         <br>
@@ -223,10 +75,10 @@ public class RunningSqlReport {
                                     <br>
                                     <br>
                                     """,
-                            id, name, estimatedTime, subcategoryId, subcategoryName));
+                                id, name, estimatedTime, subcategoryId, subcategoryName));
 
+                    }
                 }
-
                 ps.println("</body>");
                 ps.println("</html>");
 
@@ -235,19 +87,13 @@ public class RunningSqlReport {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void main(String[] args)  {
 
-//        firstQuery();
-//        secondQuery();
-//        thirdQuery();
-//        fourthQuery();
         courseReport();
     }
 
