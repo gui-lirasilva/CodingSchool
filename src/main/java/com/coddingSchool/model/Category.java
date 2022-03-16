@@ -15,6 +15,8 @@ public class Category {
     private String colorCode;
     private String studyGuide;
 
+    public Category() {}
+
     public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode) {
 
         StringValidator.cantBeBlank(name, "The name can't be empty or null");

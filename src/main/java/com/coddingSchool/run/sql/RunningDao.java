@@ -24,7 +24,8 @@ public class RunningDao {
                 "Target audience", "Instructor name", "Course description",
                 "Developed skills", subcategory);
 
-        CourseDao.insertNewCourse(course);
+//        CourseDao.insertNewCourse(course);
 //        CourseDao.deleteCourse(course);
+        CourseDao.updateCourse();
     }
 }

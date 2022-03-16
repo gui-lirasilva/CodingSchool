@@ -8,31 +8,6 @@ import java.sql.*;
 
 public class CourseDao {
 
-    private Connection connection;
-
-    public CourseDao(Connection connection) {
-        this.connection = connection;
-    }
-
-    private static Long findSubcategoryId(Connection connection, Subcategory subcategory) {
-
-        Long subcategoryId = 0L;
-
-        try(PreparedStatement stmt = connection
-                .prepareStatement("SELECT `id` FROM subcategories WHERE `code` = ?")){
-            stmt.setString(1, subcategory.getCode());
-            stmt.execute();
-            try(ResultSet resultSet = stmt.getResultSet()){
-                while(resultSet.next()) {
-                    subcategoryId = resultSet.getLong("id");
-                };
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return subcategoryId;
-    }
-
     public static void insertNewCourse(Course course) {
 
         try(Connection connection = new ConnectionFactory().getConnection();
@@ -66,6 +41,59 @@ public class CourseDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void deleteCourse(Course course) {
+
+        int modifiedLines;
+
+        try(Connection connection = new ConnectionFactory().getConnection();
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM courses WHERE `code`= ?")) {
+            stmt.setString(1, course.getCode());
+            System.out.println("The following course will be deleted:");
+            describeCourse(connection, course);
+            stmt.execute();
+            modifiedLines = stmt.getUpdateCount();
+            System.out.printf("Quantity of deleted lines = %d", modifiedLines);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateCourse() {
+
+        int modifiedLines;
+
+        try(Connection connection = new ConnectionFactory().getConnection();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE courses SET `visible`= ?")) {
+            stmt.setBoolean(1, true);
+            stmt.execute();
+            modifiedLines = stmt.getUpdateCount();
+            System.out.printf("Quantity of updated courses = %d", modifiedLines);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Long findSubcategoryId(Connection connection, Subcategory subcategory) {
+
+        Long subcategoryId = 0L;
+
+        try(PreparedStatement stmt = connection
+                .prepareStatement("SELECT `id` FROM subcategories WHERE `code` = ?")){
+            stmt.setString(1, subcategory.getCode());
+            stmt.execute();
+            try(ResultSet resultSet = stmt.getResultSet()){
+                while(resultSet.next()) {
+                    subcategoryId = resultSet.getLong("id");
+                };
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return subcategoryId;
     }
 
     private static void describeCourse(Connection connection, Course course) {
@@ -111,21 +139,4 @@ public class CourseDao {
         }
     }
 
-    public static void deleteCourse(Course course) {
-
-        int modifiedLines;
-
-        try(Connection connection = new ConnectionFactory().getConnection();
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM courses WHERE `code`= ?")) {
-            stmt.setString(1, course.getCode());
-            System.out.println("The following course will be deleted:");
-            describeCourse(connection, course);
-            stmt.execute();
-            modifiedLines = stmt.getUpdateCount();
-            System.out.printf("Quantity of deleted lines = %d", modifiedLines);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
