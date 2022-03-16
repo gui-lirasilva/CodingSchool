@@ -11,7 +11,7 @@ public class RunningSqlReport {
 
         String subcategoryName = "";
 
-       try(PreparedStatement stmt = connection.prepareStatement("SELECT `name` FROM subcategory WHERE `id` = ?")){
+       try(PreparedStatement stmt = connection.prepareStatement("SELECT `name` FROM subcategory WHERE `id` = ?")) {
            stmt.setLong(1, subcategoryId);
            stmt.execute();
            try(ResultSet resultSet = stmt.getResultSet()) {
