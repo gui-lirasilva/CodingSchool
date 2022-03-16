@@ -5,6 +5,7 @@ import com.coddingSchool.validations.StringValidator;
 
 public class Category {
 
+    private Long id;
     private String name;
     private String code;
     private int order;
@@ -13,6 +14,8 @@ public class Category {
     private String iconPath;
     private String colorCode;
     private String studyGuide;
+
+    public Category() {}
 
     public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode) {
 
@@ -34,6 +37,19 @@ public class Category {
         this.iconPath = iconPath;
         this.colorCode = colorCode;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getStudyGuide() {
+        return studyGuide;
+    }
+
     public String getName() {
         return name;
     }
