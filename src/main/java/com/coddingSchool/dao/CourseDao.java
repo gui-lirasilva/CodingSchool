@@ -61,7 +61,7 @@ public class CourseDao {
         }
     }
 
-    public static void updateCourse() {
+    public static void updateAllCourses() {
 
         int modifiedLines;
 

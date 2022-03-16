@@ -26,6 +26,6 @@ public class RunningDao {
 
 //        CourseDao.insertNewCourse(course);
 //        CourseDao.deleteCourse(course);
-        CourseDao.updateCourse();
+        CourseDao.updateAllCourses();
     }
 }
