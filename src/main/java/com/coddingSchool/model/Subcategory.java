@@ -7,6 +7,7 @@ import static com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
 
 public class Subcategory {
 
+    private Long id;
     private String name;
     private String code;
     private int order;
@@ -31,6 +32,18 @@ public class Subcategory {
         this.description = description;
         this.active = active;
         this.category = category;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getStudyGuide() {
+        return studyGuide;
     }
 
     public String getName() {

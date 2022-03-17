@@ -7,6 +7,7 @@ import com.coddingSchool.validations.StringValidator;
 
 public class Course {
 
+    private Long id;
     private String name;
     private String code;
     private int estimatedTime;
@@ -38,6 +39,14 @@ public class Course {
         this.description = description;
         this.developedSkills = developedSkills;
         this.subcategory = subcategory;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
