@@ -1,9 +1,11 @@
 package com.coddingSchool.run.sql;
 
-import com.coddingSchool.dao.CourseDao;
 import com.coddingSchool.model.Category;
 import com.coddingSchool.model.Course;
 import com.coddingSchool.model.Subcategory;
+import com.coddingSchool.util.JpaUtil;
+
+import javax.persistence.EntityManager;
 
 public class RunningDao {
 
@@ -26,6 +28,13 @@ public class RunningDao {
 
 //        CourseDao.insertNewCourse(course);
 //        CourseDao.deleteCourse(course);
-        CourseDao.updateAllCourses();
+//        CourseDao.updateAllCourses();
+
+        EntityManager em = JpaUtil.getEntityManager();
+
+        em.getTransaction().begin();
+        em.persist(category);
+        em.getTransaction().commit();
+        em.close();
     }
 }

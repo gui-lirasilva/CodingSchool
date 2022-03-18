@@ -3,16 +3,25 @@ package com.coddingSchool.model;
 import com.coddingSchool.validations.CodeValidator;
 import com.coddingSchool.validations.StringValidator;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "categories")
 public class Category {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String code;
+    @Column(name = "order")
     private int order;
+    @Column(columnDefinition = "text")
     private String description;
     private boolean active;
     private String iconPath;
     private String colorCode;
+    @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
 
     public Category() {}

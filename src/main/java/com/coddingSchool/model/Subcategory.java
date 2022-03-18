@@ -16,6 +16,10 @@ public class Subcategory {
     private Category category;
     private String studyGuide;
 
+    public Subcategory() {
+
+    }
+
     public Subcategory(String name, String code, int order, String description, boolean active, Category category) {
 
         StringValidator.cantBeBlank(name, "The name can't be empty or null");

@@ -2,19 +2,19 @@ CREATE DATABASE codding_school;
 
 USE codding_school;
 
-CREATE TABLE categories (
+CREATE TABLE Categories (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
   `order` int,
   `description` text,
   `active` boolean,
-  `iconPath` varchar(100),
-  `colorCode` varchar(100),
+  `icon_path` varchar(100),
+  `color_code` varchar(100),
   `study_guide` text
 );
 
-CREATE TABLE subcategories (
+CREATE TABLE Subcategories (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -26,7 +26,7 @@ CREATE TABLE subcategories (
   foreign key (category_id) references categories(id)
 );
 
-CREATE TABLE courses (
+CREATE TABLE Courses (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,

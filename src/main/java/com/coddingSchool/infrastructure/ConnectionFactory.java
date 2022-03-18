@@ -14,7 +14,7 @@ public class ConnectionFactory {
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
         comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost/codding_school");
         comboPooledDataSource.setUser("root");
-        comboPooledDataSource.setPassword("133708");
+        comboPooledDataSource.setPassword("");
         comboPooledDataSource.setMaxPoolSize(3);
         this.dataSource = comboPooledDataSource;
     }
