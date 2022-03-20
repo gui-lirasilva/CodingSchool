@@ -3,24 +3,29 @@ package com.coddingSchool.model;
 import com.coddingSchool.validations.ObjectValidator;
 import com.coddingSchool.validations.StringValidator;
 
+import javax.persistence.*;
+
 import static com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
 
+@Entity
 public class Subcategory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String code;
+    @Column(name = "`order`")
     private int order;
+    @Column(columnDefinition = "text")
     private String description;
     private boolean active;
+    @ManyToOne()
     private Category category;
+    @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
 
-    public Subcategory() {
-
-    }
-
-    public Subcategory(String name, String code, int order, String description, boolean active, Category category) {
+    public Subcategory(String name, String code, int order, String description, boolean active, Category category, String studyGuide) {
 
         StringValidator.cantBeBlank(name, "The name can't be empty or null");
 
@@ -36,6 +41,11 @@ public class Subcategory {
         this.description = description;
         this.active = active;
         this.category = category;
+        this.studyGuide = studyGuide;
+    }
+
+    public Subcategory() {
+
     }
 
     public Long getId() {
@@ -72,6 +82,10 @@ public class Subcategory {
 
     public Category getCategory() {
         return category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

@@ -5,17 +5,27 @@ import com.coddingSchool.validations.EstimatedTimeValidator;
 import com.coddingSchool.validations.ObjectValidator;
 import com.coddingSchool.validations.StringValidator;
 
+import javax.persistence.*;
+
+@Entity
 public class Course {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String code;
+    @Column(name = "estimated_time")
     private int estimatedTime;
     private Boolean visible = false;
+    @Column(columnDefinition = "text")
     private String target;
     private String instructor;
+    @Column(columnDefinition = "text")
     private String description;
+    @Column(name = "developed_skills", columnDefinition = "text")
     private String developedSkills;
+    @ManyToOne
     private Subcategory subcategory;
 
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor, String description, String developedSkills, Subcategory subcategory) {
@@ -39,6 +49,10 @@ public class Course {
         this.description = description;
         this.developedSkills = developedSkills;
         this.subcategory = subcategory;
+    }
+
+    public Course() {
+
     }
 
     public void setId(Long id) {
@@ -83,6 +97,10 @@ public class Course {
 
     public Subcategory getSubcategory() {
         return subcategory;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

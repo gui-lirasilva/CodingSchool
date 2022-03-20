@@ -1,8 +1,8 @@
-CREATE DATABASE codding_school;
+CREATE DATABASE Codding_school;
 
-USE codding_school;
+USE Codding_school;
 
-CREATE TABLE Categories (
+CREATE TABLE Category (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -14,7 +14,7 @@ CREATE TABLE Categories (
   `study_guide` text
 );
 
-CREATE TABLE Subcategories (
+CREATE TABLE Subcategory (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -23,10 +23,10 @@ CREATE TABLE Subcategories (
   `active` boolean,
   `category_id` bigint not null,
   `study_guide` text,
-  foreign key (category_id) references categories(id)
+  foreign key (category_id) references Category(id)
 );
 
-CREATE TABLE Courses (
+CREATE TABLE Course (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -38,10 +38,10 @@ CREATE TABLE Courses (
   `developed_skills` text,
   `subcategory_id` bigint not null,
   `study_guide` text,
-  foreign key (subcategory_id) references subcategories(id)
+  foreign key (subcategory_id) references Subcategory(id)
 );
 
-CREATE TABLE sections (
+CREATE TABLE Section (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) not null,
   `code` varchar(100) not null,
@@ -49,10 +49,10 @@ CREATE TABLE sections (
   `active` boolean,
   `test` boolean,
   `course_id` bigint not null,
-  foreign key (course_id) references courses(id)
+  foreign key (course_id) references Course(id)
 );
 
-CREATE TABLE explanations (
+CREATE TABLE Explanation (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `explanatory_text` text,
   `title` varchar(100) not null,
@@ -60,10 +60,10 @@ CREATE TABLE explanations (
   `active` boolean,
   `order` int,
   `section_id` bigint not null,
-  foreign key (section_id) references sections(id)
+  foreign key (section_id) references Section(id)
 );
 
-CREATE TABLE videos (
+CREATE TABLE Video (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `url` varchar(100),
   `video_time` int,
@@ -74,29 +74,29 @@ CREATE TABLE videos (
   `active` boolean,
   `order` int,
   `section_id` bigint not null,
-  foreign key (section_id) references sections(id)
+  foreign key (section_id) references Section(id)
 );
 
-CREATE TABLE questions (
+CREATE TABLE Question (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `statement` varchar(100),
-  `question_type` ENUM('UNIQUE', 'MULTIPLE', 'TRUE_OR_FALSE')
+  `question_type` ENUM('UNIQUE', 'MULTIPLE', 'TRUE_OR_FALSE'),
   `title` varchar(100) not null,
   `code` varchar(100),
   `active` boolean,
   `order` int,
   `section_id` bigint not null,
-  foreign key (section_id) references sections(id)
+  foreign key (section_id) references Section(id)
 );
 
-CREATE TABLE alternatives (
+CREATE TABLE Alternative (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `explanatory_text` varchar(100),
   `order` int,
   `correct` boolean,
   `justification` varchar(100),
   `question_id` bigint not null,
-  foreign key (question_id) references questions(id)
+  foreign key (question_id) references Question(id)
 );
 
 DROP DATABASE codding_school;

@@ -6,7 +6,6 @@ import com.coddingSchool.validations.StringValidator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categories")
 public class Category {
 
     @Id
@@ -14,19 +13,19 @@ public class Category {
     private Long id;
     private String name;
     private String code;
-    @Column(name = "order")
+    @Column(name = "`order`")
     private int order;
     @Column(columnDefinition = "text")
     private String description;
     private boolean active;
+    @Column(name = "icon_path")
     private String iconPath;
+    @Column(name = "color_code")
     private String colorCode;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
 
-    public Category() {}
-
-    public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode) {
+    public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
 
         StringValidator.cantBeBlank(name, "The name can't be empty or null");
 
@@ -45,7 +44,10 @@ public class Category {
         this.active = active;
         this.iconPath = iconPath;
         this.colorCode = colorCode;
+        this.studyGuide = studyGuide;
     }
+
+    public Category() {}
 
     public Long getId() {
         return id;
@@ -85,6 +87,10 @@ public class Category {
 
     public String getColorCode() {
         return colorCode;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
