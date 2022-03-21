@@ -3,10 +3,7 @@ package com.coddingSchool.run.sql;
 import com.coddingSchool.dao.CategoryDao;
 import com.coddingSchool.dao.CourseDao;
 import com.coddingSchool.dao.SubcategoryDao;
-import com.coddingSchool.model.Category;
-import com.coddingSchool.model.Course;
-import com.coddingSchool.model.Section;
-import com.coddingSchool.model.Subcategory;
+import com.coddingSchool.model.*;
 import com.coddingSchool.util.JpaUtil;
 
 import javax.persistence.EntityManager;
@@ -28,7 +25,16 @@ public class RunningDao {
                 "Target audience", "Instructor name", "Course description",
                 "Developed skills", subcategory);
 
-        Section section = new Section();
+        Section section = new Section(
+                "Section name", "section-code", 1, true, false, course);
+
+        Question question = new Question(
+                "Title", "question-code", section, "Statement", QuestionType.MULTIPLE);
+
+        Explanation explanation = new Explanation("Title", "explanation-code", section, "Text");
+
+        Video video = new Video(
+                "Title", "video-code", section, "URL", 15, "Video transcription");
 
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -55,5 +61,13 @@ public class RunningDao {
 
 //        List<Course> courseList = courseDao.listAll();
 //        System.out.println(courseList);
+
+        em.getTransaction().begin();
+        em.persist(section);
+        em.persist(question);
+        em.persist(explanation);
+        em.persist(video);
+        em.getTransaction().commit();
+
     }
 }

@@ -1,4 +1,4 @@
-INSERT INTO courses VALUES (
+INSERT INTO Course VALUES (
 1,
 'Git e Github para Sobrevivência',
 'git-e-github-para-sobrevivencia',
@@ -12,7 +12,7 @@ true,
 ''
 );
 
-INSERT INTO courses VALUES (
+INSERT INTO Course VALUES (
 2,
 'Java e JPA: Consultas avançadas performance e modelos complexos',
 'java-jpa-consultas-avancadas-performance-modelos-complexos',
@@ -26,7 +26,7 @@ true,
 ''
 );
 
-INSERT INTO courses VALUES (
+INSERT INTO Course VALUES (
 3,
 'Java OO: Introdução à Orientação a Objetos',
 'java-introducao-orientacao-objetos',
@@ -40,7 +40,7 @@ true,
 ''
 );
 
-INSERT INTO courses VALUES (
+INSERT INTO Course VALUES (
 4,
 'Java JRE e JDK: Escreva o seu primeiro código com Eclipse',
 'java-primeiros-passos',

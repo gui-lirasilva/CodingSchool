@@ -1,5 +1,5 @@
 USE codding_school;
-INSERT INTO categories VALUES(
+INSERT INTO Category VALUES(
  1,
  'Programação',
  'programacao',
@@ -11,7 +11,7 @@ INSERT INTO categories VALUES(
  ''
  );
 
-INSERT INTO categories VALUES(
+INSERT INTO Category VALUES(
  2,
  'DevOps',
  'devops',
@@ -23,7 +23,7 @@ INSERT INTO categories VALUES(
  ''
  );
 
-INSERT INTO categories VALUES(
+INSERT INTO Category VALUES(
  3,
  'Business',
  'business',
