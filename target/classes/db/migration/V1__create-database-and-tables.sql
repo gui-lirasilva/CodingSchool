@@ -4,20 +4,20 @@ USE Codding_school;
 
 CREATE TABLE Category (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(100) not null,
-  `code` varchar(100) not null,
+  `name` varchar(255) not null,
+  `code` varchar(255) not null,
   `order` int,
   `description` text,
   `active` boolean,
-  `icon_path` varchar(100),
-  `color_code` varchar(100),
+  `icon_path` varchar(255),
+  `color_code` varchar(255),
   `study_guide` text
 );
 
 CREATE TABLE Subcategory (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(100) not null,
-  `code` varchar(100) not null,
+  `name` varchar(255) not null,
+  `code` varchar(255) not null,
   `order` int,
   `description` text,
   `active` boolean,
@@ -28,12 +28,12 @@ CREATE TABLE Subcategory (
 
 CREATE TABLE Course (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(100) not null,
-  `code` varchar(100) not null,
+  `name` varchar(255) not null,
+  `code` varchar(255) not null,
   `estimated_time` int,
   `visible` boolean,
   `target` text,
-  `instructor` varchar(100),
+  `instructor` varchar(255),
   `description` text,
   `developed_skills` text,
   `subcategory_id` bigint not null,
@@ -43,8 +43,8 @@ CREATE TABLE Course (
 
 CREATE TABLE Section (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(100) not null,
-  `code` varchar(100) not null,
+  `name` varchar(255) not null,
+  `code` varchar(255) not null,
   `order` int,
   `active` boolean,
   `test` boolean,
@@ -55,8 +55,8 @@ CREATE TABLE Section (
 CREATE TABLE Explanation (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `explanatory_text` text,
-  `title` varchar(100) not null,
-  `code` varchar(100),
+  `title` varchar(255) not null,
+  `code` varchar(255),
   `active` boolean,
   `order` int,
   `section_id` bigint not null,
@@ -65,12 +65,12 @@ CREATE TABLE Explanation (
 
 CREATE TABLE Video (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `url` varchar(100),
+  `url` varchar(255),
   `video_time` int,
-  `transcription` varchar(100),
+  `transcription` varchar(255),
   `activity` int,
-  `title` varchar(100) not null,
-  `code` varchar(100),
+  `title` varchar(255) not null,
+  `code` varchar(255),
   `active` boolean,
   `order` int,
   `section_id` bigint not null,
@@ -79,10 +79,10 @@ CREATE TABLE Video (
 
 CREATE TABLE Question (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `statement` varchar(100),
-  `question_type` ENUM('UNIQUE', 'MULTIPLE', 'TRUE_OR_FALSE'),
-  `title` varchar(100) not null,
-  `code` varchar(100),
+  `statement` varchar(255),
+  `question_type` varchar(255),
+  `title` varchar(255) not null,
+  `code` varchar(255),
   `active` boolean,
   `order` int,
   `section_id` bigint not null,

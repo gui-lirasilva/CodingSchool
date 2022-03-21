@@ -1,16 +1,28 @@
 package com.coddingSchool.model;
 
+import javax.persistence.*;
+
 import static com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
 import static com.coddingSchool.validations.ObjectValidator.cantBeNull;
 import static com.coddingSchool.validations.StringValidator.cantBeEmpty;
 
+@MappedSuperclass
 public abstract class Activity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private String code;
     private boolean active;
+    @Column(name = "`order`")
     private int order;
+    @ManyToOne
     private Section section;
+
+    public Activity() {
+
+    }
 
     public Activity(String title, String code, Section section) {
 

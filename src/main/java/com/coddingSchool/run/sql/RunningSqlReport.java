@@ -40,30 +40,30 @@ public class RunningSqlReport {
             ps.println("<h3>Active categories:</h3>");
             for(Category c : categoryList) {
                 ps.printf("""
-                                <ul>
-                                    <li>Category id = %d</li>
-                                    <br>
-                                    <li>Category name = %s</li>
-                                    <br>
-                                    <li>Category code = %s</li>
-                                    <br>
-                                    <li>Order = %d</li>
-                                    <br>
-                                    <li>Description = %s</li>
-                                    <br>
-                                    <li>Active = %s</li>
-                                    <br>
-                                    <li>Icon path = %s</li>
-                                    <br>
-                                    <li>Hexadecimal color code = %s</li>
-                                    <br>
-                                    <li>Study guide = %s</li>
-                                </ul>
-                                <p>------------------------------------------------------------------------------------------------------------------</p>
+                            <ul>
+                                <li>Category id = %d</li>
                                 <br>
+                                <li>Category name = %s</li>
                                 <br>
+                                <li>Category code = %s</li>
                                 <br>
-                                %n""",
+                                <li>Order = %d</li>
+                                <br>
+                                <li>Description = %s</li>
+                                <br>
+                                <li>Active = %s</li>
+                                <br>
+                                <li>Icon path = %s</li>
+                                <br>
+                                <li>Hexadecimal color code = %s</li>
+                                <br>
+                                <li>Study guide = %s</li>
+                            </ul>
+                            <p>------------------------------------------------------------------------------------------------------------------</p>
+                            <br>
+                            <br>
+                            <br>
+                            %n""",
                         c.getId(), c.getName(), c.getCode(), c.getOrder(), c.getDescription(),
                         HelperCsv.isActive(c.getActive()), c.getIconPath(), c.getColorCode(), c.getStudyGuide());
 
@@ -73,28 +73,28 @@ public class RunningSqlReport {
             for(Subcategory s : subcategoryList) {
                 Category category = s.getCategory();
                 ps.printf("""
-                                <ul>
-                                    <li>Subcategory id = %d</li>
-                                    <br>
-                                    <li>Subcategory name = %s</li>
-                                    <br>
-                                    <li>Subcategory code = %s</li>
-                                    <br>
-                                    <li>Order = %d</li>
-                                    <br>
-                                    <li>Description = %s</li>
-                                    <br>
-                                    <li>Active = %s</li>
-                                    <br>
-                                    <li>Category = %s</li>
-                                    <br>
-                                    <li>Study guide = %s</li>
-                                </ul>
-                                <p>------------------------------------------------------------------------------------------------------------------</p>
+                            <ul>
+                                <li>Subcategory id = %d</li>
                                 <br>
+                                <li>Subcategory name = %s</li>
                                 <br>
+                                <li>Subcategory code = %s</li>
                                 <br>
-                                %n""",
+                                <li>Order = %d</li>
+                                <br>
+                                <li>Description = %s</li>
+                                <br>
+                                <li>Active = %s</li>
+                                <br>
+                                <li>Category = %s</li>
+                                <br>
+                                <li>Study guide = %s</li>
+                            </ul>
+                            <p>------------------------------------------------------------------------------------------------------------------</p>
+                            <br>
+                            <br>
+                            <br>
+                            %n""",
                         s.getId(), s.getName(), s.getCode(), s.getOrder(), s.getDescription(),
                         HelperCsv.isActive(s.getActive()), category.getName(), s.getStudyGuide());
 
@@ -104,32 +104,32 @@ public class RunningSqlReport {
             for(Course c : courseList) {
                 Subcategory subcategory = c.getSubcategory();
                 ps.printf("""
-                                <ul>
-                                    <li>Course id = %d</li>
-                                    <br>
-                                    <li>Course name = %s</li>
-                                    <br>
-                                    <li>Course code = %s</li>
-                                    <br>
-                                    <li>Estimated time = %d hours</li>
-                                    <br>
-                                    <li>Visibility = %s</li>
-                                    <br>
-                                    <li>Target = %s</li>
-                                    <br>
-                                    <li>Instructor = %s</li>
-                                    <br>
-                                    <li>Description = %s</li>
-                                    <br>
-                                    <li>Developed skills = %s</li>
-                                    <br>
-                                    <li>Subcategory = %s</li>
-                                </ul>
-                                <p>------------------------------------------------------------------------------------------------------------------</p>
+                            <ul>
+                                <li>Course id = %d</li>
                                 <br>
+                                <li>Course name = %s</li>
                                 <br>
+                                <li>Course code = %s</li>
                                 <br>
-                                %n""",
+                                <li>Estimated time = %d hours</li>
+                                <br>
+                                <li>Visibility = %s</li>
+                                <br>
+                                <li>Target = %s</li>
+                                <br>
+                                <li>Instructor = %s</li>
+                                <br>
+                                <li>Description = %s</li>
+                                <br>
+                                <li>Developed skills = %s</li>
+                                <br>
+                                <li>Subcategory = %s</li>
+                            </ul>
+                            <p>------------------------------------------------------------------------------------------------------------------</p>
+                            <br>
+                            <br>
+                            <br>
+                            %n""",
                         c.getId(), c.getName(), c.getCode(), c.getEstimatedTime(), HelperCsv.isPublic(c.getVisible()),
                         c.getTarget(), c.getInstructor(), c.getDescription(), c.getDevelopedSkills(),
                         subcategory.getName());
@@ -140,8 +140,7 @@ public class RunningSqlReport {
             for(Subcategory s : subcategoriesWithoutDescription) {
                 ps.printf("""
                             <li>Subcategory name = %s</li>
-                            """,
-                        s.getName());
+                            """, s.getName());
 
             }
 

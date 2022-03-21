@@ -5,6 +5,7 @@ import com.coddingSchool.dao.CourseDao;
 import com.coddingSchool.dao.SubcategoryDao;
 import com.coddingSchool.model.Category;
 import com.coddingSchool.model.Course;
+import com.coddingSchool.model.Section;
 import com.coddingSchool.model.Subcategory;
 import com.coddingSchool.util.JpaUtil;
 
@@ -26,6 +27,8 @@ public class RunningDao {
         Course course = new Course("Course name", "course-code", 6, false,
                 "Target audience", "Instructor name", "Course description",
                 "Developed skills", subcategory);
+
+        Section section = new Section();
 
 
         EntityManager em = JpaUtil.getEntityManager();

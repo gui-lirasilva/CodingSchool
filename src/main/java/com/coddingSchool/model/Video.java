@@ -3,9 +3,14 @@ package com.coddingSchool.model;
 import com.coddingSchool.validations.ObjectValidator;
 import com.coddingSchool.validations.StringValidator;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Video extends Activity{
 
     private String url;
+    @Column(name = "video_time")
     private int videoTime;
     private String transcription;
 
@@ -20,6 +25,10 @@ public class Video extends Activity{
         this.url = url;
         this.transcription = transcription;
         this.videoTime = videoTime;
+    }
+
+    public Video() {
+
     }
 
     @Override

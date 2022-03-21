@@ -1,10 +1,15 @@
 package com.coddingSchool.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import static com.coddingSchool.validations.StringValidator.cantBeBlank;
 
+@Entity
 public class Explanation extends Activity{
 
-    private String text;
+    @Column(name = "explanatory_text", columnDefinition = "text")
+    private String explanatoryText;
 
     public Explanation(String title, String code, Section section, String text) {
 
@@ -12,13 +17,17 @@ public class Explanation extends Activity{
 
         cantBeBlank(text, "The text can't be empty or null");
 
-        this.text = text;
+        this.explanatoryText = text;
+    }
+
+    public Explanation() {
+
     }
 
     @Override
     public String toString() {
         return "Explanation{" +
-                "text='" + text + '\'' +
+                "text='" + explanatoryText + '\'' +
                 '}';
     }
 }
