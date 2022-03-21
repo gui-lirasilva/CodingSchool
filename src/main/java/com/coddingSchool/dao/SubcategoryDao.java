@@ -56,4 +56,18 @@ public class SubcategoryDao {
         return entityManager.createQuery("SELECT s FROM Subcategory s", Subcategory.class).getResultList();
     }
 
+    public List<Subcategory> listAllActiveSubcategories() {
+        return entityManager
+                .createQuery("SELECT s FROM Subcategory s WHERE s.active = :active ORDER BY s.order",
+                        Subcategory.class)
+                .setParameter("active", true)
+                .getResultList();
+    }
+
+    public List<Subcategory> listAllSubcategoriesWithoutDescription() {
+        return entityManager
+                .createQuery("SELECT s FROM Subcategory s WHERE s.description = ?1 OR s.description = ?2",
+                        Subcategory.class).setParameter(1, "").setParameter(2, null)
+                .getResultList();
+    }
 }

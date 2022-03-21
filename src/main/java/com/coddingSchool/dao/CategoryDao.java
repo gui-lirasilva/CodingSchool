@@ -55,4 +55,10 @@ public class CategoryDao {
     public List<Category> listAll() {
         return entityManager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
     }
+
+    public List<Category> listAllActiveCategories() {
+        return entityManager
+                .createQuery("SELECT c FROM Category c WHERE c.active = :active ORDER BY c.order", Category.class)
+                .setParameter("active", true).getResultList();
+    }
 }

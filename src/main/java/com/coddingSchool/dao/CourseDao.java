@@ -62,4 +62,11 @@ public class CourseDao {
     public List<Course> listAll() {
         return entityManager.createQuery("SELECT c FROM Course c", Course.class).getResultList();
     }
+
+    public List<Course> listAllPublicCourses() {
+        return entityManager
+                .createQuery("SELECT c FROM Course c WHERE c.visible = :visible ORDER BY c.id", Course.class)
+                .setParameter("visible", true)
+                .getResultList();
+    }
 }
