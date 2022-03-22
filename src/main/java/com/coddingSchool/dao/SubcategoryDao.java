@@ -70,4 +70,15 @@ public class SubcategoryDao {
                         Subcategory.class).setParameter(1, "").setParameter(2, null)
                 .getResultList();
     }
+
+    public void removeAll() {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("DELETE FROM Subcategory").executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            entityManager.getTransaction().rollback();
+            ex.printStackTrace();
+        }
+    }
 }

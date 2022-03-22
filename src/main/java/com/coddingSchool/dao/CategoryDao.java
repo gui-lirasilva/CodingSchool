@@ -61,4 +61,16 @@ public class CategoryDao {
                 .createQuery("SELECT c FROM Category c WHERE c.active = :active ORDER BY c.order", Category.class)
                 .setParameter("active", true).getResultList();
     }
+
+
+    public void removeAll() {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("DELETE FROM Category").executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            entityManager.getTransaction().rollback();
+            ex.printStackTrace();
+        }
+    }
 }

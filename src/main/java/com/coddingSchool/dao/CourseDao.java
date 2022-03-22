@@ -69,4 +69,15 @@ public class CourseDao {
                 .setParameter("visible", true)
                 .getResultList();
     }
+
+    public void removeAll() {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("DELETE FROM Course").executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            entityManager.getTransaction().rollback();
+            ex.printStackTrace();
+        }
+    }
 }
