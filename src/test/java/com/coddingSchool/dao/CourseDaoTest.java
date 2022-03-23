@@ -1,5 +1,8 @@
 package com.coddingSchool.dao;
 
+import com.coddingSchool.builders.CategoryBuilder;
+import com.coddingSchool.builders.CourseBuilder;
+import com.coddingSchool.builders.SubcategoryBuilder;
 import com.coddingSchool.model.Category;
 import com.coddingSchool.model.Course;
 import com.coddingSchool.model.Subcategory;
@@ -41,23 +44,37 @@ class CourseDaoTest {
     class TestsWithData {
         @BeforeEach
         void setup2() {
-            category = new Category(
-                    "First category", "category-code", 1,
-                    "Category description", true,
-                    "https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png",
-                    "#00c86f", "");
+
+            category = new CategoryBuilder()
+                    .withName("First category")
+                    .withCode("category-code")
+                    .build();
             categoryDao.insertNewCategory(category);
 
-            subcategory = new Subcategory("First subcategory", "java", 1,
-                    "Subcategory description", true, category, "");
+            subcategory = new SubcategoryBuilder()
+                    .withName("First subcategory")
+                    .withCode("java")
+                    .withCategory(category)
+                    .build();
             subcategoryDao.insertNewSubcategory(subcategory);
 
-            course1 = new Course("First course", "course-code", 6, true,
-                    "Target audience", "Instructor name", "Course description",
-                    "Developed skills", subcategory);
-            course2 = new Course("Second course", "course-code", 6, false,
-                    "Target audience", "Instructor name", "Course description",
-                    "Developed skills", subcategory);
+            course1 = new CourseBuilder()
+                    .withName("First course")
+                    .withCode("course-code")
+                    .withEstimatedTime(15)
+                    .withVisible(true)
+                    .withInstructor("Instructor name")
+                    .withSubcategory(subcategory)
+                    .build();
+
+            course2 = new CourseBuilder()
+                    .withName("Second course")
+                    .withCode("course-code")
+                    .withEstimatedTime(18)
+                    .withVisible(false)
+                    .withInstructor("Instructor name")
+                    .withSubcategory(subcategory)
+                    .build();
         }
 
         @Test

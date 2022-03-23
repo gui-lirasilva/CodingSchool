@@ -25,6 +25,16 @@ public class Category {
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
 
+    public Category(String name, String code) {
+
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
+
+        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
+
+        this.name = name;
+        this.code = code;
+    }
+
     public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
 
         StringValidator.cantBeBlank(name, "The name can't be empty or null");

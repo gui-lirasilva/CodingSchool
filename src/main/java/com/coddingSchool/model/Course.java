@@ -28,13 +28,16 @@ public class Course {
     @ManyToOne
     private Subcategory subcategory;
 
-    public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor, String description, String developedSkills, Subcategory subcategory) {
+    public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor,
+                  String description, String developedSkills, Subcategory subcategory) {
 
         StringValidator.cantBeBlank(name, "The name can't be null or empty");
 
-        CodeValidator.cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
+        CodeValidator
+                .cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
 
-        EstimatedTimeValidator.timeValidator(estimatedTime, "The estimated time can't be smaller 1 or bigger than 20");
+        EstimatedTimeValidator
+                .timeValidator(estimatedTime, "The estimated time can't be smaller 1 or bigger than 20");
 
         StringValidator.cantBeBlank(instructor, "The instructor name can't be null or empty");
 
@@ -48,6 +51,28 @@ public class Course {
         this.instructor = instructor;
         this.description = description;
         this.developedSkills = developedSkills;
+        this.subcategory = subcategory;
+    }
+
+    public Course(String name, String code, int estimatedTime, boolean visible, String instructor, Subcategory subcategory) {
+
+        StringValidator.cantBeBlank(name, "The name can't be null or empty");
+
+        CodeValidator
+                .cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
+
+        EstimatedTimeValidator
+                .timeValidator(estimatedTime, "The estimated time can't be smaller 1 or bigger than 20");
+
+        StringValidator.cantBeBlank(instructor, "The instructor name can't be null or empty");
+
+        ObjectValidator.cantBeNull(subcategory, "The sub category can't be null");
+
+        this.name = name;
+        this.code = code;
+        this.estimatedTime = estimatedTime;
+        this.visible = visible;
+        this.instructor = instructor;
         this.subcategory = subcategory;
     }
 

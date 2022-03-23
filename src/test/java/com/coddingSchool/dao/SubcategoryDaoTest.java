@@ -1,5 +1,7 @@
 package com.coddingSchool.dao;
 
+import com.coddingSchool.builders.CategoryBuilder;
+import com.coddingSchool.builders.SubcategoryBuilder;
 import com.coddingSchool.model.Category;
 import com.coddingSchool.model.Subcategory;
 import org.junit.jupiter.api.*;
@@ -26,11 +28,10 @@ class SubcategoryDaoTest {
         categoryDao = new CategoryDao(entityManager);
         subcategoryDao = new SubcategoryDao(entityManager);
 
-        category = new Category(
-                "First category", "category-code", 1,
-                "Category description", true,
-                "https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png",
-                "#00c86f", "");
+        category = new CategoryBuilder()
+                .withName("First category")
+                .withCode("category-code")
+                .build();
         categoryDao.insertNewCategory(category);
     }
 
@@ -45,8 +46,15 @@ class SubcategoryDaoTest {
 
         @BeforeEach
         void setup2() {
-            subcategory = new Subcategory("First subcategory", "java", 1,
-                    "", true, category, "");
+            subcategory = new SubcategoryBuilder()
+                    .withName("First subcategory")
+                    .withCode("java")
+                    .withOrder(1)
+                    .withDescription("")
+                    .withActive(true)
+                    .withCategory(category)
+                    .withStudyGuide("")
+                    .completeBuild();
             subcategoryDao.insertNewSubcategory(subcategory);
         }
 
@@ -77,10 +85,25 @@ class SubcategoryDaoTest {
 
         @BeforeEach
         void setup3() {
-            subcategory = new Subcategory("First subcategory", "java", 1,
-                    "", true, category, "");
-            subcategory2 = new Subcategory("Second subcategory", "java", 2,
-                    "Subcategory description", false, category, "");
+            subcategory = new SubcategoryBuilder()
+                    .withName("First subcategory")
+                    .withCode("java")
+                    .withOrder(1)
+                    .withDescription("")
+                    .withActive(true)
+                    .withCategory(category)
+                    .withStudyGuide("")
+                    .completeBuild();
+
+            subcategory2 = new SubcategoryBuilder()
+                    .withName("First subcategory")
+                    .withCode("java")
+                    .withOrder(2)
+                    .withDescription("Subcategory description")
+                    .withActive(false)
+                    .withCategory(category)
+                    .withStudyGuide("")
+                    .completeBuild();
         }
 
         @Test

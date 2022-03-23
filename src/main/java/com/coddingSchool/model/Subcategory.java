@@ -44,6 +44,21 @@ public class Subcategory {
         this.studyGuide = studyGuide;
     }
 
+    public Subcategory(String name, String code, boolean active, Category category) {
+        StringValidator.cantBeBlank(name, "The name can't be empty or null");
+
+        cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
+
+        ObjectValidator.cantBeNull(description, "The subcategory description can't be null");
+
+        ObjectValidator.cantBeNull(category, "The category can't be null");
+
+        this.name = name;
+        this.code = code;
+        this.active = active;
+        this.category = category;
+    }
+
     public Subcategory() {
 
     }
