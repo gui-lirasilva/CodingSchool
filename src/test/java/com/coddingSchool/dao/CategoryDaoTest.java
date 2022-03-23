@@ -45,17 +45,6 @@ class CategoryDaoTest {
         categoryDao.insertNewCategory(category2);
         List<Category> categoryList = categoryDao.listAllActiveCategories();
         assertEquals(1, categoryList.size());
-    }
-
-    @Test
-    void listAllActiveCategories__shouldBeDevolveACorrectCategory() {
-        Category category1 = new Category(
-                "First category", "category-code", 1,
-                "Category description", true,
-                "https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png",
-                "#00c86f", "");
-        categoryDao.insertNewCategory(category1);
-        List<Category> categoryList = categoryDao.listAllActiveCategories();
         assertEquals(category1, categoryList.get(0));
     }
 

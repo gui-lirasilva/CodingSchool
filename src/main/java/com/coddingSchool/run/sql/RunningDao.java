@@ -45,6 +45,7 @@ public class RunningDao {
         categoryDao.insertNewCategory(category);
         subcategoryDao.insertNewSubcategory(subcategory);
         courseDao.insertNewCourse(course);
+        System.out.println(course.getId());
 
         category.setName("New name");
         categoryDao.updateCategory(category);
