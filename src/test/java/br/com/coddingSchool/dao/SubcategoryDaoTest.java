@@ -38,6 +38,12 @@ class SubcategoryDaoTest {
         categoryDao.insertNewCategory(category);
     }
 
+    @AfterEach
+    void finish() {
+        subcategoryDao.removeAll();
+        categoryDao.removeAll();
+    }
+
     @Test
     void listAllActiveSubcategories__devolveAEmptyListIfTheDatabaseIsEmpty() {
         List<Subcategory> subcategoryList = subcategoryDao.listAllActiveSubcategories();
@@ -124,12 +130,6 @@ class SubcategoryDaoTest {
             List<Subcategory> subcategoryList = subcategoryDao.listAllSubcategoriesWithoutDescription();
             assertEquals(1, subcategoryList.size());
         }
-    }
-
-    @AfterEach
-    void finish() {
-        subcategoryDao.removeAll();
-        categoryDao.removeAll();
     }
 
 }

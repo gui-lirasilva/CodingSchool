@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import static br.com.coddingSchool.validations.StringValidator.cantBeBlank;
 
 @Entity
-public class Explanation extends Activity{
+public class Explanation extends Activity {
 
     @Column(name = "explanatory_text", columnDefinition = "text")
     private String explanatoryText;

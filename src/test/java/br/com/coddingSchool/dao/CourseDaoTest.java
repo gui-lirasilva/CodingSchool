@@ -37,6 +37,13 @@ class CourseDaoTest {
         courseDao = new CourseDao(entityManager);
     }
 
+    @AfterEach
+    void finish() {
+        courseDao.removeAll();
+        subcategoryDao.removeAll();
+        categoryDao.removeAll();
+    }
+
     @Test
     void listAllPublicCourses__shouldBeDevolveAEmptyListIfTheDatabaseIsEmpty() {
         List<Course> courseList = courseDao.listAllPublicCourses();
@@ -99,12 +106,5 @@ class CourseDaoTest {
             List<Course> courseList = courseDao.listAllPublicCourses();
             assertEquals(course1, courseList.get(0));
         }
-    }
-
-    @AfterEach
-    void finish() {
-        courseDao.removeAll();
-        subcategoryDao.removeAll();
-        categoryDao.removeAll();
     }
 }

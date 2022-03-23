@@ -23,6 +23,11 @@ class CategoryDaoTest {
         categoryDao = new CategoryDao(JpaUtilForTest.getEntityManagerForTest());
     }
 
+    @AfterEach
+    void finish() {
+        categoryDao.removeAll();
+    }
+
     @Test
     void listAllActiveCategories__devolveAEmptyListIfTheDatabaseIsEmpty() {
         List<Category> categoryList = categoryDao.listAllActiveCategories();
@@ -59,11 +64,6 @@ class CategoryDaoTest {
         List<Category> categoryList = categoryDao.listAllActiveCategories();
         assertEquals(1, categoryList.size());
         assertEquals(category1, categoryList.get(0));
-    }
-
-    @AfterEach
-    void finish() {
-        categoryDao.removeAll();
     }
 
 }
