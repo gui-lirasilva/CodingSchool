@@ -1,9 +1,9 @@
 USE codding_school;
 
-SELECT * FROM `categories` where `active` = true ORDER BY `order`;
+SELECT * FROM `Category` where `active` = true ORDER BY `order`;
 
-SELECT * FROM `subcategories` where `active` = true ORDER BY `order`;
+SELECT * FROM `Subcategory` where `active` = true ORDER BY `order`;
 
-SELECT * FROM `courses` where `visible` = true;
+SELECT * FROM `Course` where `visible` = true;
 
-SELECT `name` FROM `subcategories` where `description` = '';
+SELECT `name` FROM `Subcategory` where `description` = '';

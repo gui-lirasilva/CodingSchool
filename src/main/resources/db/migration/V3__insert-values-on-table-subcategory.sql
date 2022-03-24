@@ -1,6 +1,6 @@
 USE codding_school;
 
-INSERT into subcategories VALUES (
+INSERT into Subcategory VALUES (
  1,
  'Java',
  'java',
@@ -11,7 +11,7 @@ INSERT into subcategories VALUES (
  ''
 );
 
-INSERT into subcategories VALUES (
+INSERT into Subcategory VALUES (
  2,
  'Java e Persistência',
  'java-e-persistencia',
@@ -22,7 +22,7 @@ INSERT into subcategories VALUES (
  ''
 );
 
-INSERT into subcategories VALUES (
+INSERT into Subcategory VALUES (
  3,
  'PHP',
  'php',
@@ -33,7 +33,7 @@ INSERT into subcategories VALUES (
  ''
 );
 
-INSERT into subcategories VALUES (
+INSERT into Subcategory VALUES (
  4,
  'COBOL',
  'cobol',
@@ -44,7 +44,7 @@ INSERT into subcategories VALUES (
  ''
 );
 
-INSERT into subcategories VALUES (
+INSERT into Subcategory VALUES (
  5,
  'Builds e Controle de versão',
  'Builds e Controle de versão',
