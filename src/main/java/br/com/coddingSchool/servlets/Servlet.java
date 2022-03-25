@@ -12,9 +12,7 @@ import java.io.IOException;
 public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/CategoryList.jsp");
         requestDispatcher.forward(request, response);
-
     }
 }
