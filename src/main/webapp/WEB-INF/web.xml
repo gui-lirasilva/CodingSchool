@@ -4,14 +4,4 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <display-name>Codding school</display-name>
-    <servlet>
-        <servlet-name>ListaCategorias</servlet-name>
-        <servlet-class>br.com.coddingSchool.servlets.Servlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ListaCategorias</servlet-name>
-        <url-pattern>/listaCategorias</url-pattern>
-    </servlet-mapping>
-
 </web-app>

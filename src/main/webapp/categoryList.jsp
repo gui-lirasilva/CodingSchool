@@ -6,6 +6,7 @@
         <title>Title</title>
     </head>
     <body>
+        <a href="/insereCategoria">New category</a>
         <table border="1">
             <tr>
                 <td>Id</td>
