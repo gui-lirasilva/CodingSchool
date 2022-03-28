@@ -36,6 +36,33 @@ public class CategoryDao {
         }
     }
 
+    public void updateCategoryById(Long id, Category category) {
+        String jqpl = """
+                UPDATE Category c SET c.name = :name, c.code = :code, c.description = :description, 
+                c.studyGuide = :studyGuide, c.active = :active, c.order = :order, c.iconPath = :iconPath, 
+                c.colorCode = :colorCode WHERE c.id = :id
+                """;
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery(jqpl)
+                    .setParameter("id", id)
+                    .setParameter("name", category.getName())
+                    .setParameter("code", category.getCode())
+                    .setParameter("description", category.getDescription())
+                    .setParameter("studyGuide", category.getStudyGuide())
+                    .setParameter("active", category.getActive())
+                    .setParameter("order", category.getOrder())
+                    .setParameter("iconPath", category.getIconPath())
+                    .setParameter("colorCode", category.getColorCode())
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+        ex.printStackTrace();
+        entityManager.getTransaction().rollback();
+    }
+
+    }
+
     public void removeCategory(Category category) {
         try {
             entityManager.getTransaction().begin();

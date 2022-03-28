@@ -19,17 +19,18 @@
                 <td>Color</td>
                 <td>Study guide</td>
             </tr>
-            <c:forEach items="${categories}" var="Categoria">
+            <c:forEach items="${categories}" var="CategoriaDTO">
                 <tr>
-                    <td>${Categoria.id}</td>
-                    <td>${Categoria.name}</td>
-                    <td>${Categoria.code}</td>
-                    <td>${Categoria.order}</td>
-                    <td>${Categoria.description}</td>
-                    <td>${Categoria.active}</td>
-                    <td>${Categoria.iconPath}</td>
-                    <td>${Categoria.colorCode}</td>
-                    <td>${Categoria.studyGuide}</td>
+                    <td>${CategoriaDTO.id}</td>
+                    <td>${CategoriaDTO.name}</td>
+                    <td>${CategoriaDTO.code}</td>
+                    <td>${CategoriaDTO.order}</td>
+                    <td>${CategoriaDTO.description}</td>
+                    <td>${CategoriaDTO.active}</td>
+                    <td>${CategoriaDTO.iconPath}</td>
+                    <td>${CategoriaDTO.colorCode}</td>
+                    <td>${CategoriaDTO.studyGuide}</td>
+                    <td><a href="/editarCategoria?id=${CategoriaDTO.id}">EDIT</a></td>
                 </tr>
             </c:forEach>
         </table>

@@ -5,26 +5,23 @@ import br.com.coddingSchool.dto.CategoryFormDTO;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.util.JpaUtil;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Criar categoria", value = "/insereCategoria")
-public class CreateCategoryServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/insertCategory.jsp");
-        requestDispatcher.forward(request, response);
-    }
+@WebServlet(name = "Atualiza category", value = "/atualizaCategoria")
+public class UpdateCategoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
+        Long id = Long.valueOf(request.getParameter("id"));
         String name = request.getParameter("name");
         String code = request.getParameter("code");
-        int order = Integer.valueOf(request.getParameter("order"));
+        int order = Integer.parseInt(request.getParameter("order"));
         String description = request.getParameter("description");
         boolean active = request.getParameter("active") != null;
         String iconPath = request.getParameter("iconPath");
@@ -35,7 +32,7 @@ public class CreateCategoryServlet extends HttpServlet {
                 colorCode, studyGuide);
 
         Category category = categoryFormDTO.toEntity();
-        categoryDao.insertNewCategory(category);
+        categoryDao.updateCategoryById(id, category);
 
         response.sendRedirect("/listaCategorias");
     }
