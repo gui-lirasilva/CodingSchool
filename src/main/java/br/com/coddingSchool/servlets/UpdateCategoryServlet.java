@@ -5,7 +5,6 @@ import br.com.coddingSchool.dto.CategoryFormDTO;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.util.JpaUtil;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import java.io.IOException;
 public class UpdateCategoryServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
         Long id = Long.valueOf(request.getParameter("id"));
         String name = request.getParameter("name");

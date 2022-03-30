@@ -24,6 +24,5 @@ public class AlterCategoryVisibilityServlet extends HttpServlet {
         categoryDao.updateCategory(category);
 
         response.setStatus(204);
-//        response.sendRedirect("/listaCategorias");
     }
 }

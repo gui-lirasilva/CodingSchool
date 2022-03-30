@@ -41,7 +41,9 @@
                         </a>
                     </td>
                     <td>
-                        <button onclick="switchStatus(event, ${CategoriaDTO.id})" type="submit">Change visibility</button>
+                        <button onclick="switchStatus(event, ${CategoriaDTO.id})" type="submit">
+                            Change visibility
+                        </button>
                     </td>
                 </tr>
             </c:forEach>

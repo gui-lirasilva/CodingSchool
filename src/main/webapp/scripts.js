@@ -1,7 +1,7 @@
 
 function switchStatus(event, categoryId){
     event.preventDefault();
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open("POST", "/alteraVisibilidade?id="+categoryId);
     xhr.addEventListener("load", function (){
         if(xhr.status===204){
