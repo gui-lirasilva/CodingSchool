@@ -25,18 +25,6 @@ public class CategoryDao {
     }
 
     public void updateCategory(Category category) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.merge(category);
-            entityManager.persist(category);
-            entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            entityManager.getTransaction().rollback();
-        }
-    }
-
-    public void updateCategoryById(Long id, Category category) {
         String jqpl = """
                 UPDATE Category c SET c.name = :name, c.code = :code, c.description = :description, 
                 c.studyGuide = :studyGuide, c.active = :active, c.order = :order, c.iconPath = :iconPath, 
@@ -45,7 +33,7 @@ public class CategoryDao {
         try {
             entityManager.getTransaction().begin();
             entityManager.createQuery(jqpl)
-                    .setParameter("id", id)
+                    .setParameter("id", category.getId())
                     .setParameter("name", category.getName())
                     .setParameter("code", category.getCode())
                     .setParameter("description", category.getDescription())
@@ -57,9 +45,9 @@ public class CategoryDao {
                     .executeUpdate();
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
-        ex.printStackTrace();
-        entityManager.getTransaction().rollback();
-    }
+            ex.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }
 
     }
 
@@ -80,10 +68,12 @@ public class CategoryDao {
     }
 
     public List<Category> listAll() {
+        entityManager.clear();
         return entityManager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
     }
 
     public List<Category> listAllActiveCategories() {
+        entityManager.clear();
         return entityManager
                 .createQuery("SELECT c FROM Category c WHERE c.active = :active ORDER BY c.order", Category.class)
                 .setParameter("active", true).getResultList();

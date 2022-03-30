@@ -13,6 +13,8 @@ import java.io.IOException;
 @WebServlet(name = "Criar categoria", value = "/insereCategoria")
 public class CreateCategoryServlet extends HttpServlet {
 
+    private CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/insertCategory.jsp");
@@ -21,7 +23,6 @@ public class CreateCategoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
         String name = request.getParameter("name");
         String code = request.getParameter("code");
         int order = Integer.valueOf(request.getParameter("order"));

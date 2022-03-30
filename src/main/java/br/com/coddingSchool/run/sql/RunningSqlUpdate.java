@@ -3,7 +3,9 @@ package br.com.coddingSchool.run.sql;
 import br.com.coddingSchool.dao.CategoryDao;
 import br.com.coddingSchool.dao.CourseDao;
 import br.com.coddingSchool.dao.SubcategoryDao;
-import br.com.coddingSchool.model.*;
+import br.com.coddingSchool.model.Category;
+import br.com.coddingSchool.model.Course;
+import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.util.JpaUtil;
 
 import javax.persistence.EntityManager;

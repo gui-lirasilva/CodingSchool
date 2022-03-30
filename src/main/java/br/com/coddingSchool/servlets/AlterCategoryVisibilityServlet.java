@@ -12,15 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AlterCategoryVisibilityServlet", value = "/alteraVisibilidade")
 public class AlterCategoryVisibilityServlet extends HttpServlet {
 
+    private CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         Long id = Long.valueOf(request.getParameter("id"));
-        CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
-
         Category category = categoryDao.findById(id);
         category.toggleVisibility();
         categoryDao.updateCategory(category);
-
         response.setStatus(204);
     }
 }

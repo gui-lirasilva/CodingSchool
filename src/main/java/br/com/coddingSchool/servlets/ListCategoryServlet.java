@@ -15,9 +15,12 @@ import java.util.List;
 
 @WebServlet(name = "ListaCategorias", value = "/listaCategorias")
 public class ListCategoryServlet extends HttpServlet {
+
+    private CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
+
         List<CategoryDTO> categoryDTOList = CategoryDTO.fromDTO(categoryDao.listAll());
 
         request.setAttribute("categories", categoryDTOList);
