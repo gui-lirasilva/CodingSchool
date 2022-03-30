@@ -20,7 +20,7 @@ public class CreateCategoryServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
         String name = request.getParameter("name");
         String code = request.getParameter("code");

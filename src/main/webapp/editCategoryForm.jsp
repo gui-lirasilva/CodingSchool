@@ -7,7 +7,6 @@
 </head>
 <body>
 <form action="${atualizaCategoria}" method="post">
-    <label>Id:</label>
     <input type="hidden" name="id" value="${category.id}"/> <br>
     <label>Name:</label>
     <input type="text" name="name" value="${category.name}"/> <br>

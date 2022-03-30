@@ -4,18 +4,16 @@ import br.com.coddingSchool.dao.CategoryDao;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.util.JpaUtil;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @WebServlet(name = "AlterCategoryVisibilityServlet", value = "/alteraVisibilidade")
 public class AlterCategoryVisibilityServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         Long id = Long.valueOf(request.getParameter("id"));
         CategoryDao categoryDao = new CategoryDao(JpaUtil.getEntityManager());
 

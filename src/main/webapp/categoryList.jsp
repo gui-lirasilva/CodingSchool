@@ -36,7 +36,7 @@
                     <td>${CategoriaDTO.colorCode}</td>
                     <td>${CategoriaDTO.studyGuide}</td>
                     <td>
-                        <a href="/editarCategoria?id=${CategoriaDTO.id}">
+                        <a href="/atualizaCategoria?id=${CategoriaDTO.id}">
                             <button>EDIT</button>
                         </a>
                     </td>
