@@ -49,5 +49,5 @@
             </c:forEach>
         </table>
     </body>
- <script src="scripts.js"></script>
+ <script src="/assets/js/scripts.js"></script>
 </html>
