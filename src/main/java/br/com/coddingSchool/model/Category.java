@@ -59,6 +59,42 @@ public class Category {
 
     public Category() {}
 
+    public void toggleVisibility() {
+        this.active = !isActive();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
+    }
+
     public Long getId() {
         return id;
     }
@@ -97,10 +133,6 @@ public class Category {
 
     public String getColorCode() {
         return colorCode;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

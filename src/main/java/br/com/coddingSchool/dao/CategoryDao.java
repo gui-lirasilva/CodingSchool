@@ -25,15 +25,30 @@ public class CategoryDao {
     }
 
     public void updateCategory(Category category) {
+        String jqpl = """
+                UPDATE Category c SET c.name = :name, c.code = :code, c.description = :description, 
+                c.studyGuide = :studyGuide, c.active = :active, c.order = :order, c.iconPath = :iconPath, 
+                c.colorCode = :colorCode WHERE c.id = :id
+                """;
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(category);
-            entityManager.persist(category);
+            entityManager.createQuery(jqpl)
+                    .setParameter("id", category.getId())
+                    .setParameter("name", category.getName())
+                    .setParameter("code", category.getCode())
+                    .setParameter("description", category.getDescription())
+                    .setParameter("studyGuide", category.getStudyGuide())
+                    .setParameter("active", category.getActive())
+                    .setParameter("order", category.getOrder())
+                    .setParameter("iconPath", category.getIconPath())
+                    .setParameter("colorCode", category.getColorCode())
+                    .executeUpdate();
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
             entityManager.getTransaction().rollback();
         }
+
     }
 
     public void removeCategory(Category category) {
@@ -53,10 +68,12 @@ public class CategoryDao {
     }
 
     public List<Category> listAll() {
+        entityManager.clear();
         return entityManager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
     }
 
     public List<Category> listAllActiveCategories() {
+        entityManager.clear();
         return entityManager
                 .createQuery("SELECT c FROM Category c WHERE c.active = :active ORDER BY c.order", Category.class)
                 .setParameter("active", true).getResultList();
