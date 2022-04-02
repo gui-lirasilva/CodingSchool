@@ -10,7 +10,10 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    @Query("SELECT c.name, c.code, c.order, c.colorCode, c.studyGuide FROM Category c WHERE c.active = true")
+    @Query("SELECT c FROM Category c " +
+            "JOIN Subcategory s " +
+            "INNER JOIN Course co " +
+            "WHERE c.active = true AND s.active = true AND co.visible = true")
     List<Category> findActiveCategoriesAndSubcategories();
 
     List<Category> findCategoryByActiveIsTrue();

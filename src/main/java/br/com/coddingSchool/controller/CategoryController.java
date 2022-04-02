@@ -2,7 +2,7 @@ package br.com.coddingSchool.controller;
 
 import br.com.coddingSchool.dto.CategoryDTO;
 import br.com.coddingSchool.repository.CategoryRepository;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ public class CategoryController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/categories")
+    @GetMapping(path = "/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<CategoryDTO> categories() {
         return CategoryDTO.fromDTO(categoryRepository.findCategoryByActiveIsTrue());
     }
