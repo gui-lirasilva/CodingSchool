@@ -4,6 +4,7 @@ import br.com.coddingSchool.validations.CodeValidator;
 import br.com.coddingSchool.validations.StringValidator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -24,15 +25,15 @@ public class Category {
     private String colorCode;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
+    @OneToMany(mappedBy = "category")
+    private List<Subcategory> subcategories;
 
-    public Category(String name, String code) {
-
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
-
-        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
-
+    public Category(String name, String code, int order, String colorCode, String studyGuide) {
         this.name = name;
         this.code = code;
+        this.order = order;
+        this.colorCode = colorCode;
+        this.studyGuide = studyGuide;
     }
 
     public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
@@ -133,6 +134,10 @@ public class Category {
 
     public String getColorCode() {
         return colorCode;
+    }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
     }
 
     @Override

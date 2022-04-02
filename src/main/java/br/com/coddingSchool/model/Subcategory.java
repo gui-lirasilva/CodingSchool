@@ -2,8 +2,11 @@ package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.validations.ObjectValidator;
 import br.com.coddingSchool.validations.StringValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import java.util.List;
 
 import static br.com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
 
@@ -20,10 +23,14 @@ public class Subcategory {
     @Column(columnDefinition = "text")
     private String description;
     private boolean active;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private Category category;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
+    @OneToMany(mappedBy = "subcategory")
+    private List<Course> courses;
 
     public Subcategory(String name, String code, int order, String description, boolean active, Category category, String studyGuide) {
 
@@ -99,8 +106,8 @@ public class Subcategory {
         return category;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Course> getCourses() {
+        return courses;
     }
 
     @Override

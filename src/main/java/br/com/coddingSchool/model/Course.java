@@ -4,6 +4,7 @@ import br.com.coddingSchool.validations.CodeValidator;
 import br.com.coddingSchool.validations.EstimatedTimeValidator;
 import br.com.coddingSchool.validations.ObjectValidator;
 import br.com.coddingSchool.validations.StringValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -25,7 +26,9 @@ public class Course {
     private String description;
     @Column(name = "developed_skills", columnDefinition = "text")
     private String developedSkills;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subcategory_id", nullable = false)
+    @JsonIgnore
     private Subcategory subcategory;
 
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor,

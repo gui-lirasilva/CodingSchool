@@ -1,27 +1,28 @@
 package br.com.coddingSchool.controller;
 
-import br.com.coddingSchool.model.Category;
+import br.com.coddingSchool.dto.CategoryDTO;
 import br.com.coddingSchool.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class CategoryController {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    @GetMapping("/listaCategorias")
-    public String listAll(Model model) {
-        List<Category> categories = categoryRepository.findAll();
-        model.addAttribute("categories", categories);
-        return "categoryList";
+    public CategoryController(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
+    @GetMapping("/categories")
+    public List<CategoryDTO> categories() {
+        return CategoryDTO.fromDTO(categoryRepository.findCategoryByActiveIsTrue());
+    }
 
 }

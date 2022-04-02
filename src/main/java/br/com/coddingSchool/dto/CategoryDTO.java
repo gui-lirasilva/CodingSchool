@@ -1,39 +1,31 @@
 package br.com.coddingSchool.dto;
 
 import br.com.coddingSchool.model.Category;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.List;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CategoryDTO {
 
-    private final Long id;
-    private final String name;
-    private final String code;
-    private final int order;
-    private final String description;
-    private final boolean active;
-    private final String iconPath;
-    private final String colorCode;
-    private final String studyGuide;
+    private String name;
+    private String code;
+    private int order;
+    private String colorCode;
+    private String studyGuide;
+    private List<SubcategoryDTO> subcategories;
 
     public CategoryDTO(Category category) {
-        this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
         this.order = category.getOrder();
-        this.description = category.getDescription();
-        this.active = category.getActive();
-        this.iconPath = category.getIconPath();
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
+        this.subcategories = SubcategoryDTO.fromDTO(category.getSubcategories());
     }
 
     public static List<CategoryDTO> fromDTO(List<Category> categoryList) {
         return categoryList.stream().map(CategoryDTO::new).toList();
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
@@ -48,23 +40,15 @@ public class CategoryDTO {
         return order;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getIconPath() {
-        return iconPath;
-    }
-
     public String getColorCode() {
         return colorCode;
     }
 
     public String getStudyGuide() {
         return studyGuide;
+    }
+
+    public List<SubcategoryDTO> getSubcategories() {
+        return subcategories;
     }
 }
