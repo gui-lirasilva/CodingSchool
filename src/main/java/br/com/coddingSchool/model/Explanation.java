@@ -2,21 +2,19 @@ package br.com.coddingSchool.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 
 import static br.com.coddingSchool.validations.StringValidator.cantBeBlank;
 
 @Entity
 public class Explanation extends Activity {
 
+    @NotBlank(message = "The text can't be empty or null")
     @Column(name = "explanatory_text", columnDefinition = "text")
     private String explanatoryText;
 
     public Explanation(String title, String code, Section section, String text) {
-
         super(title, code, section);
-
-        cantBeBlank(text, "The text can't be empty or null");
-
         this.explanatoryText = text;
     }
 

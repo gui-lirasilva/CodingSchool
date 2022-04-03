@@ -7,6 +7,7 @@ import br.com.coddingSchool.validations.StringValidator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Course {
@@ -14,18 +15,24 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{name.empty.null}")
     private String name;
+    @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
+    @Min(value = 1, message = "The estimated time can't be smaller 1")
+    @Max(value = 20, message = "The estimated time can't be bigger than 20")
     @Column(name = "estimated_time")
     private int estimatedTime;
     private Boolean visible = false;
     @Column(columnDefinition = "text")
     private String target;
+    @NotBlank(message = "The instructor name can't be null or empty")
     private String instructor;
     @Column(columnDefinition = "text")
     private String description;
     @Column(name = "developed_skills", columnDefinition = "text")
     private String developedSkills;
+    @NotNull(message = "The sub category can't be null")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subcategory_id", nullable = false)
     @JsonIgnore
@@ -33,18 +40,6 @@ public class Course {
 
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor,
                   String description, String developedSkills, Subcategory subcategory) {
-
-        StringValidator.cantBeBlank(name, "The name can't be null or empty");
-
-        CodeValidator
-                .cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
-
-        EstimatedTimeValidator
-                .timeValidator(estimatedTime, "The estimated time can't be smaller 1 or bigger than 20");
-
-        StringValidator.cantBeBlank(instructor, "The instructor name can't be null or empty");
-
-        ObjectValidator.cantBeNull(subcategory, "The sub category can't be null");
 
         this.name = name;
         this.code = code;
@@ -58,18 +53,6 @@ public class Course {
     }
 
     public Course(String name, String code, int estimatedTime, boolean visible, String instructor, Subcategory subcategory) {
-
-        StringValidator.cantBeBlank(name, "The name can't be null or empty");
-
-        CodeValidator
-                .cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
-
-        EstimatedTimeValidator
-                .timeValidator(estimatedTime, "The estimated time can't be smaller 1 or bigger than 20");
-
-        StringValidator.cantBeBlank(instructor, "The instructor name can't be null or empty");
-
-        ObjectValidator.cantBeNull(subcategory, "The sub category can't be null");
 
         this.name = name;
         this.code = code;

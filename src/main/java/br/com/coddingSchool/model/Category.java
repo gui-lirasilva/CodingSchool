@@ -4,6 +4,9 @@ import br.com.coddingSchool.validations.CodeValidator;
 import br.com.coddingSchool.validations.StringValidator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -12,15 +15,21 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{name.empty.null}")
     private String name;
+    @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
     @Column(name = "`order`")
     private int order;
+    @NotBlank(message = "The category description can't be empty or null")
     @Column(columnDefinition = "text")
     private String description;
     private boolean active;
+    @NotBlank(message = "The icon path can't be empty or null")
     @Column(name = "icon_path")
     private String iconPath;
+    @NotBlank
+    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "The color code should be hexadecimal")
     @Column(name = "color_code")
     private String colorCode;
     @Column(name = "study_guide", columnDefinition = "text")
@@ -37,17 +46,6 @@ public class Category {
     }
 
     public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
-
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
-
-        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
-
-        StringValidator.cantBeBlank(description, "The category description can't be empty or null");
-
-        StringValidator.cantBeBlank(iconPath, "The icon path can't be empty or null");
-
-        CodeValidator.shouldBeHexadecimal(colorCode, "The color code should be hexadecimal");
-
         this.name = name;
         this.code = code;
         this.order = order;

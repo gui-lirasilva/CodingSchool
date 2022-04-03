@@ -7,23 +7,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Question extends Activity{
 
+    @NotBlank(message = "The statement can't be empty or null")
     private String statement;
+    @NotNull(message = "The question type can't be null")
     @Enumerated(EnumType.STRING)
     @Column(name = "question_type")
     private QuestionType questionType;
 
     public Question(String title, String code, Section section, String statement, QuestionType questionType) {
-
         super(title, code, section);
-
-        StringValidator.cantBeBlank(statement, "The statement can't be empty or null");
-
-        ObjectValidator.cantBeNull(questionType, "The question type can't be null");
-
         this.statement = statement;
         this.questionType = questionType;
     }

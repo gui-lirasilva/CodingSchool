@@ -1,4 +1,4 @@
-package br.com.coddingSchool.dto;
+package br.com.coddingSchool.dto.api;
 
 import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class SubcategoryDTO {
+public class SubcategoryApiDTO {
 
     private String name;
     private String code;
@@ -16,23 +16,23 @@ public class SubcategoryDTO {
     private String studyGuide;
     @JsonIgnore
     private int coursesNumber;
-    private List<CourseDTO> activeCourses;
+    private List<CourseApiDTO> activeCourses;
 
 
-    public SubcategoryDTO(Subcategory subcategory) {
+    public SubcategoryApiDTO(Subcategory subcategory) {
         this.name = subcategory.getName();
         this.code = subcategory.getCode();
         this.order = subcategory.getOrder();
         this.studyGuide = subcategory.getStudyGuide();
-        this.activeCourses = CourseDTO.fromDTO(subcategory.getCourses().stream().filter(Course::getVisible).toList());
+        this.activeCourses = CourseApiDTO.toDTO(subcategory.getCourses().stream().filter(Course::getVisible).toList());
         this.coursesNumber = subcategory.getCourses().size();
     }
 
-    public static List<SubcategoryDTO> fromDTO(List<Subcategory> subcategories) {
-        return subcategories.stream().map(SubcategoryDTO::new).toList();
+    public static List<SubcategoryApiDTO> toDTO(List<Subcategory> subcategories) {
+        return subcategories.stream().map(SubcategoryApiDTO::new).toList();
     }
 
-    public List<CourseDTO> getActiveCourses() {
+    public List<CourseApiDTO> getActiveCourses() {
         return activeCourses;
     }
 

@@ -1,4 +1,4 @@
-package br.com.coddingSchool.dto;
+package br.com.coddingSchool.dto.api;
 
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class CategoryDTO {
+public class CategoryApiDTO {
 
     private String name;
     private String code;
@@ -15,22 +15,22 @@ public class CategoryDTO {
     private String colorCode;
     private String studyGuide;
     private int categoryCoursesNumber;
-    private List<SubcategoryDTO> activeSubcategories;
+    private List<SubcategoryApiDTO> activeSubcategories;
 
-    public CategoryDTO(Category category) {
+    public CategoryApiDTO(Category category) {
         this.name = category.getName();
         this.code = category.getCode();
         this.order = category.getOrder();
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
-        this.activeSubcategories = SubcategoryDTO.fromDTO(category.getSubcategories().stream()
+        this.activeSubcategories = SubcategoryApiDTO.toDTO(category.getSubcategories().stream()
                 .filter(Subcategory::isActive).toList());
-        this.categoryCoursesNumber = SubcategoryDTO.fromDTO(category.getSubcategories()).stream()
-                .mapToInt(SubcategoryDTO::getCoursesNumber).sum();
+        this.categoryCoursesNumber = SubcategoryApiDTO.toDTO(category.getSubcategories()).stream()
+                .mapToInt(SubcategoryApiDTO::getCoursesNumber).sum();
     }
 
-    public static List<CategoryDTO> fromDTO(List<Category> categoryList) {
-        return categoryList.stream().map(CategoryDTO::new).toList();
+    public static List<CategoryApiDTO> toDTO(List<Category> categoryList) {
+        return categoryList.stream().map(CategoryApiDTO::new).toList();
     }
 
     public String getName() {
@@ -53,7 +53,7 @@ public class CategoryDTO {
         return studyGuide;
     }
 
-    public List<SubcategoryDTO> getActiveSubcategories() {
+    public List<SubcategoryApiDTO> getActiveSubcategories() {
         return activeSubcategories;
     }
 }
