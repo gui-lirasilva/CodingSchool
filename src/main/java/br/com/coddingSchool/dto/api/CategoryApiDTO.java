@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.List;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CategoryApiDTO {
 
     private String name;
@@ -16,6 +16,10 @@ public class CategoryApiDTO {
     private String studyGuide;
     private int categoryCoursesNumber;
     private List<SubcategoryApiDTO> activeSubcategories;
+
+    @Deprecated
+    public CategoryApiDTO() {
+    }
 
     public CategoryApiDTO(Category category) {
         this.name = category.getName();
@@ -55,5 +59,9 @@ public class CategoryApiDTO {
 
     public List<SubcategoryApiDTO> getActiveSubcategories() {
         return activeSubcategories;
+    }
+
+    public int getCategoryCoursesNumber() {
+        return categoryCoursesNumber;
     }
 }

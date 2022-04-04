@@ -1,8 +1,5 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.validations.ObjectValidator;
-import br.com.coddingSchool.validations.StringValidator;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

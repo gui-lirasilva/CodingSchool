@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 
-import static br.com.coddingSchool.validations.StringValidator.cantBeBlank;
-
 @Entity
 public class Explanation extends Activity {
 

@@ -1,17 +1,12 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.validations.ObjectValidator;
-import br.com.coddingSchool.validations.StringValidator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import java.util.List;
-
-import static br.com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
 
 @Entity
 public class Subcategory {
@@ -32,7 +27,6 @@ public class Subcategory {
     @NotNull(message = "The category can't be null")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    @JsonIgnore
     private Category category;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;

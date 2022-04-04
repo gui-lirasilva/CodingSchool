@@ -1,17 +1,18 @@
-package br.com.coddingSchool.dto;
+package br.com.coddingSchool.dto.form;
 
 import br.com.coddingSchool.model.Category;
 
 public class CategoryFormDTO {
 
-    private final String name;
-    private final String code;
-    private final int order;
-    private final String description;
-    private final boolean active;
-    private final String iconPath;
-    private final String colorCode;
-    private final String studyGuide;
+    private String name;
+    private String code;
+    private int order;
+    private String description;
+    private boolean active;
+    private String iconPath;
+    private String colorCode;
+    private String studyGuide;
+
 
     public CategoryFormDTO(String name, String code, int order, String description, boolean active,
                        String iconPath, String colorCode, String studyGuide) {
@@ -24,7 +25,6 @@ public class CategoryFormDTO {
         this.colorCode = colorCode;
         this.studyGuide = studyGuide;
     }
-
 
     public Category toEntity() {
         return new Category(name, code, order, description, active, iconPath, colorCode, studyGuide);
@@ -60,5 +60,37 @@ public class CategoryFormDTO {
 
     public String getStudyGuide() {
         return studyGuide;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
     }
 }

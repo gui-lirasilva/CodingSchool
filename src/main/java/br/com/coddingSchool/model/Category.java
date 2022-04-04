@@ -1,11 +1,7 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.validations.CodeValidator;
-import br.com.coddingSchool.validations.StringValidator;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 

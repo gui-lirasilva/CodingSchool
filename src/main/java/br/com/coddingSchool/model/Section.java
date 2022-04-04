@@ -5,10 +5,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import static br.com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
-import static br.com.coddingSchool.validations.ObjectValidator.cantBeNull;
-import static br.com.coddingSchool.validations.StringValidator.cantBeBlank;
-
 @Entity
 public class Section {
 

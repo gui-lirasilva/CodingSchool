@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class SubcategoryApiDTO {
 
     private String name;
@@ -18,6 +18,9 @@ public class SubcategoryApiDTO {
     private int coursesNumber;
     private List<CourseApiDTO> activeCourses;
 
+    @Deprecated
+    public SubcategoryApiDTO() {
+    }
 
     public SubcategoryApiDTO(Subcategory subcategory) {
         this.name = subcategory.getName();
@@ -38,5 +41,21 @@ public class SubcategoryApiDTO {
 
     public int getCoursesNumber() {
         return coursesNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public String getStudyGuide() {
+        return studyGuide;
     }
 }

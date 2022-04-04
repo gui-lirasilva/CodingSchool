@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:url value="/insereCategoria" var="insereCategoria"/>
+
 <html>
   <head>
       <title>Insert category</title>
   </head>
   <body>
-    <form action="${insereCategoria}" method="post">
+    <form action="/admin/categories" method="post">
       <label>Name:</label>
       <input type="text" name="name"/> <br>
       <label>Code: </label>
@@ -24,7 +24,7 @@
       <label>Study guide:</label>
       <input type="text" name="studyGuide"/> <br>
 
-      <input type="submit" value="Enviar">
+      <input type="submit" value="Enviar" />
     </form>
   </body>
 </html>
