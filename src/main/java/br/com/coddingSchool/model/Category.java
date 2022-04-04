@@ -1,5 +1,7 @@
 package br.com.coddingSchool.model;
 
+import br.com.coddingSchool.dto.form.UpdateCategoryForm;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -52,10 +54,33 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
+    public Category(Long id, String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.order = order;
+        this.description = description;
+        this.active = active;
+        this.iconPath = iconPath;
+        this.colorCode = colorCode;
+        this.studyGuide = studyGuide;
+    }
+
     public Category() {}
 
     public void toggleVisibility() {
         this.active = !isActive();
+    }
+
+    public void toMerge(UpdateCategoryForm updateCategoryForm) {
+        this.name = updateCategoryForm.getName();
+        this.code = updateCategoryForm.getCode();
+        this.order = updateCategoryForm.getOrder();
+        this.description = updateCategoryForm.getDescription();
+        this.active = updateCategoryForm.isActive();
+        this.iconPath = updateCategoryForm.getIconPath();
+        this.colorCode = updateCategoryForm.getColorCode();
+        this.studyGuide = updateCategoryForm.getStudyGuide();
     }
 
     public void setName(String name) {

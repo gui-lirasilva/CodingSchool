@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:url value="/atualizaCategoria" var="atualizaCategoria"/>
+
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<form action="${atualizaCategoria}" method="post">
+<form action="/admin/categories/${category.code}" method="post">
     <input type="hidden" name="id" value="${category.id}"/> <br>
     <label>Name:</label>
     <input type="text" name="name" value="${category.name}"/> <br>

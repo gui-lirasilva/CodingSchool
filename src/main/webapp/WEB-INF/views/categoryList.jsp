@@ -23,12 +23,12 @@
                     <td>${CategoriaDTO.code}</td>
                     <td id="active${CategoriaDTO.id}">${CategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
                     <td>
-                        <a href="/admin/subcategories">
+                        <a href="/admin/categories">
                             Subcategorias
                         </a>
                     </td>
                     <td>
-                        <a href="/atualizaCategoria?id=${CategoriaDTO.id}">
+                        <a href="/admin/categories/${CategoriaDTO.code}">
                             <button>EDITAR</button>
                         </a>
                     </td>

@@ -12,7 +12,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findCategoryByActiveIsTrue();
 
-    @Query("SELECT COUNT(co) FROM Course co WHERE co.subcategory.category = :category")
-    Long totalOfCourses(@Param("category") Category category);
+    Category findByCode(String code);
 
 }

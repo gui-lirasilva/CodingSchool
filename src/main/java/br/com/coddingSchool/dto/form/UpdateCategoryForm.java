@@ -1,10 +1,10 @@
 package br.com.coddingSchool.dto.form;
 
-import br.com.coddingSchool.dto.SubcategoryDTO;
 import br.com.coddingSchool.model.Category;
 
-public class CategoryFormDTO {
+public class UpdateCategoryForm {
 
+    private Long id;
     private String name;
     private String code;
     private int order;
@@ -14,10 +14,11 @@ public class CategoryFormDTO {
     private String colorCode;
     private String studyGuide;
 
-    public CategoryFormDTO() {
+    public UpdateCategoryForm() {
     }
 
-    public CategoryFormDTO(Category category) {
+    public UpdateCategoryForm(Category category) {
+//        this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
         this.active = category.getActive();
@@ -27,8 +28,8 @@ public class CategoryFormDTO {
         this.studyGuide = category.getStudyGuide();
     }
 
-    public CategoryFormDTO(String name, String code, int order, String description, boolean active,
-                       String iconPath, String colorCode, String studyGuide) {
+    public UpdateCategoryForm(String name, String code, int order, String description, boolean active,
+                           String iconPath, String colorCode, String studyGuide) {
         this.name = name;
         this.code = code;
         this.order = order;
@@ -41,6 +42,10 @@ public class CategoryFormDTO {
 
     public Category toEntity() {
         return new Category(name, code, order, description, active, iconPath, colorCode, studyGuide);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
