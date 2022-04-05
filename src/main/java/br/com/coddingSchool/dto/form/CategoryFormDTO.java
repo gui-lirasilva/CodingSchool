@@ -3,14 +3,22 @@ package br.com.coddingSchool.dto.form;
 import br.com.coddingSchool.dto.SubcategoryDTO;
 import br.com.coddingSchool.model.Category;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class CategoryFormDTO {
 
+    @NotBlank(message = "{name.empty.null}")
     private String name;
+    @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
     private int order;
+    @NotBlank(message = "{description.empty.null}")
     private String description;
     private boolean active;
+    @NotBlank(message = "{icon.path.empty.null}")
     private String iconPath;
+    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "{code.hexadecimal.pattern}")
     private String colorCode;
     private String studyGuide;
 

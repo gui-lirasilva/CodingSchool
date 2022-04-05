@@ -19,15 +19,15 @@ public class Category {
     private String code;
     @Column(name = "`order`")
     private int order;
-    @NotBlank(message = "The category description can't be empty or null")
+    @NotBlank(message = "{description.empty.null}")
     @Column(columnDefinition = "text")
     private String description;
     private boolean active;
-    @NotBlank(message = "The icon path can't be empty or null")
+    @NotBlank(message = "{icon.path.empty.null}")
     @Column(name = "icon_path")
     private String iconPath;
     @NotBlank
-    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "The color code should be hexadecimal")
+    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "{code.hexadecimal.pattern}")
     @Column(name = "color_code")
     private String colorCode;
     @Column(name = "study_guide", columnDefinition = "text")

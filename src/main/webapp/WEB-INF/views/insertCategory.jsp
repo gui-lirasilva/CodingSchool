@@ -3,28 +3,58 @@
 
 <html>
   <head>
-      <title>Insert category</title>
+    <title>Insert category</title>
+    <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <meta content="text/html;charset=UTF-8">
   </head>
   <body>
-    <form action="/admin/categories" method="post">
-      <label>Name:</label>
-      <input type="text" name="name"/> <br>
-      <label>Code: </label>
-      <input type="text" name="code"/> <br>
-      <label>Order:</label>
-      <input type="number" name="order"/> <br>
-      <label>Description:</label>
-      <input type="text" name="description"/> <br>
-      <label>Active:</label>
-      <input type="checkbox" value="true" name="active"/> <br>
-      <label>Icon path:</label>
-      <input type="text" name="iconPath"/> <br>
-      <label>Color code:</label>
-      <input type="text" name="colorCode"/> <br>
-      <label>Study guide:</label>
-      <input type="text" name="studyGuide"/> <br>
+    <div class="container">
+      <br><br><br>
+      <form action="/admin/categories" method="post">
+        <div class="mb-3 row">
+          <label class="form-label">Nome:</label>
+          <input type="text" class="form-control" name="name" placeholder="Digite aqui o nome da categoria"/> <br>
+        </div>
+        <div class="mb-3 row">
+          <label class="form-label">Código: </label>
+          <input type="text" class="form-control" name="code"
+                 placeholder="Por exemplo: java, desenvolvimento-web (Não utilize letras maiúsculas, acentos ou caracteres especiais)"/> <br>
+        </div>
+        <div class="mb-3 row">
+          <label class="form-label">Ordem no sistema:</label>
+          <input type="number" class="form-control" name="order"
+                 placeholder="Por exemplo: a categoria de ordem 1 aparece antes da categoria de ordem 2"/>
+          <br>
+        </div>
+        <div class="mb-3 row">
+          <label class="form-label">Descrição:</label>
+          <input type="text" class="form-control" name="description"
+            placeholder="Uma descrição suncinta da categoria"/> <br>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" style="height: 20px; width: 20px" value="true" name="active"
+            placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc."/>
+          <label class="form-label">Categoria ativa</label>
+          <br> <br>
+        </div>
+        <div class="mb-3 row">
+          <label class="form-label">Link para ícone:</label>
+          <input type="text" class="form-control" name="iconPath"
+          placeholder="Por exemplo: /images/categoria/programacao.svg"/> <br>
+        </div>
+        <div class="mb-3 row">
+          <label class="form-label">Código para cor:</label>
+          <input type="text" class="form-control" name="colorCode"
+                 placeholder="Código hexadecimal para a cor utilizada pela categoria"/> <br>
+        </div>
+        <div class="mb-3 row">
+          <label class="form-label">Guia de estudo:</label>
+          <input type="text" class="form-control" name="studyGuide"
+                 placeholder="Um texto apontando para informações para ajudar pessoas perdidas"/> <br>
+        </div>
+        <input type="submit" class="btn btn-default" value="Enviar" />
+      </form>
+    </div>
 
-      <input type="submit" value="Enviar" />
-    </form>
   </body>
 </html>

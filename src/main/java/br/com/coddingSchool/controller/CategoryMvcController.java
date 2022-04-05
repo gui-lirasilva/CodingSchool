@@ -5,15 +5,18 @@ import br.com.coddingSchool.dto.form.CategoryFormDTO;
 import br.com.coddingSchool.dto.form.UpdateCategoryForm;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.repository.CategoryRepository;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/categories")
@@ -38,7 +41,10 @@ public class CategoryMvcController {
     }
 
     @PostMapping
-    public String insertNewCategory(CategoryFormDTO categoryFormDTO, Model model) {
+    public String insertNewCategory(@Valid CategoryFormDTO categoryFormDTO, BindingResult bindResult, Model model) {
+        if(bindResult.hasErrors()) {
+            return "redirect:/admin/categories/new";
+        }
         categoryRepository.save(categoryFormDTO.toEntity());
         return "redirect:/admin/categories";
     }
@@ -53,7 +59,11 @@ public class CategoryMvcController {
 
     @Transactional
     @PostMapping("/{code}")
-    public String updateCategory(@PathVariable String code, UpdateCategoryForm updateCategoryForm, Model model) {
+    public String updateCategory(@PathVariable String code, @Valid UpdateCategoryForm updateCategoryForm,
+                                 BindingResult bindResult, Model model) {
+        if(bindResult.hasErrors()) {
+            return "redirect:/admin/categories/{code}";
+        }
         Category category = categoryRepository.findByCode(code);
         category.toMerge(updateCategoryForm);
         categoryRepository.save(category);
