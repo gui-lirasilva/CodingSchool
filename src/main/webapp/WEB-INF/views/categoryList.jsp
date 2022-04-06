@@ -9,44 +9,40 @@
     </head>
     <body>
         <div class="container">
-            <h3>Categorias</h3>
+            <h2>Categorias</h2>
+            <br><br>
             <a href="/admin/categories/new">
                 <button type="button" class="btn btn-primary"> Nova categoria </button>
             </a>
             <br><br>
+                <table class="table table-bordered justify-content-center">
+                    <thead>
+                        <th>Nome</th>
+                        <th>Código</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${categories}" var="CategoriaDTO">
+                            <tr class="col">
+                                <td>${CategoriaDTO.name}</td>
+                                <td>${CategoriaDTO.code}</td>
+                                <td id="active${CategoriaDTO.id}">${CategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
+                                <td class="text-center">
+                                    <a href="/admin/subcategories/${CategoriaDTO.code}">
+                                        Subcategorias
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-default" role="button" href="/admin/categories/${CategoriaDTO.code}">
+                                        EDITAR
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+            </table>
         </div>
-        <div class="container">
-            <div class="row">
-                <table class="table table-bordered ">
-                    <tr class="col">
-                        <td>Id</td>
-                        <td>Nome</td>
-                        <td>Código</td>
-                        <td>Status</td>
-                    </tr>
-                    <c:forEach items="${categories}" var="CategoriaDTO">
-                        <tr class="col">
-                            <td id="tdId${CategoriaDTO.id}">${CategoriaDTO.id}</td>
-                            <td>${CategoriaDTO.name}</td>
-                            <td>${CategoriaDTO.code}</td>
-                            <td id="active${CategoriaDTO.id}">${CategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
-                            <td>
-                                <a href="/admin/subcategories/${CategoriaDTO.code}">
-                                    Subcategorias
-                                </a>
-                            </td>
-                            <td>
-                                <a href="/admin/categories/${CategoriaDTO.code}">
-                                    <button type="button" class="btn btn-default"> EDITAR </button>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </div>
-
-        </div>
-
-
     </body>
 </html>

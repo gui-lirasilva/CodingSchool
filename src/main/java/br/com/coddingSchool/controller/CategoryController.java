@@ -5,7 +5,6 @@ import br.com.coddingSchool.dto.form.CategoryFormDTO;
 import br.com.coddingSchool.dto.form.UpdateCategoryForm;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.repository.CategoryRepository;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +19,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/categories")
-public class CategoryMvcController {
+public class CategoryController {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryMvcController(CategoryRepository categoryRepository) {
+    public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -36,21 +35,22 @@ public class CategoryMvcController {
     }
 
     @GetMapping("/new")
-    public String newCategory() {
+    public String newCategory(CategoryFormDTO categoryFormDTO, Model model) {
+        model.addAttribute("category", categoryFormDTO);
         return "insertCategory";
     }
 
     @PostMapping
     public String insertNewCategory(@Valid CategoryFormDTO categoryFormDTO, BindingResult bindResult, Model model) {
         if(bindResult.hasErrors()) {
-            return "redirect:/admin/categories/new";
+            return newCategory(categoryFormDTO, model);
         }
         categoryRepository.save(categoryFormDTO.toEntity());
         return "redirect:/admin/categories";
     }
 
     @GetMapping("/{code}")
-    public String update(@PathVariable String code, Model model) {
+    public String update(@PathVariable String code, UpdateCategoryForm updateCategoryForm, Model model) {
         Category category = categoryRepository.findByCode(code);
         CategoryDTO categoryDTO = new CategoryDTO(category);
         model.addAttribute("category", categoryDTO);
@@ -62,7 +62,7 @@ public class CategoryMvcController {
     public String updateCategory(@PathVariable String code, @Valid UpdateCategoryForm updateCategoryForm,
                                  BindingResult bindResult, Model model) {
         if(bindResult.hasErrors()) {
-            return "redirect:/admin/categories/{code}";
+            return update(code, updateCategoryForm, model);
         }
         Category category = categoryRepository.findByCode(code);
         category.toMerge(updateCategoryForm);

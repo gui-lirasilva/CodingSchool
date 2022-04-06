@@ -1,59 +1,75 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
   <head>
     <title>Insert category</title>
     <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/assets/css/style.css'>
     <meta content="text/html;charset=UTF-8">
   </head>
   <body>
     <div class="container">
-      <br><br><br>
-      <form action="/admin/categories" method="post">
+      <div class="row">
+        <h2>Nova categoria</h2>
+      </div>
+      <%--@elvariable id="categoryFormDTO" type="categoryFormDTO"--%>
+      <form:form action="/admin/categories" method="post" modelAttribute="categoryFormDTO">
         <div class="mb-3 row">
-          <label class="form-label">Nome:</label>
-          <input type="text" class="form-control" name="name" placeholder="Digite aqui o nome da categoria"/> <br>
+          <label class="form-label">Nome</label>
+          <input type="text" class="form-control" name="name" value="${category.name}"
+                 placeholder="Digite aqui o nome da categoria"/>
+          <form:errors path="name" cssClass="alert-danger"/>
         </div>
         <div class="mb-3 row">
-          <label class="form-label">Código: </label>
-          <input type="text" class="form-control" name="code"
-                 placeholder="Por exemplo: java, desenvolvimento-web (Não utilize letras maiúsculas, acentos ou caracteres especiais)"/> <br>
+          <label class="form-label">Código</label>
+          <input type="text" class="form-control" name="code" value="${category.code}"
+                 placeholder="Por exemplo: java, desenvolvimento-web (Não utilize letras maiúsculas, acentos ou caracteres especiais)"/>
+          <form:errors path="code" cssClass="alert-danger"/>
+        </div>
+        <div class="mb-3 form-check row">
+          <input type="checkbox" class="form-check-input"
+                 value="true" name="active" ${category.isActive() ? 'checked' : ''}/>
+          <label class="form-label">
+            Categoria ativa?
+            <span class="text-muted checkBox-helper">Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc.</span>
+          </label>
         </div>
         <div class="mb-3 row">
-          <label class="form-label">Ordem no sistema:</label>
-          <input type="number" class="form-control" name="order"
+          <label class="form-label">Ordem da categoria</label>
+          <input type="number" class="form-control" name="order" value="${category.order}"
                  placeholder="Por exemplo: a categoria de ordem 1 aparece antes da categoria de ordem 2"/>
-          <br>
+          <form:errors path="order" cssClass="alert-danger"/>
         </div>
         <div class="mb-3 row">
-          <label class="form-label">Descrição:</label>
-          <input type="text" class="form-control" name="description"
-            placeholder="Uma descrição suncinta da categoria"/> <br>
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" style="height: 20px; width: 20px" value="true" name="active"
-            placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc."/>
-          <label class="form-label">Categoria ativa</label>
-          <br> <br>
+          <label class="form-label">Guias de estudo</label>
+          <textarea class="form-control" name="studyGuide" rows="6"
+                    placeholder="Um texto apontando para formações para ajudar pessoas perdidas">${category.studyGuide}</textarea>
+          <form:errors path="studyGuide" cssClass="alert-danger"/>
         </div>
         <div class="mb-3 row">
-          <label class="form-label">Link para ícone:</label>
-          <input type="text" class="form-control" name="iconPath"
-          placeholder="Por exemplo: /images/categoria/programacao.svg"/> <br>
+          <label class="form-label">Caminho do ícone</label>
+          <input type="text" class="form-control" name="iconPath" value="${category.iconPath}"
+                 placeholder="por exemplo: /imagens/categorias/programacao.svg"/>
+          <form:errors path="iconPath" cssClass="alert-danger"/>
         </div>
         <div class="mb-3 row">
-          <label class="form-label">Código para cor:</label>
-          <input type="text" class="form-control" name="colorCode"
-                 placeholder="Código hexadecimal para a cor utilizada pela categoria"/> <br>
+          <label class="form-label">Cor</label>
+          <input type="text" class="form-control" name="colorCode" value="${category.colorCode}"
+          placeholder="por exemplo: #fcc14a"/>
+          <form:errors path="colorCode" cssClass="alert-danger"/>
         </div>
         <div class="mb-3 row">
-          <label class="form-label">Guia de estudo:</label>
-          <input type="text" class="form-control" name="studyGuide"
-                 placeholder="Um texto apontando para informações para ajudar pessoas perdidas"/> <br>
+          <label class="form-label">Descrição</label>
+          <input type="text" class="form-control" name="description" value="${category.description}"
+                 placeholder="por exemplo: iOS, Android, PhoneGap, e mais..."/>
+          <form:errors path="description" cssClass="alert-danger"/>
         </div>
-        <input type="submit" class="btn btn-default" value="Enviar" />
-      </form>
+        <div class="row">
+          <input type="submit" class="btn btn-success" value="Enviar"/>
+        </div>
+      </form:form>
     </div>
 
   </body>

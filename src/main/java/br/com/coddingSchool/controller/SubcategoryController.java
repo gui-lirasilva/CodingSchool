@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("admin/subcategories")
-public class SubcategoryMvcController {
+public class SubcategoryController {
 
     @GetMapping("{code}")
     public String redirect() {
