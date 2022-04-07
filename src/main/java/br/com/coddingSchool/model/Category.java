@@ -1,9 +1,11 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.validations.CodeValidator;
-import br.com.coddingSchool.validations.StringValidator;
+import br.com.coddingSchool.dto.form.UpdateCategoryForm;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -11,42 +13,49 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{name.empty.null}")
     private String name;
+    @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
     @Column(name = "`order`")
     private int order;
+    @NotBlank(message = "{description.empty.null}")
     @Column(columnDefinition = "text")
     private String description;
     private boolean active;
+    @NotBlank(message = "{icon.path.empty.null}")
     @Column(name = "icon_path")
     private String iconPath;
+    @NotBlank
+    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "{code.hexadecimal.pattern}")
     @Column(name = "color_code")
     private String colorCode;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
+    @OneToMany(mappedBy = "category")
+    private List<Subcategory> subcategories;
 
-    public Category(String name, String code) {
-
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
-
-        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
-
+    public Category(String name, String code, int order, String colorCode, String studyGuide) {
         this.name = name;
         this.code = code;
+        this.order = order;
+        this.colorCode = colorCode;
+        this.studyGuide = studyGuide;
     }
 
     public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+        this.name = name;
+        this.code = code;
+        this.order = order;
+        this.description = description;
+        this.active = active;
+        this.iconPath = iconPath;
+        this.colorCode = colorCode;
+        this.studyGuide = studyGuide;
+    }
 
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
-
-        CodeValidator.cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
-
-        StringValidator.cantBeBlank(description, "The category description can't be empty or null");
-
-        StringValidator.cantBeBlank(iconPath, "The icon path can't be empty or null");
-
-        CodeValidator.shouldBeHexadecimal(colorCode, "The color code should be hexadecimal");
-
+    public Category(Long id, String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+        this.id = id;
         this.name = name;
         this.code = code;
         this.order = order;
@@ -61,6 +70,17 @@ public class Category {
 
     public void toggleVisibility() {
         this.active = !isActive();
+    }
+
+    public void toMerge(UpdateCategoryForm updateCategoryForm) {
+        this.name = updateCategoryForm.getName();
+        this.code = updateCategoryForm.getCode();
+        this.order = updateCategoryForm.getOrder();
+        this.description = updateCategoryForm.getDescription();
+        this.active = updateCategoryForm.isActive();
+        this.iconPath = updateCategoryForm.getIconPath();
+        this.colorCode = updateCategoryForm.getColorCode();
+        this.studyGuide = updateCategoryForm.getStudyGuide();
     }
 
     public void setName(String name) {
@@ -133,6 +153,10 @@ public class Category {
 
     public String getColorCode() {
         return colorCode;
+    }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
     }
 
     @Override

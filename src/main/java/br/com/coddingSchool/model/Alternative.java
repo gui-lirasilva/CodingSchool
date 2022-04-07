@@ -1,9 +1,8 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.validations.ObjectValidator;
-import br.com.coddingSchool.validations.StringValidator;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Alternative {
@@ -11,20 +10,19 @@ public class Alternative {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "The explanatory text can't be null")
+    @NotBlank(message = "The explanatory text can't be blank")
     @Column(name = "explanatory_text")
     private String explanatoryText;
     @Column(name = "`order`")
     private int order;
     private boolean correct;
     private String justification;
+    @NotNull(message = "The question can't be null")
     @ManyToOne
     private Question question;
 
     public Alternative(String explanatoryText, int order, boolean correct, String justification, Question question) {
-
-        StringValidator.cantBeBlank(explanatoryText, "The explanatory text can't be empty or null");
-
-        ObjectValidator.cantBeNull(question, "The question can't be null");
 
         this.explanatoryText = explanatoryText;
         this.order = order;

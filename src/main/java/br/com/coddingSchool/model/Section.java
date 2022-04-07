@@ -1,10 +1,9 @@
 package br.com.coddingSchool.model;
 
 import javax.persistence.*;
-
-import static br.com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
-import static br.com.coddingSchool.validations.ObjectValidator.cantBeNull;
-import static br.com.coddingSchool.validations.StringValidator.cantBeBlank;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Section {
@@ -12,23 +11,19 @@ public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{name.empty.null}")
     private String name;
+    @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
     @Column(name = "`order`")
     private int order;
     private boolean active;
     private boolean test;
+    @NotNull(message = "The course can't be null")
     @ManyToOne
     private Course course;
 
     public Section(String name, String code, int order, boolean active, boolean test, Course course) {
-
-        cantBeBlank(name, "The name can't be null or empty");
-
-        cantBeOutPattern(code, "The code must obey the pattern: only lowercase letters and numbers");
-
-        cantBeNull(course, "The course can't be null");
-
         this.name = name;
         this.code = code;
         this.order = order;

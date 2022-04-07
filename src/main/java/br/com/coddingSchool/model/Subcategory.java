@@ -1,11 +1,12 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.validations.ObjectValidator;
-import br.com.coddingSchool.validations.StringValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-
-import static br.com.coddingSchool.validations.CodeValidator.cantBeOutPattern;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class Subcategory {
@@ -13,28 +14,27 @@ public class Subcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{name.empty.null}")
     private String name;
+    @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
     @Column(name = "`order`")
     private int order;
+    @NotBlank(message = "The category description can't be empty or null")
     @Column(columnDefinition = "text")
     private String description;
     private boolean active;
-    @ManyToOne()
+    @NotNull(message = "The category can't be null")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
+    @OneToMany(mappedBy = "subcategory")
+    private List<Course> courses;
 
-    public Subcategory(String name, String code, int order, String description, boolean active, Category category, String studyGuide) {
-
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
-
-        cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
-
-        ObjectValidator.cantBeNull(description, "The subcategory description can't be null");
-
-        ObjectValidator.cantBeNull(category, "The category can't be null");
-
+    public Subcategory(String name, String code, int order, String description, boolean active, Category category,
+                       String studyGuide) {
         this.name = name;
         this.code = code;
         this.order = order;
@@ -45,14 +45,6 @@ public class Subcategory {
     }
 
     public Subcategory(String name, String code, boolean active, Category category) {
-        StringValidator.cantBeBlank(name, "The name can't be empty or null");
-
-        cantBeOutPattern(code,"The code must obey the pattern: only lowercase letters and numbers");
-
-        ObjectValidator.cantBeNull(description, "The subcategory description can't be null");
-
-        ObjectValidator.cantBeNull(category, "The category can't be null");
-
         this.name = name;
         this.code = code;
         this.active = active;
@@ -99,8 +91,8 @@ public class Subcategory {
         return category;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Course> getCourses() {
+        return courses;
     }
 
     @Override
