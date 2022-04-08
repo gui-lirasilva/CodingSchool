@@ -31,13 +31,13 @@ public class CategoryController {
     public String categories(Model model) {
         List<CategoryDTO> categories = CategoryDTO.toDTO(categoryRepository.findAllByOrder());
         model.addAttribute("categories", categories);
-        return "categoryList";
+        return "Category/categoryList";
     }
 
     @GetMapping("/new")
     public String newCategory(CategoryFormDTO categoryFormDTO, Model model) {
         model.addAttribute("category", categoryFormDTO);
-        return "insertCategory";
+        return "Category/insertCategory";
     }
 
     @PostMapping
@@ -54,7 +54,7 @@ public class CategoryController {
         Category category = categoryRepository.findByCode(code);
         CategoryDTO categoryDTO = new CategoryDTO(category);
         model.addAttribute("category", categoryDTO);
-        return "editCategoryForm";
+        return "Category/editCategoryForm";
     }
 
     @Transactional
