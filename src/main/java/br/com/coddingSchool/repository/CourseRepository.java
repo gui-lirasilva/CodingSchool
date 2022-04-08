@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    @Query("SELECT c.name, c.code, c.order, c.colorCode, c.studyGuide, s.name, s.code, s.studyGuide " +
+    @Query("SELECT c.name, c.code, c.orderInSystem, c.colorCode, c.studyGuide, s.name, s.code, s.studyGuide " +
             "FROM Category c ,Subcategory s WHERE c.active = true AND s.active = true")
     List<Course> findAllByVisibleIsTrue();
 }

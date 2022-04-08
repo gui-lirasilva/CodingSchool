@@ -12,6 +12,9 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findCategoryByActiveIsTrue();
 
+    @Query("SELECT c FROM Category c ORDER BY c.orderInSystem")
+    List<Category> findAllByOrder();
+
     Category findByCode(String code);
 
 }

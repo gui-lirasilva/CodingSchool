@@ -1,7 +1,5 @@
 package br.com.coddingSchool.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,8 +16,8 @@ public class Subcategory {
     private String name;
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
-    @Column(name = "`order`")
-    private int order;
+    @Column(name = "`order_in_system`")
+    private int orderInSystem;
     @NotBlank(message = "The category description can't be empty or null")
     @Column(columnDefinition = "text")
     private String description;
@@ -33,11 +31,11 @@ public class Subcategory {
     @OneToMany(mappedBy = "subcategory")
     private List<Course> courses;
 
-    public Subcategory(String name, String code, int order, String description, boolean active, Category category,
+    public Subcategory(String name, String code, int orderInSystem, String description, boolean active, Category category,
                        String studyGuide) {
         this.name = name;
         this.code = code;
-        this.order = order;
+        this.orderInSystem = orderInSystem;
         this.description = description;
         this.active = active;
         this.category = category;
@@ -75,16 +73,12 @@ public class Subcategory {
         return code;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrderInSystem() {
+        return orderInSystem;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public boolean getActive() {
-        return active;
     }
 
     public Category getCategory() {
@@ -103,7 +97,7 @@ public class Subcategory {
                 ", description='" + description + '\'' +
                 ", studyGuide='" + studyGuide + '\'' +
                 ", active=" + active +
-                ", order=" + order +
+                ", order=" + orderInSystem +
                 ", category=" + category.getName() +
                 '}';
     }

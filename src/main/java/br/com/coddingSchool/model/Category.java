@@ -17,8 +17,8 @@ public class Category {
     private String name;
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
-    @Column(name = "`order`")
-    private int order;
+    @Column(name = "order_in_system")
+    private int orderInSystem;
     @NotBlank(message = "{description.empty.null}")
     @Column(columnDefinition = "text")
     private String description;
@@ -35,18 +35,18 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Subcategory> subcategories;
 
-    public Category(String name, String code, int order, String colorCode, String studyGuide) {
+    public Category(String name, String code, int orderInSystem, String colorCode, String studyGuide) {
         this.name = name;
         this.code = code;
-        this.order = order;
+        this.orderInSystem = orderInSystem;
         this.colorCode = colorCode;
         this.studyGuide = studyGuide;
     }
 
-    public Category(String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+    public Category(String name, String code, int orderInSystem, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
         this.name = name;
         this.code = code;
-        this.order = order;
+        this.orderInSystem = orderInSystem;
         this.description = description;
         this.active = active;
         this.iconPath = iconPath;
@@ -54,11 +54,11 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
-    public Category(Long id, String name, String code, int order, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+    public Category(Long id, String name, String code, int orderInSystem, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
         this.id = id;
         this.name = name;
         this.code = code;
-        this.order = order;
+        this.orderInSystem = orderInSystem;
         this.description = description;
         this.active = active;
         this.iconPath = iconPath;
@@ -75,7 +75,7 @@ public class Category {
     public void toMerge(UpdateCategoryForm updateCategoryForm) {
         this.name = updateCategoryForm.getName();
         this.code = updateCategoryForm.getCode();
-        this.order = updateCategoryForm.getOrder();
+        this.orderInSystem = updateCategoryForm.getOrderInSystem();
         this.description = updateCategoryForm.getDescription();
         this.active = updateCategoryForm.isActive();
         this.iconPath = updateCategoryForm.getIconPath();
@@ -91,8 +91,8 @@ public class Category {
         this.code = code;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setOrderInSystem(int order) {
+        this.orderInSystem = order;
     }
 
     public void setDescription(String description) {
@@ -119,10 +119,6 @@ public class Category {
         return id;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
     public String getStudyGuide() {
         return studyGuide;
     }
@@ -135,15 +131,15 @@ public class Category {
         return code;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getOrderInSystem() {
+        return orderInSystem;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
@@ -167,7 +163,7 @@ public class Category {
                 ", description='" + description + '\'' +
                 ", studyGuide='" + studyGuide + '\'' +
                 ", active=" + active +
-                ", order=" + order +
+                ", order=" + orderInSystem +
                 ", icon='" + iconPath + '\'' +
                 ", color='" + colorCode + '\'' +
                 '}';

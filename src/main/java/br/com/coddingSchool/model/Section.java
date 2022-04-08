@@ -15,18 +15,18 @@ public class Section {
     private String name;
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
-    @Column(name = "`order`")
-    private int order;
+    @Column(name = "order_in_system")
+    private int orderInSystem;
     private boolean active;
     private boolean test;
     @NotNull(message = "The course can't be null")
     @ManyToOne
     private Course course;
 
-    public Section(String name, String code, int order, boolean active, boolean test, Course course) {
+    public Section(String name, String code, int orderInSystem, boolean active, boolean test, Course course) {
         this.name = name;
         this.code = code;
-        this.order = order;
+        this.orderInSystem = orderInSystem;
         this.active = active;
         this.test = test;
         this.course = course;
@@ -41,7 +41,7 @@ public class Section {
         return "Section{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", order=" + order +
+                ", order=" + orderInSystem +
                 ", active=" + active +
                 ", test=" + test +
                 ", course=" + course +

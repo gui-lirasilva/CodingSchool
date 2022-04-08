@@ -10,7 +10,7 @@ public class CategoryDTO {
     private String name;
     private String code;
     private boolean active;
-    private int order;
+    private int orderInSystem;
     private String description;
     private String iconPath;
     private String colorCode;
@@ -21,8 +21,8 @@ public class CategoryDTO {
         this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
-        this.active = category.getActive();
-        this.order = category.getOrder();
+        this.active = category.isActive();
+        this.orderInSystem = category.getOrderInSystem();
         this.description = category.getDescription();
         this.iconPath = category.getIconPath();
         this.colorCode = category.getColorCode();
@@ -50,8 +50,8 @@ public class CategoryDTO {
         return code;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrderInSystem() {
+        return orderInSystem;
     }
 
     public String getDescription() {

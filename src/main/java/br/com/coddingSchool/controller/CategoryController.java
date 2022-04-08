@@ -29,7 +29,7 @@ public class CategoryController {
 
     @GetMapping
     public String categories(Model model) {
-        List<CategoryDTO> categories = CategoryDTO.toDTO(categoryRepository.findAll());
+        List<CategoryDTO> categories = CategoryDTO.toDTO(categoryRepository.findAllByOrder());
         model.addAttribute("categories", categories);
         return "categoryList";
     }

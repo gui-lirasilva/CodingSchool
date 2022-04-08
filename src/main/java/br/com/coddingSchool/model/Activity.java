@@ -16,8 +16,8 @@ public abstract class Activity {
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
     private boolean active;
-    @Column(name = "`order`")
-    private int order;
+    @Column(name = "order_in_system")
+    private int orderInSystem;
     @NotNull(message = "The section can't be null")
     @ManyToOne
     private Section section;

@@ -1,6 +1,5 @@
 package br.com.coddingSchool.dto;
 
-import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class SubcategoryDTO {
         this.id = subcategory.getId();
         this.name = subcategory.getName();
         this.code = subcategory.getCode();
-        this.order = subcategory.getOrder();
+        this.order = subcategory.getOrderInSystem();
         this.studyGuide = subcategory.getStudyGuide();
         this.courses = CourseDTO.toDTO(subcategory.getCourses());
     }

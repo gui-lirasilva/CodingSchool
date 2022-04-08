@@ -2,16 +2,14 @@ package br.com.coddingSchool.dto.api;
 
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.List;
 
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CategoryApiDTO {
 
     private String name;
     private String code;
-    private int order;
+    private int orderInSystem;
     private String colorCode;
     private String studyGuide;
     private int categoryCoursesNumber;
@@ -24,7 +22,7 @@ public class CategoryApiDTO {
     public CategoryApiDTO(Category category) {
         this.name = category.getName();
         this.code = category.getCode();
-        this.order = category.getOrder();
+        this.orderInSystem = category.getOrderInSystem();
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
         this.activeSubcategories = SubcategoryApiDTO.toDTO(category.getSubcategories().stream()
@@ -45,8 +43,8 @@ public class CategoryApiDTO {
         return code;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrderInSystem() {
+        return orderInSystem;
     }
 
     public String getColorCode() {
