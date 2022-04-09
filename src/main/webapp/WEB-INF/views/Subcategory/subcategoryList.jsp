@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Lista de categorias</title>
+    <title>Lista de subcategorias</title>
     <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
     <meta content="text/html;charset=UTF-8">
 </head>
@@ -12,7 +12,7 @@
     <h4>${categoryName}</h4>
     <h2>Subcategorias</h2>
     <br><br>
-    <a href="/admin/categories/new">
+    <a href="/admin/subcategories/new">
         <button type="button" class="btn btn-primary"> Nova subcategoria </button>
     </a>
     <br><br>
