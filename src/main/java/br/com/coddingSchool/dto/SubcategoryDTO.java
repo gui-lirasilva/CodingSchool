@@ -15,6 +15,7 @@ public class SubcategoryDTO {
     private boolean active;
     private String studyGuide;
     private List<CourseDTO> courses;
+    private Category category;
 
 
     public SubcategoryDTO(Subcategory subcategory) {
@@ -26,6 +27,7 @@ public class SubcategoryDTO {
         this.active = subcategory.isActive();
         this.studyGuide = subcategory.getStudyGuide();
         this.courses = CourseDTO.toDTO(subcategory.getCourses());
+        this.category = subcategory.getCategory();
     }
 
     public static List<SubcategoryDTO> toDTO(List<Subcategory> subcategories) {
@@ -62,5 +64,9 @@ public class SubcategoryDTO {
 
     public boolean isActive() {
         return active;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

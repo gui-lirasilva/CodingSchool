@@ -9,4 +9,5 @@ public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> 
 
     List<Subcategory> findAllByCategory_CodeOrderByOrderInSystem(String code);
 
+    Subcategory findByCode(String subcategoryCode);
 }

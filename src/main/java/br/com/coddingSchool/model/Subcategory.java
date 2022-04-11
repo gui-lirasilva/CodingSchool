@@ -1,5 +1,8 @@
 package br.com.coddingSchool.model;
 
+import br.com.coddingSchool.dto.form.SubcategoryFormDTO;
+import br.com.coddingSchool.dto.form.UpdateCategoryForm;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -47,6 +50,16 @@ public class Subcategory {
         this.code = code;
         this.active = active;
         this.category = category;
+    }
+
+    public void toMerge(SubcategoryFormDTO subcategoryFormDTO) {
+        this.name = subcategoryFormDTO.getName();
+        this.code = subcategoryFormDTO.getCode();
+        this.orderInSystem = subcategoryFormDTO.getOrderInSystem();
+        this.description = subcategoryFormDTO.getDescription();
+        this.active = subcategoryFormDTO.isActive();
+        this.category = subcategoryFormDTO.getCategory();
+        this.studyGuide = subcategoryFormDTO.getStudyGuide();
     }
 
     public Subcategory() {

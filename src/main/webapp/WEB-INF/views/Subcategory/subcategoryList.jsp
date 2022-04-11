@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <h4>${categoryName}</h4>
+    <h4>${Category.name}</h4>
     <h2>Subcategorias</h2>
     <br><br>
     <a href="/admin/subcategories/new">
@@ -36,7 +36,7 @@
                     </a>
                 </td>
                 <td class="text-center">
-                    <a class="btn btn-default" role="button" href="/admin/categories/${SubcategoriaDTO.code}">
+                    <a class="btn btn-default" role="button" href="/admin/subcategories/${Category.code}/${SubcategoriaDTO.code}">
                         EDITAR
                     </a>
                 </td>
