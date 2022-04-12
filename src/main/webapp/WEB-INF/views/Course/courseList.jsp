@@ -43,7 +43,7 @@
     <nav>
         <ul class="pagination pagination-lg">
             <li class="${firstPage == true ? "disable" : ""}">
-                <a href="?page=${pageNumber > 0 ? pageNumber-1 : ""}" aria-label="Previous">
+                <a href="?page=${pageNumber > 0 ? pageNumber-1 : pageNumber}" aria-label="Previous">
                     <span class="disabled" aria-hidden="true"><<</span>
                 </a>
             </li>
@@ -55,7 +55,7 @@
                 </li>
             </c:forEach>
             <li class="${lastPage == true ? "disable" : ""}">
-                <a href="?page=${pageNumber < totalPages-1 ? pageNumber+1 : ""}" aria-label="Next">
+                <a href="?page=${pageNumber < totalPages-1 ? pageNumber+1 : pageNumber}" aria-label="Next">
                     <span class="disabled" aria-hidden="true">>></span>
                 </a>
             </li>

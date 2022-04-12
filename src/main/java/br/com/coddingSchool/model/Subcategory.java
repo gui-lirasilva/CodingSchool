@@ -66,6 +66,10 @@ public class Subcategory {
 
     }
 
+    public void toggleVisibility() {
+        this.active = !isActive();
+    }
+
     public Long getId() {
         return id;
     }

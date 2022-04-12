@@ -4,14 +4,13 @@ import br.com.coddingSchool.dto.CategoryDTO;
 import br.com.coddingSchool.dto.form.CategoryFormDTO;
 import br.com.coddingSchool.dto.form.UpdateCategoryForm;
 import br.com.coddingSchool.model.Category;
+import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CategoryRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -70,4 +69,11 @@ public class CategoryController {
         return "redirect:/admin/categories";
     }
 
+    @PostMapping("/{code}/switchVisibility")
+    @ResponseStatus(code= HttpStatus.OK)
+    public void toogleSubcategoryVisibility(@PathVariable String code) {
+        Category category = categoryRepository.findByCode(code);
+        category.toggleVisibility();
+        categoryRepository.save(category);
+    }
 }

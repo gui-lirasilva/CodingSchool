@@ -6,13 +6,11 @@ import br.com.coddingSchool.dto.form.SubcategoryFormDTO;
 import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -79,5 +77,13 @@ public class SubcategoryController {
         subcategory.toMerge(subcategoryFormDTO);
         subcategoryRepository.save(subcategory);
         return "redirect:/admin/subcategories/" + subcategoryFormDTO.getCategory().getCode();
+    }
+
+    @PostMapping("/{subcategoryCode}/switchVisibility")
+    @ResponseStatus(code= HttpStatus.OK)
+    public void toogleSubcategoryVisibility(@PathVariable String subcategoryCode) {
+        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode);
+        subcategory.toggleVisibility();
+        subcategoryRepository.save(subcategory);
     }
 }

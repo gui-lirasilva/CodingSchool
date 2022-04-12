@@ -22,13 +22,14 @@
                         <th>Status</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <c:forEach items="${categories}" var="CategoriaDTO">
-                            <tr class="col">
+                            <tr class="col" data-code-category="${CategoriaDTO.code}">
                                 <td>${CategoriaDTO.name}</td>
                                 <td>${CategoriaDTO.code}</td>
-                                <td id="active${CategoriaDTO.id}">${CategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
+                                <td id="active${CategoriaDTO.id}" class="activeStatus">${CategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
                                 <td class="text-center">
                                     <a href="/admin/subcategories/${CategoriaDTO.code}">
                                         Subcategorias
@@ -39,10 +40,19 @@
                                         EDITAR
                                     </a>
                                 </td>
+                                <c:if test="${CategoriaDTO.active}">
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default switch-categoryStatus">
+                                            Desativar
+                                        </button>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </tbody>
             </table>
         </div>
+        <script src="/assets/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="/assets/js/scripts.js"></script>
     </body>
 </html>
