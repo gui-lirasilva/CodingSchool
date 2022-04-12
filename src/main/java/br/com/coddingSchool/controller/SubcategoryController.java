@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("admin/subcategories")
+@RequestMapping("/admin/subcategories")
 public class SubcategoryController {
 
     private final SubcategoryRepository subcategoryRepository;

@@ -31,7 +31,7 @@
                 <td>${SubcategoriaDTO.code}</td>
                 <td id="active${SubcategoriaDTO.id}">${SubcategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
                 <td class="text-center">
-                    <a href="/admin/courses/${SubcategoriaDTO.code}">
+                    <a href="/admin/courses/${Category.code}/${SubcategoriaDTO.code}">
                         Cursos
                     </a>
                 </td>
