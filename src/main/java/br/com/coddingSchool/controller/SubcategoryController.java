@@ -58,12 +58,12 @@ public class SubcategoryController {
     public String update(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
                          SubcategoryFormDTO subcategoryFormDTO, BindingResult bindingResult, Model model) {
 
-        List<CategoryDTO> categoryDTOList = CategoryDTO.toDTO(categoryRepository.findAll());
-        CategoryDTO categoryDTO = new CategoryDTO(categoryRepository.findByCode(categoryCode));
-        SubcategoryDTO subcategoryDTO = new SubcategoryDTO(subcategoryRepository.findByCode(subcategoryCode));
-        model.addAttribute("categoryDTOList", categoryDTOList);
-        model.addAttribute("categoryDTO", categoryDTO);
-        model.addAttribute("subcategoryDTO", subcategoryDTO);
+        List<CategoryDTO> categoryDtoList = CategoryDTO.toDTO(categoryRepository.findAll());
+        CategoryDTO categoryDto = new CategoryDTO(categoryRepository.findByCode(categoryCode));
+        SubcategoryDTO subcategoryDto = new SubcategoryDTO(subcategoryRepository.findByCode(subcategoryCode));
+        model.addAttribute("categoryDtoList", categoryDtoList);
+        model.addAttribute("categoryDTO", categoryDto);
+        model.addAttribute("subcategoryDTO", subcategoryDto);
         return "Subcategory/editSubcategoryForm";
     }
 

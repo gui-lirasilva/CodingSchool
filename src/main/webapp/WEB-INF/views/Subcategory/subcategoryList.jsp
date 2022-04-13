@@ -26,28 +26,28 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    <c:forEach items="${subcategories}" var="SubcategoriaDTO">
-                        <tr class="col" data-code-subcategory="${SubcategoriaDTO.code}">
-                            <td>${SubcategoriaDTO.name}</td>
-                            <td>${SubcategoriaDTO.code}</td>
-                            <td id="active${SubcategoriaDTO.id}" class="activeStatus">${SubcategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
+                    <c:forEach items="${subcategories}" var="subcategoryDto">
+                        <tr class="col" data-code-subcategory="${subcategoryDto.code}">
+                            <td>${subcategoryDto.name}</td>
+                            <td>${subcategoryDto.code}</td>
+                            <td id="active${subcategoryDto.id}" class="activeStatus">${subcategoryDto.active == true ? "ATIVA" : "INATIVA"}</td>
                             <td class="text-center">
-                                <a href="/admin/courses/${Category.code}/${SubcategoriaDTO.code}">
+                                <a href="/admin/courses/${Category.code}/${subcategoryDto.code}">
                                     Cursos
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-default" role="button" href="/admin/subcategories/${Category.code}/subcategoryDTOCode">
+                                <a class="btn btn-default" role="button" href="/admin/subcategories/${Category.code}/${subcategoryDto.code}">
                                     EDITAR
                                 </a>
                             </td>
-                            <c:if test="${SubcategoriaDTO.active}">
-                                <td class="text-center">
+                            <td class="text-center">
+                                <c:if test="${subcategoryDto.active}">
                                     <button type="button" class="btn btn-default switch-status">
                                         Desativar
                                     </button>
-                                </td>
-                            </c:if>
+                                </c:if>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>

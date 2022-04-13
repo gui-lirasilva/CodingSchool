@@ -21,7 +21,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     LEFT JOIN Subcategory su ON ca.id = su.category_id
     LEFT JOIN Course co ON su.id = co.subcategory_id
     GROUP BY ca.name
-    ORDER BY coursesNumber;
+    ORDER BY coursesNumber DESC;
     """, nativeQuery = true)
     List<CategoryProjection> findCategoryAndCourses();
 }

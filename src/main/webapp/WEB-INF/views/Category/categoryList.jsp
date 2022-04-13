@@ -25,28 +25,28 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <c:forEach items="${categories}" var="CategoriaDTO">
-                            <tr class="col" data-code-category="${CategoriaDTO.code}">
-                                <td>${CategoriaDTO.name}</td>
-                                <td>${CategoriaDTO.code}</td>
-                                <td id="active${CategoriaDTO.id}" class="activeStatus">${CategoriaDTO.active == true ? "ATIVA" : "INATIVA"}</td>
+                        <c:forEach items="${categories}" var="categoryDto">
+                            <tr class="col" data-code-category="${categoryDto.code}">
+                                <td>${categoryDto.name}</td>
+                                <td>${categoryDto.code}</td>
+                                <td id="active${categoryDto.id}" class="activeStatus">${categoryDto.active == true ? "ATIVA" : "INATIVA"}</td>
                                 <td class="text-center">
-                                    <a href="/admin/subcategories/${CategoriaDTO.code}">
+                                    <a href="/admin/subcategories/${categoryDto.code}">
                                         Subcategorias
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a class="btn btn-default" role="button" href="/admin/categories/${CategoriaDTO.code}">
+                                    <a class="btn btn-default" role="button" href="/admin/categories/${categoryDto.code}">
                                         EDITAR
                                     </a>
                                 </td>
-                                <c:if test="${CategoriaDTO.active}">
-                                    <td class="text-center">
+                                <td class="text-center">
+                                    <c:if test="${categoryDto.active}">
                                         <button type="button" class="btn btn-default switch-categoryStatus">
                                             Desativar
                                         </button>
-                                    </td>
-                                </c:if>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

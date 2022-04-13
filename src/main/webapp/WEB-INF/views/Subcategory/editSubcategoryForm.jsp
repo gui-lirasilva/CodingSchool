@@ -59,7 +59,7 @@
         <div class="mb-3 row">
             <label>Categoria</label>
             <select name="category" class="form-control">
-                <c:forEach items="${categoryDTOList}" var="category">
+                <c:forEach items="${categoryDtoList}" var="category">
                     <option value="${category.id}">${category.name}</option>
                 </c:forEach>
                 <form:errors path="category" cssClass="alert-danger"/>

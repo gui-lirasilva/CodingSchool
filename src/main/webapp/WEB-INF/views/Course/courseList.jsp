@@ -25,13 +25,13 @@
         <th></th>
         </thead>
         <tbody>
-        <c:forEach items="${courseDTOList}" var="CourseDTO">
+        <c:forEach items="${courseDTOList}" var="courseDto">
             <tr class="col">
-                <td>${CourseDTO.name}</td>
-                <td>${CourseDTO.code}</td>
-                <td id="active${CourseDTO.id}">${CourseDTO.visible == true ? "ATIVO" : "INATIVO"}</td>
+                <td>${courseDto.name}</td>
+                <td>${courseDto.code}</td>
+                <td id="active${courseDto.id}">${courseDto.visible == true ? "ATIVO" : "INATIVO"}</td>
                 <td class="text-center">
-                    <a class="btn btn-default" role="button" href="/admin/courses/${CourseDTO.code}">
+                    <a class="btn btn-default" role="button" href="/admin/courses/${courseDto.code}">
                         EDITAR
                     </a>
                 </td>
