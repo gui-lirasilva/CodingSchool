@@ -1,11 +1,9 @@
 package br.com.coddingSchool.dto.api;
 
 import br.com.coddingSchool.model.Course;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.List;
 
-//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CourseApiDTO {
 
     private String name;

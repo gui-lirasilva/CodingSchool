@@ -10,6 +10,7 @@ public class CourseDTO {
     private Long id;
     private String name;
     private String code;
+    private boolean visible;
     private int estimatedTime;
     private String developedSkills;
 
@@ -19,6 +20,7 @@ public class CourseDTO {
         this.code = course.getCode();
         this.estimatedTime = course.getEstimatedTime();
         this.developedSkills = course.getDevelopedSkills();
+        this.visible = course.getVisible();
     }
 
     public static List<CourseDTO> toDTO(List<Course> courses) {
@@ -43,5 +45,9 @@ public class CourseDTO {
 
     public String getDevelopedSkills() {
         return developedSkills;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 }

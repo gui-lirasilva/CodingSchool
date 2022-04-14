@@ -1,6 +1,6 @@
 package br.com.coddingSchool.dto;
 
-import br.com.coddingSchool.model.Course;
+import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
 
 import java.util.List;
@@ -10,18 +10,24 @@ public class SubcategoryDTO {
     private Long id;
     private String name;
     private String code;
-    private int order;
+    private int orderInSystem;
+    private String description;
+    private boolean active;
     private String studyGuide;
     private List<CourseDTO> courses;
+    private Category category;
 
 
     public SubcategoryDTO(Subcategory subcategory) {
         this.id = subcategory.getId();
         this.name = subcategory.getName();
         this.code = subcategory.getCode();
-        this.order = subcategory.getOrder();
+        this.orderInSystem = subcategory.getOrderInSystem();
+        this.description = subcategory.getDescription();
+        this.active = subcategory.isActive();
         this.studyGuide = subcategory.getStudyGuide();
         this.courses = CourseDTO.toDTO(subcategory.getCourses());
+        this.category = subcategory.getCategory();
     }
 
     public static List<SubcategoryDTO> toDTO(List<Subcategory> subcategories) {
@@ -44,11 +50,23 @@ public class SubcategoryDTO {
         return code;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrderInSystem() {
+        return orderInSystem;
     }
 
     public String getStudyGuide() {
         return studyGuide;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

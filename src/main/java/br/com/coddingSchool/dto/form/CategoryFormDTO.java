@@ -1,6 +1,5 @@
 package br.com.coddingSchool.dto.form;
 
-import br.com.coddingSchool.dto.SubcategoryDTO;
 import br.com.coddingSchool.model.Category;
 
 import javax.validation.constraints.NotBlank;
@@ -12,7 +11,7 @@ public class CategoryFormDTO {
     private String name;
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
-    private int order;
+    private int orderInSystem;
     @NotBlank(message = "{description.empty.null}")
     private String description;
     private boolean active;
@@ -28,18 +27,18 @@ public class CategoryFormDTO {
     public CategoryFormDTO(Category category) {
         this.name = category.getName();
         this.code = category.getCode();
-        this.active = category.getActive();
+        this.active = category.isActive();
         this.description = category.getDescription();
         this.iconPath = category.getIconPath();
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
     }
 
-    public CategoryFormDTO(String name, String code, int order, String description, boolean active,
-                       String iconPath, String colorCode, String studyGuide) {
+    public CategoryFormDTO(String name, String code, int orderInSystem, String description, boolean active,
+                           String iconPath, String colorCode, String studyGuide) {
         this.name = name;
         this.code = code;
-        this.order = order;
+        this.orderInSystem = orderInSystem;
         this.description = description;
         this.active = active;
         this.iconPath = iconPath;
@@ -48,7 +47,7 @@ public class CategoryFormDTO {
     }
 
     public Category toEntity() {
-        return new Category(name, code, order, description, active, iconPath, colorCode, studyGuide);
+        return new Category(name, code, orderInSystem, description, active, iconPath, colorCode, studyGuide);
     }
 
     public String getName() {
@@ -59,8 +58,8 @@ public class CategoryFormDTO {
         return code;
     }
 
-    public int getOrder() {
-        return order;
+    public int getOrderInSystem() {
+        return orderInSystem;
     }
 
     public String getDescription() {
@@ -91,8 +90,8 @@ public class CategoryFormDTO {
         this.code = code;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setOrderInSystem(int orderInSystem) {
+        this.orderInSystem = orderInSystem;
     }
 
     public void setDescription(String description) {

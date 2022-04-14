@@ -40,9 +40,9 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="form-label">Ordem da categoria</label>
-                    <input type="number" class="form-control" name="order" value="${category.order}"
+                    <input type="number" class="form-control" name="orderInSystem" value="${category.orderInSystem}"
                            placeholder="Por exemplo: a categoria de ordem 1 aparece antes da categoria de ordem 2"/>
-                    <form:errors path="order" cssClass="alert-danger"/>
+                    <form:errors path="orderInSystem" cssClass="alert-danger"/>
                 </div>
                 <div class="mb-3 row">
                     <label class="form-label">Guias de estudo</label>
