@@ -34,6 +34,6 @@ public class DashboardController {
         InstructorProjection instructorProjection = courseRepository.findInstructorWithMoreCourses();
         model.addAttribute("categoryAndCourses", categoryAndCourses);
         model.addAttribute("instructorProjection", instructorProjection);
-        return "Dashboard/dashboardCourses";
+        return "dashboard/dashboardCourses";
     }
 }

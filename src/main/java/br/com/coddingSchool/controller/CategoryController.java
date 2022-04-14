@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -30,13 +31,13 @@ public class CategoryController {
     public String categories(Model model) {
         List<CategoryDTO> categories = CategoryDTO.toDTO(categoryRepository.findAllByOrder());
         model.addAttribute("categories", categories);
-        return "Category/categoryList";
+        return "category/categoryList";
     }
 
     @GetMapping("/new")
     public String newCategory(CategoryFormDTO categoryFormDTO, Model model) {
         model.addAttribute("category", categoryFormDTO);
-        return "Category/insertCategory";
+        return "category/insertCategory";
     }
 
     @PostMapping
@@ -50,10 +51,11 @@ public class CategoryController {
 
     @GetMapping("/{code}")
     public String update(@PathVariable String code, UpdateCategoryForm updateCategoryForm, Model model) {
-        Category category = categoryRepository.findByCode(code);
+        Category category = categoryRepository.findByCode(code)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         CategoryDTO categoryDTO = new CategoryDTO(category);
         model.addAttribute("category", categoryDTO);
-        return "Category/editCategoryForm";
+        return "category/editCategoryForm";
     }
 
     @Transactional
@@ -63,7 +65,8 @@ public class CategoryController {
         if(bindResult.hasErrors()) {
             return update(code, updateCategoryForm, model);
         }
-        Category category = categoryRepository.findByCode(code);
+        Category category = categoryRepository.findByCode(code)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         category.toMerge(updateCategoryForm);
         categoryRepository.save(category);
         return "redirect:/admin/categories";
@@ -72,7 +75,8 @@ public class CategoryController {
     @PostMapping("/{code}/switchVisibility")
     @ResponseStatus(code= HttpStatus.OK)
     public void toogleSubcategoryVisibility(@PathVariable String code) {
-        Category category = categoryRepository.findByCode(code);
+        Category category = categoryRepository.findByCode(code)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         category.toggleVisibility();
         categoryRepository.save(category);
     }

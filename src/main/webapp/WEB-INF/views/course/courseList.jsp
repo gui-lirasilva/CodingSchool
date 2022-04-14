@@ -25,13 +25,13 @@
         <th></th>
         </thead>
         <tbody>
-        <c:forEach items="${courseDTOList}" var="courseDto">
+        <c:forEach items="${paginatedCourses.content}" var="paginatedCourses">
             <tr class="col">
-                <td>${courseDto.name}</td>
-                <td>${courseDto.code}</td>
-                <td id="active${courseDto.id}">${courseDto.visible == true ? "ATIVO" : "INATIVO"}</td>
+                <td>${paginatedCourses.name}</td>
+                <td>${paginatedCourses.code}</td>
+                <td id="active${paginatedCourses.id}">${paginatedCourses.visible == true ? "ATIVO" : "INATIVO"}</td>
                 <td class="text-center">
-                    <a class="btn btn-default" role="button" href="/admin/courses/${courseDto.code}">
+                    <a class="btn btn-default" role="button" href="/admin/courses/${paginatedCourses.code}">
                         EDITAR
                     </a>
                 </td>
@@ -42,20 +42,20 @@
 
     <nav>
         <ul class="pagination pagination-lg">
-            <li class="${firstPage == true ? "disable" : ""}">
-                <a href="?page=${pageNumber > 0 ? pageNumber-1 : pageNumber}" aria-label="Previous">
+            <li class="${paginatedCourses.first == true ? "disabled" : ""}">
+                <a href="?page=${paginatedCourses.number > 0 ? paginatedCourses.number-1 : paginatedCourses.number}" aria-label="Previous">
                     <span class="disabled" aria-hidden="true"><<</span>
                 </a>
             </li>
-            <c:forEach begin="1" end="${totalPages}" varStatus="totalPage">
-                <li class="${totalPage.index-1 == pageNumber ? "disable" : ""}">
-                    <a href="?page=${totalPage.index-1}">
-                        <span>${totalPage.index}</span>
+            <c:forEach begin="1" end="${paginatedCourses.totalPages}" varStatus="loop">
+                <li class="${loop.index-1 == paginatedCourses.number ? "active" : ""}">
+                    <a href="?page=${loop.index-1}">
+                        <span>${loop.index}</span>
                     </a>
                 </li>
             </c:forEach>
-            <li class="${lastPage == true ? "disable" : ""}">
-                <a href="?page=${pageNumber < totalPages-1 ? pageNumber+1 : pageNumber}" aria-label="Next">
+            <li class="${paginatedCourses.last == true ? "disabled" : ""}">
+                <a href="?page=${paginatedCourses.number < paginatedCourses.totalPages-1 ? paginatedCourses.number+1 : paginatedCourses.number}" aria-label="Next">
                     <span class="disabled" aria-hidden="true">>></span>
                 </a>
             </li>
