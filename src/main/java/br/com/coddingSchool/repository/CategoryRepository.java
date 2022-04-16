@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
+    List<Category> findAllByOrderByName();
+
     List<Category> findCategoryByActiveIsTrue();
 
     @Query("SELECT c FROM Category c ORDER BY c.orderInSystem")

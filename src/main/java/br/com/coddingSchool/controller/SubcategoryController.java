@@ -46,7 +46,7 @@ public class SubcategoryController {
 
     @GetMapping("/new")
     public String create(SubcategoryFormDTO subcategoryFormDTO, Model model) {
-        List<CategoryDTO> categoryDTOList = CategoryDTO.toDTO(categoryRepository.findAll());
+        List<CategoryDTO> categoryDTOList = CategoryDTO.toDTO(categoryRepository.findAllByOrderByName());
         model.addAttribute("categoryDTOList", categoryDTOList);
         model.addAttribute("subcategoryFormDTO", subcategoryFormDTO);
         return "subcategory/insertSubcategory";
@@ -65,7 +65,7 @@ public class SubcategoryController {
     public String edit(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
                        SubcategoryFormDTO subcategoryFormDTO, BindingResult bindingResult, Model model) {
 
-        List<CategoryDTO> categoryDtoList = CategoryDTO.toDTO(categoryRepository.findAll());
+        List<CategoryDTO> categoryDtoList = CategoryDTO.toDTO(categoryRepository.findAllByOrderByName());
 
         Category category = categoryRepository.findByCode(categoryCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

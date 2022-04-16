@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> {
 
+    List<Subcategory> findAllByOrderByName();
+
     List<Subcategory> findAllByCategory_CodeOrderByOrderInSystem(String code);
 
     Optional<Subcategory> findByCode(String subcategoryCode);
