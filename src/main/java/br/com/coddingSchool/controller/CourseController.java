@@ -3,6 +3,7 @@ package br.com.coddingSchool.controller;
 import br.com.coddingSchool.dto.CourseDTO;
 import br.com.coddingSchool.dto.SubcategoryDTO;
 import br.com.coddingSchool.dto.form.CourseFormDTO;
+import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CourseRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
@@ -13,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -42,10 +40,12 @@ public class CourseController {
         Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        SubcategoryDTO subcategoryDto = new SubcategoryDTO(subcategory);
+
         Page<CourseDTO> paginatedCourses = courseRepository.findAllBySubcategory(subcategory, pageable)
                 .map(CourseDTO::new);
 
-        model.addAttribute("subcategory", subcategory);
+        model.addAttribute("subcategoryDto", subcategoryDto);
         model.addAttribute("paginatedCourses", paginatedCourses);
         model.addAttribute("categoryCode", categoryCode);
 
@@ -61,21 +61,54 @@ public class CourseController {
     }
 
     @PostMapping
-    public String insertCourse(@Valid CourseFormDTO courseFormDTO, BindingResult bindResult, Model model) {
-
+    public String save(@Valid CourseFormDTO courseFormDTO, BindingResult bindResult, Model model) {
         if (bindResult.hasErrors()) {
             return create(courseFormDTO, model);
         }
-
         courseRepository.save(courseFormDTO.toEntity());
+        return "redirect:/admin/courses/" +
+                courseFormDTO.getSubcategory().getCategory().getCode() + "/" +
+                courseFormDTO.getSubcategory().getCode();
+    }
 
-//        Subcategory subcategory = subcategoryRepository.findByCode(courseFormDTO.getSubcategory().getCode())
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//        SubcategoryDTO subcategoryDTO = new SubcategoryDTO(subcategory);
+    @GetMapping("/{categoryCode}/{subcategoryCode}/{courseCode}")
+    public String edit(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
+                       @PathVariable String courseCode, CourseFormDTO courseFormDTO, BindingResult bindingResult,
+                       Model model) {
+
+        CourseDTO courseDto = new CourseDTO(courseRepository.findByCode(courseCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+
+        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        List<SubcategoryDTO> subcategoryDTOList = SubcategoryDTO.toDTO(subcategoryRepository.findAllByOrderByName());
+
+        model.addAttribute("courseDto", courseDto);
+        model.addAttribute("subcategoryDTOList", subcategoryDTOList);
+        model.addAttribute("categoryCode", categoryCode);
+        model.addAttribute("subcategory", subcategory);
+
+        return "course/editCourseForm";
+    }
+
+    @PostMapping("/{categoryCode}/{subcategoryCode}/{courseCode}")
+    public String update(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
+                       @PathVariable String courseCode, CourseFormDTO courseFormDTO, BindingResult bindingResult,
+                       Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return edit(categoryCode, subcategoryCode, courseCode, courseFormDTO, bindingResult, model);
+        }
+
+        Course course = courseRepository.findByCode(courseCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        course.toMerge(courseFormDTO);
+        courseRepository.save(course);
 
         return "redirect:/admin/courses/" +
                 courseFormDTO.getSubcategory().getCategory().getCode() + "/" +
-                courseFormDTO.getSubcategory().getCode() ;
+                courseFormDTO.getSubcategory().getCode();
     }
 }

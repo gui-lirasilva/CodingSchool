@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <h4>${subcategory.name}</h4>
+    <h4>${subcategoryDto.name}</h4>
     <h2>Cursos</h2>
     <br><br>
     <a href="/admin/courses/new">
@@ -31,7 +31,7 @@
                 <td>${paginatedCourses.code}</td>
                 <td id="active${paginatedCourses.id}">${paginatedCourses.visible == true ? "ATIVO" : "INATIVO"}</td>
                 <td class="text-center">
-                    <a class="btn btn-default" role="button" href="/admin/courses/${paginatedCourses.code}">
+                    <a class="btn btn-default" role="button" href="/admin/courses/${categoryCode}/${subcategoryDto.code}/${paginatedCourses.code}">
                         EDITAR
                     </a>
                 </td>

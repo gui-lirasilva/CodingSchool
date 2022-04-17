@@ -14,16 +14,16 @@ public class CourseFormDTO {
     private String name;
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
-    @Min(value = 1, message = "The estimated time can't be smaller 1")
-    @Max(value = 20, message = "The estimated time can't be bigger than 20")
+    @Min(value = 1, message = "{estimatedTime.min}")
+    @Max(value = 20, message = "{estimatedTime.max}")
     private int estimatedTime;
     private boolean visible;
     private String target;
-    @NotBlank(message = "The instructor name can't be null or empty")
+    @NotBlank(message = "{instructor.null.empty}")
     private String instructor;
     private String description;
     private String developedSkills;
-    @NotNull(message = "The sub category can't be null")
+    @NotNull(message = "{subcategory.null}")
     private Subcategory subcategory;
 
     public CourseFormDTO() {

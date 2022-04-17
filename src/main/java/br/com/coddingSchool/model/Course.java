@@ -1,5 +1,6 @@
 package br.com.coddingSchool.model;
 
+import br.com.coddingSchool.dto.form.CourseFormDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -15,20 +16,20 @@ public class Course {
     private String name;
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
-    @Min(value = 1, message = "The estimated time can't be smaller 1")
-    @Max(value = 20, message = "The estimated time can't be bigger than 20")
+    @Min(value = 1, message = "{estimatedTime.min}")
+    @Max(value = 20, message = "{estimatedTime.max}")
     @Column(name = "estimated_time")
     private int estimatedTime;
     private Boolean visible = false;
     @Column(columnDefinition = "text")
     private String target;
-    @NotBlank(message = "The instructor name can't be null or empty")
+    @NotBlank(message = "{instructor.null.empty}")
     private String instructor;
     @Column(columnDefinition = "text")
     private String description;
     @Column(name = "developed_skills", columnDefinition = "text")
     private String developedSkills;
-    @NotNull(message = "The sub category can't be null")
+    @NotNull(message = "{subcategory.null}")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subcategory_id", nullable = false)
     private Subcategory subcategory;
@@ -58,7 +59,18 @@ public class Course {
     }
 
     public Course() {
+    }
 
+    public void toMerge(CourseFormDTO courseFormDto) {
+        this.name = courseFormDto.getName();
+        this.code = courseFormDto.getCode();
+        this.estimatedTime = courseFormDto.getEstimatedTime();
+        this.visible = courseFormDto.isVisible();
+        this.target = courseFormDto.getTarget();
+        this.instructor = courseFormDto.getInstructor();
+        this.description = courseFormDto.getDescription();
+        this.developedSkills = courseFormDto.getDevelopedSkills();
+        this.subcategory = courseFormDto.getSubcategory();
     }
 
     public void setId(Long id) {
