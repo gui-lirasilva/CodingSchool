@@ -32,11 +32,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/categories").permitAll()
-                .antMatchers(HttpMethod.GET, "/admin/*").authenticated()
-                .antMatchers(HttpMethod.POST, "/admin/*").authenticated()
+                .antMatchers(HttpMethod.GET,"/api/categories").hasRole("COMUM")
+                .antMatchers(HttpMethod.GET,"/api/categories").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/admin/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/admin/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and().formLogin().loginPage("/login").permitAll().and().csrf().disable();
     }
 
 //    public static void main(String[] args) {
