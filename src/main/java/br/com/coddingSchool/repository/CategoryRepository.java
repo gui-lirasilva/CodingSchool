@@ -38,5 +38,4 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     ORDER BY ca.order_in_system
     """, nativeQuery = true)
     List<Category> categoriesForLoginPage();
-
 }

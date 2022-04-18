@@ -26,7 +26,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        web.ignoring().antMatchers("/assets/**");
     }
 
     @Override
@@ -36,6 +36,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/api/categories").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/admin/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/admin/*").hasRole("ADMIN")
+                .antMatchers("/category/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll().and().csrf().disable();
     }
