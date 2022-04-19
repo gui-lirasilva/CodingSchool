@@ -1,6 +1,7 @@
 package br.com.coddingSchool.dto.login;
 
 import br.com.coddingSchool.model.Category;
+import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class SubcategoryLoginDTO {
         this.code = subcategory.getCode();
         this.orderInSystem = subcategory.getOrderInSystem();
         this.active = subcategory.isActive();
-        this.courses = CourseLoginDTO.toDTO(subcategory.getCourses());
+        this.courses = CourseLoginDTO.toDTO(subcategory.getCourses().stream()
+                .filter(Course::getVisible).toList());
         this.category = subcategory.getCategory();
     }
 

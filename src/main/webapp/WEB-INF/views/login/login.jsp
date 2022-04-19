@@ -34,13 +34,13 @@
                             </span>
                             <h3 class="category-card__title">${category.name}</h3>
                             <p class="category-card__details">
-                                <c:forEach items="${category.subcategories}" var="subcategory" varStatus="loop">
-                                    <c:choose>
-                                        <c:when test="${loop.count <= 3}">
-                                            ${subcategory.name}<c:if test="${!loop.last}">,</c:if>
-                                        </c:when>
-                                    </c:choose>
+                                <c:forEach begin="0" end="2" items="${category.subcategories}"
+                                           var="subcategory" varStatus="loop">
+                                    ${subcategory.name}<c:if test="${!loop.last}">,</c:if>
                                 </c:forEach>
+                                <c:if test="${category.subcategories.size() > 3}">
+                                    e mais...
+                                </c:if>
                             </p>
                         </a>
                     </li>

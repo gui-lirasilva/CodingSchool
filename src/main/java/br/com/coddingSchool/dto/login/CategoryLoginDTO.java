@@ -1,6 +1,7 @@
 package br.com.coddingSchool.dto.login;
 
 import br.com.coddingSchool.model.Category;
+import br.com.coddingSchool.model.Subcategory;
 
 import java.util.List;
 
@@ -15,7 +16,10 @@ public class CategoryLoginDTO {
         this.name = category.getName();
         this.code = category.getCode();
         this.iconPath = category.getIconPath();
-        this.subcategories = SubcategoryLoginDTO.toDTO(category.getSubcategories());
+        this.subcategories = SubcategoryLoginDTO.toDTO(category.getSubcategories().stream()
+                .filter(Subcategory::isActive)
+                .filter(s -> s.getCourses().removeIf(c -> c.getVisible()))
+                .toList());
     }
 
     public static List<CategoryLoginDTO> toDTO(List<Category> categoryList) {

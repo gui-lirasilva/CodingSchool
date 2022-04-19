@@ -87,6 +87,7 @@ public class CategoryController {
 
     @GetMapping("category/{categoryCode}")
     public String publicPage(@PathVariable String categoryCode, Model model) {
+
         Category category = categoryRepository.findByCode(categoryCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         CategoryDTO categoryDto = new CategoryDTO(category);
