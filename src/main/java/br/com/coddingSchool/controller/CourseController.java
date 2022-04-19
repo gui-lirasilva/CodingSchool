@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -92,9 +93,10 @@ public class CourseController {
         return "course/editCourseForm";
     }
 
+    @Transactional
     @PostMapping("/{categoryCode}/{subcategoryCode}/{courseCode}")
     public String update(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
-                       @PathVariable String courseCode, CourseFormDTO courseFormDTO, BindingResult bindingResult,
+                       @PathVariable String courseCode, @Valid CourseFormDTO courseFormDTO, BindingResult bindingResult,
                        Model model) {
 
         if(bindingResult.hasErrors()) {

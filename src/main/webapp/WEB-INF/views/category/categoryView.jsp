@@ -21,7 +21,7 @@
     <div class="subcategories">
         <p class="subcategories__label">O que você quer aprender?</p>
         <ul class="subcategories__list">
-            <c:forEach items="${subcategoryDtoList}" var="subcategory">
+            <c:forEach items="${categoryDto.subcategories}" var="subcategory">
                 <li class="subcategories__item">
                     <a href="#${subcategory.name}" class="subcategories__link">
                         <span class="subcategories__name">${subcategory.name}</span>
@@ -31,7 +31,7 @@
         </ul>
     </div>
     <div class="subcategory">
-        <c:forEach items="${subcategoryDtoList}" var="subcategory">
+        <c:forEach items="${categoryDto.subcategories}" var="subcategory" varStatus="loop">
             <h2 id="${subcategory.name}" class="subcategory__name">${subcategory.name}</h2>
             <ul class="courses__list">
                 <c:forEach items="${subcategory.courses}" var="course">

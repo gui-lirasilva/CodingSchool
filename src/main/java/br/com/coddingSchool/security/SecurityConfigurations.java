@@ -26,22 +26,20 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assets/**");
+        web.ignoring().antMatchers("/assets/**", "/**.html", "/v2/api-docs", "/configuration/**",
+                "/swagger-resources/**", "/swagger-ui.html", "/webjars/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/categories").hasRole("COMUM")
-                .antMatchers(HttpMethod.GET,"/api/categories").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/admin/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/admin/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/categories").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/categories/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
                 .antMatchers("/category/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll().and().csrf().disable();
     }
-
-//    public static void main(String[] args) {
-//        System.out.println(new BCryptPasswordEncoder().encode("123456"));
-//    }
 }

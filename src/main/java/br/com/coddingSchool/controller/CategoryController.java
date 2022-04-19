@@ -1,18 +1,20 @@
 package br.com.coddingSchool.controller;
 
 import br.com.coddingSchool.dto.CategoryDTO;
-import br.com.coddingSchool.dto.SubcategoryDTO;
 import br.com.coddingSchool.dto.form.CategoryFormDTO;
 import br.com.coddingSchool.dto.form.UpdateCategoryForm;
+import br.com.coddingSchool.dto.publicView.CategoryPublicViewDTO;
 import br.com.coddingSchool.model.Category;
-import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -90,12 +92,8 @@ public class CategoryController {
 
         Category category = categoryRepository.findByCode(categoryCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        CategoryDTO categoryDto = new CategoryDTO(category);
+        CategoryPublicViewDTO categoryDto = new CategoryPublicViewDTO(category);
 
-        List<SubcategoryDTO> subcategoryDtoList = SubcategoryDTO
-                .toDTO(subcategoryRepository.findAllByActive(categoryCode));
-
-        model.addAttribute("subcategoryDtoList", subcategoryDtoList);
         model.addAttribute("categoryDto", categoryDto);
         return "category/categoryView";
     }
