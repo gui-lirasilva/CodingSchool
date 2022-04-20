@@ -23,26 +23,28 @@
         <ul class="subcategories__list">
             <c:forEach items="${categoryDto.subcategories}" var="subcategory">
                 <li class="subcategories__item">
-                    <a href="#${subcategory.name}" class="subcategories__link">
+                    <a href="#${subcategory.code}" class="subcategories__link">
                         <span class="subcategories__name">${subcategory.name}</span>
                     </a>
                 </li>
             </c:forEach>
         </ul>
     </div>
-    <div class="subcategory">
-        <c:forEach items="${categoryDto.subcategories}" var="subcategory" varStatus="loop">
-            <h2 id="${subcategory.name}" class="subcategory__name">${subcategory.name}</h2>
-            <ul class="courses__list">
-                <c:forEach items="${subcategory.courses}" var="course">
-                    <li class="course-card">
-                        <h3 class="course-card__name">${course.name}</h3>
-                        <p class="course-card__hours">${course.estimatedTime}</p>
-                    </li>
-                </c:forEach>
-            </ul>
+
+        <c:forEach items="${categoryDto.subcategories}" var="subcategory">
+            <div class="subcategory" id="${subcategory.code}">
+                <h2 id="${subcategory.name}" class="subcategory__name">${subcategory.name}</h2>
+                <ul class="courses__list">
+                    <c:forEach items="${subcategory.courses}" var="course">
+                        <li class="course-card">
+                            <h3 class="course-card__name">${course.name}</h3>
+                            <p class="course-card__hours">${course.estimatedTime}</p>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
         </c:forEach>
-    </div>
+
 </main>
 </body>
 </html>

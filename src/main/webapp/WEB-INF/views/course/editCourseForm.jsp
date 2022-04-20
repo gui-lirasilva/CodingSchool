@@ -74,7 +74,9 @@
           <label>Subcategoria</label>
           <select name="subcategory" class="form-control">
             <c:forEach items="${subcategoryDTOList}" var="subcategory">
-              <option value="${subcategory.id}">${subcategory.name}</option>
+              <option value="${subcategory.id}" ${subcategory.id == courseDto.subcategory.id ? 'selected' : ''}>
+                  ${subcategory.name}
+              </option>
             </c:forEach>
             <form:errors path="subcategory" cssClass="alert-danger"/>
           </select>

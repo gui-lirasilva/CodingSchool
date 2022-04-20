@@ -32,7 +32,7 @@ public class CategoryApiController {
     }
 
     @CacheEvict(value = "categoriesApi")
-    @GetMapping("/categories/bGltcGEtby1jYWNoZS1kYS1hcGktYWU")
+    @GetMapping("/cache/bGltcGEtby1jYWNoZS1kYS1hcGktYWU")
     @ResponseStatus(HttpStatus.OK)
     public void invalidateCaches() {
     }
