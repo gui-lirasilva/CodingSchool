@@ -3,7 +3,6 @@ package br.com.coddingSchool.controller;
 import br.com.coddingSchool.dto.CategoryDTO;
 import br.com.coddingSchool.dto.SubcategoryDTO;
 import br.com.coddingSchool.dto.form.SubcategoryFormDTO;
-import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -38,11 +36,9 @@ public class SubcategoryController {
     @GetMapping("/{categoryCode}")
     public String subcategoriesList(@PathVariable String categoryCode, Model model) {
         List<SubcategoryDTO> subcategories = SubcategoryDTO.toDTO(subcategoryService
-                .findAllSubcategoriesByCategoryCode(subcategoryRepository, categoryCode));
+                .findAllSubcategoriesByCategoryCode(categoryCode));
 
-        Category category = categoryService.findByCode(categoryRepository, categoryCode);
-
-        CategoryDTO categoryDTO = new CategoryDTO(category);
+        CategoryDTO categoryDTO = categoryService.findDtoByCode(categoryCode);
 
         model.addAttribute("subcategories", subcategories);
         model.addAttribute("Category", categoryDTO);
@@ -72,13 +68,10 @@ public class SubcategoryController {
 
         List<CategoryDTO> categoryDtoList = CategoryDTO.toDTO(categoryRepository.findAllByOrderByName());
 
-        Category category = categoryService.findByCode(categoryRepository, categoryCode);
+        CategoryDTO categoryDto = categoryService.findDtoByCode(categoryCode);
 
-        CategoryDTO categoryDto = new CategoryDTO(category);
+        SubcategoryDTO subcategoryDto = subcategoryService.findDtoByCode(subcategoryCode);
 
-        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
-
-        SubcategoryDTO subcategoryDto = new SubcategoryDTO(subcategory);
         model.addAttribute("categoryDtoList", categoryDtoList);
         model.addAttribute("categoryDTO", categoryDto);
         model.addAttribute("subcategoryDTO", subcategoryDto);
@@ -92,7 +85,7 @@ public class SubcategoryController {
         if (bindingResult.hasErrors()) {
             return edit(categoryCode, subcategoryCode, subcategoryFormDTO, bindingResult, model);
         }
-        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryCode);
 
         subcategory.toMerge(subcategoryFormDTO);
         subcategoryRepository.save(subcategory);
@@ -103,7 +96,7 @@ public class SubcategoryController {
     @ResponseStatus(code= HttpStatus.OK)
     public void toogleSubcategoryVisibility(@PathVariable String subcategoryCode) {
 
-        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryCode);
 
         subcategory.toggleVisibility();
         subcategoryRepository.save(subcategory);

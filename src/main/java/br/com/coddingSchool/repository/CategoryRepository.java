@@ -44,6 +44,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
          left join s.courses x
          where c.code = :code AND c.active = true and s.active = true and x.visible = true
     """)
-    CategoryProjectionView findCategoryProjectionByCode(String code);
+    Optional<CategoryProjectionView> findCategoryProjectionByCode(String code);
 
 }

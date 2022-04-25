@@ -56,8 +56,7 @@ public class CategoryController {
 
     @GetMapping("/admin/categories/{code}")
     public String update(@PathVariable String code, UpdateCategoryForm updateCategoryForm, Model model) {
-        Category category = categoryService.findByCode(categoryRepository, code);
-        CategoryDTO categoryDTO = new CategoryDTO(category);
+        CategoryDTO categoryDTO = categoryService.findDtoByCode(code);
         model.addAttribute("category", categoryDTO);
         return "category/editCategoryForm";
     }
@@ -69,7 +68,7 @@ public class CategoryController {
         if(bindResult.hasErrors()) {
             return update(code, updateCategoryForm, model);
         }
-        Category category = categoryService.findByCode(categoryRepository, code);
+        Category category = categoryService.findByCode(code);
         category.toMerge(updateCategoryForm);
         categoryRepository.save(category);
         return "redirect:/admin/categories";
@@ -78,16 +77,15 @@ public class CategoryController {
     @PostMapping("/admin/categories/{code}/switchVisibility")
     @ResponseStatus(code= HttpStatus.OK)
     public void toogleSubcategoryVisibility(@PathVariable String code) {
-        Category category = categoryService.findByCode(categoryRepository, code);
+        Category category = categoryService.findByCode(code);
         category.toggleVisibility();
         categoryRepository.save(category);
     }
 
     @GetMapping("category/{categoryCode}")
     public String publicPage(@PathVariable String categoryCode, Model model) {
-        CategoryProjectionView categoryProjectionByCode = categoryRepository
-                .findCategoryProjectionByCode(categoryCode);
-        model.addAttribute("categoryProjection", categoryProjectionByCode);
+        CategoryProjectionView categoryProjectionView = categoryService.categoryProjectionByCode(categoryCode);
+        model.addAttribute("categoryProjection", categoryProjectionView);
         return "category/categoryView";
     }
 }

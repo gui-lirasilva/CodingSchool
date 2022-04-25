@@ -12,12 +12,13 @@ import br.com.coddingSchool.service.SubcategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -44,12 +45,10 @@ public class CourseController {
     public String coursesList(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
                               @PageableDefault(size = 5) Pageable pageable, Model model) {
 
-        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
-
-        SubcategoryDTO subcategoryDto = new SubcategoryDTO(subcategory);
+        SubcategoryDTO subcategoryDto = subcategoryService.findDtoByCode(subcategoryCode);
 
         Page<CourseDTO> paginatedCourses = courseService
-                .findCoursesBySubcategory(courseRepository, subcategory, pageable);
+                .findCoursesBySubcategory(subcategoryCode, pageable);
 
         model.addAttribute("subcategoryDto", subcategoryDto);
         model.addAttribute("paginatedCourses", paginatedCourses);
@@ -82,9 +81,10 @@ public class CourseController {
                        @PathVariable String courseCode, CourseFormDTO courseFormDTO, BindingResult bindingResult,
                        Model model) {
 
-        CourseDTO courseDto = new CourseDTO(courseService.findByCode(courseRepository, courseCode));
+        CourseDTO courseDto = courseService.findDtoByCode(courseCode);
 
-        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryCode);
+        SubcategoryDTO subcategoryDTO = subcategoryService.findDtoByCode(subcategoryCode);
 
         List<SubcategoryDTO> subcategoryDTOList = SubcategoryDTO.toDTO(subcategoryRepository.findAllByOrderByName());
 
@@ -106,7 +106,7 @@ public class CourseController {
             return edit(categoryCode, subcategoryCode, courseCode, courseFormDTO, bindingResult, model);
         }
 
-        Course course = courseService.findByCode(courseRepository, courseCode);
+        Course course = courseService.findByCode(courseCode);
 
         course.toMerge(courseFormDTO);
         courseRepository.save(course);
