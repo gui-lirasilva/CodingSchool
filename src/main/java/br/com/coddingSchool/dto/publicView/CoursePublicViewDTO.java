@@ -1,12 +1,11 @@
-package br.com.coddingSchool.dto;
+package br.com.coddingSchool.dto.publicView;
 
 import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.List;
 
-public class CourseDTO {
+public class CoursePublicViewDTO {
 
     private Long id;
     private String name;
@@ -19,7 +18,7 @@ public class CourseDTO {
     private String developedSkills;
     private Subcategory subcategory;
 
-    public CourseDTO(Course course) {
+    public CoursePublicViewDTO(Course course) {
         this.id = course.getId();
         this.name = course.getName();
         this.code = course.getCode();
@@ -32,8 +31,8 @@ public class CourseDTO {
         this.subcategory = course.getSubcategory();
     }
 
-    public static List<CourseDTO> toDTO(List<Course> courses) {
-        return courses.stream().map(CourseDTO::new).toList();
+    public static List<CoursePublicViewDTO> toDTO(List<Course> courses) {
+        return courses.stream().map(CoursePublicViewDTO::new).toList();
     }
 
     public Long getId() {
