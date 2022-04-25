@@ -2,6 +2,8 @@ package br.com.coddingSchool.repository;
 
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.projections.CategoryProjection;
+import br.com.coddingSchool.projections.login.CategoryProjectionLogin;
+import br.com.coddingSchool.projections.publicView.CategoryProjectionView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -29,13 +31,19 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<CategoryProjection> findCategoryAndCourses();
 
     @Query(value = """
-    SELECT *
-    FROM Category ca 
-    LEFT JOIN Subcategory su ON ca.id = su.category_id
-    LEFT JOIN Course co ON su.id = co.subcategory_id
-    WHERE ca.active AND su.active AND co.visible
-    GROUP BY ca.name, ca.order_in_system
-    ORDER BY ca.order_in_system
-    """, nativeQuery = true)
-    List<Category> categoriesForLoginPage();
+         select distinct c from Category c
+         left join fetch c.subcategories s
+         left join s.courses x
+         where c.active = true and s.active = true and x.visible = true
+    """)
+    List<CategoryProjectionLogin> categoriesProjectionLoginPage();
+
+    @Query("""
+         select distinct c from Category c
+         left join fetch c.subcategories s
+         left join s.courses x
+         where c.code = :code AND c.active = true and s.active = true and x.visible = true
+    """)
+    CategoryProjectionView findCategoryProjectionByCode(String code);
+
 }

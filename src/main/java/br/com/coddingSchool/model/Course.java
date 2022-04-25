@@ -31,7 +31,7 @@ public class Course {
     private String developedSkills;
     @NotNull(message = "{subcategory.null}")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory_id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", name = "subcategory_id", nullable = false)
     private Subcategory subcategory;
 
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor,

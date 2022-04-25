@@ -3,10 +3,10 @@ package br.com.coddingSchool.controller;
 import br.com.coddingSchool.dto.CategoryDTO;
 import br.com.coddingSchool.dto.form.CategoryFormDTO;
 import br.com.coddingSchool.dto.form.UpdateCategoryForm;
-import br.com.coddingSchool.dto.publicView.CategoryPublicViewDTO;
 import br.com.coddingSchool.model.Category;
+import br.com.coddingSchool.projections.publicView.CategoryProjectionView;
 import br.com.coddingSchool.repository.CategoryRepository;
-import br.com.coddingSchool.repository.SubcategoryRepository;
+import br.com.coddingSchool.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -25,12 +24,12 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
-    private final SubcategoryRepository subcategoryRepository;
 
-    public CategoryController(CategoryRepository categoryRepository, SubcategoryRepository subcategoryRepository) {
+    public CategoryController(CategoryRepository categoryRepository, CategoryService categoryService) {
         this.categoryRepository = categoryRepository;
-        this.subcategoryRepository = subcategoryRepository;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/admin/categories")
@@ -57,8 +56,7 @@ public class CategoryController {
 
     @GetMapping("/admin/categories/{code}")
     public String update(@PathVariable String code, UpdateCategoryForm updateCategoryForm, Model model) {
-        Category category = categoryRepository.findByCode(code)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Category category = categoryService.findByCode(categoryRepository, code);
         CategoryDTO categoryDTO = new CategoryDTO(category);
         model.addAttribute("category", categoryDTO);
         return "category/editCategoryForm";
@@ -71,8 +69,7 @@ public class CategoryController {
         if(bindResult.hasErrors()) {
             return update(code, updateCategoryForm, model);
         }
-        Category category = categoryRepository.findByCode(code)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Category category = categoryService.findByCode(categoryRepository, code);
         category.toMerge(updateCategoryForm);
         categoryRepository.save(category);
         return "redirect:/admin/categories";
@@ -81,20 +78,16 @@ public class CategoryController {
     @PostMapping("/admin/categories/{code}/switchVisibility")
     @ResponseStatus(code= HttpStatus.OK)
     public void toogleSubcategoryVisibility(@PathVariable String code) {
-        Category category = categoryRepository.findByCode(code)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Category category = categoryService.findByCode(categoryRepository, code);
         category.toggleVisibility();
         categoryRepository.save(category);
     }
 
     @GetMapping("category/{categoryCode}")
     public String publicPage(@PathVariable String categoryCode, Model model) {
-
-        Category category = categoryRepository.findByCode(categoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        CategoryPublicViewDTO categoryDto = new CategoryPublicViewDTO(category);
-
-        model.addAttribute("categoryDto", categoryDto);
+        CategoryProjectionView categoryProjectionByCode = categoryRepository
+                .findCategoryProjectionByCode(categoryCode);
+        model.addAttribute("categoryProjection", categoryProjectionByCode);
         return "category/categoryView";
     }
 }

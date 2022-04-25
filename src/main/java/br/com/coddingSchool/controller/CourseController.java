@@ -7,6 +7,8 @@ import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CourseRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
+import br.com.coddingSchool.service.CourseService;
+import br.com.coddingSchool.service.SubcategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,23 +30,26 @@ public class CourseController {
 
     private final CourseRepository courseRepository;
     private final SubcategoryRepository subcategoryRepository;
+    private final CourseService courseService;
+    private final SubcategoryService subcategoryService;
 
-    public CourseController(CourseRepository courseRepository, SubcategoryRepository subcategoryRepository) {
+    public CourseController(CourseRepository courseRepository, SubcategoryRepository subcategoryRepository, CourseService courseService, SubcategoryService subcategoryService) {
         this.courseRepository = courseRepository;
         this.subcategoryRepository = subcategoryRepository;
+        this.courseService = courseService;
+        this.subcategoryService = subcategoryService;
     }
 
     @GetMapping("/{categoryCode}/{subcategoryCode}")
     public String coursesList(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
                               @PageableDefault(size = 5) Pageable pageable, Model model) {
 
-        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
 
         SubcategoryDTO subcategoryDto = new SubcategoryDTO(subcategory);
 
-        Page<CourseDTO> paginatedCourses = courseRepository.findAllBySubcategory(subcategory, pageable)
-                .map(CourseDTO::new);
+        Page<CourseDTO> paginatedCourses = courseService
+                .findCoursesBySubcategory(courseRepository, subcategory, pageable);
 
         model.addAttribute("subcategoryDto", subcategoryDto);
         model.addAttribute("paginatedCourses", paginatedCourses);
@@ -77,11 +82,9 @@ public class CourseController {
                        @PathVariable String courseCode, CourseFormDTO courseFormDTO, BindingResult bindingResult,
                        Model model) {
 
-        CourseDTO courseDto = new CourseDTO(courseRepository.findByCode(courseCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        CourseDTO courseDto = new CourseDTO(courseService.findByCode(courseRepository, courseCode));
 
-        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
 
         List<SubcategoryDTO> subcategoryDTOList = SubcategoryDTO.toDTO(subcategoryRepository.findAllByOrderByName());
 
@@ -103,8 +106,7 @@ public class CourseController {
             return edit(categoryCode, subcategoryCode, courseCode, courseFormDTO, bindingResult, model);
         }
 
-        Course course = courseRepository.findByCode(courseCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Course course = courseService.findByCode(courseRepository, courseCode);
 
         course.toMerge(courseFormDTO);
         courseRepository.save(course);

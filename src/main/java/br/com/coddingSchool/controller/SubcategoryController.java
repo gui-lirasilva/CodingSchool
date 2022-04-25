@@ -7,6 +7,8 @@ import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
+import br.com.coddingSchool.service.CategoryService;
+import br.com.coddingSchool.service.SubcategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +25,22 @@ public class SubcategoryController {
 
     private final SubcategoryRepository subcategoryRepository;
     private final CategoryRepository categoryRepository;
+    private final SubcategoryService subcategoryService;
+    private final CategoryService categoryService;
 
-    public SubcategoryController(SubcategoryRepository subcategoryRepository, CategoryRepository categoryRepository) {
+    public SubcategoryController(SubcategoryRepository subcategoryRepository, CategoryRepository categoryRepository, SubcategoryService subcategoryService, CategoryService categoryService) {
         this.subcategoryRepository = subcategoryRepository;
         this.categoryRepository = categoryRepository;
+        this.subcategoryService = subcategoryService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/{categoryCode}")
     public String subcategoriesList(@PathVariable String categoryCode, Model model) {
-        List<SubcategoryDTO> subcategories = SubcategoryDTO.toDTO(subcategoryRepository
-                .findAllByCategory_CodeOrderByOrderInSystem(categoryCode));
+        List<SubcategoryDTO> subcategories = SubcategoryDTO.toDTO(subcategoryService
+                .findAllSubcategoriesByCategoryCode(subcategoryRepository, categoryCode));
 
-        Category category = categoryRepository.findByCode(categoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Category category = categoryService.findByCode(categoryRepository, categoryCode);
 
         CategoryDTO categoryDTO = new CategoryDTO(category);
 
@@ -67,13 +72,11 @@ public class SubcategoryController {
 
         List<CategoryDTO> categoryDtoList = CategoryDTO.toDTO(categoryRepository.findAllByOrderByName());
 
-        Category category = categoryRepository.findByCode(categoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Category category = categoryService.findByCode(categoryRepository, categoryCode);
 
         CategoryDTO categoryDto = new CategoryDTO(category);
 
-        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
 
         SubcategoryDTO subcategoryDto = new SubcategoryDTO(subcategory);
         model.addAttribute("categoryDtoList", categoryDtoList);
@@ -89,8 +92,7 @@ public class SubcategoryController {
         if (bindingResult.hasErrors()) {
             return edit(categoryCode, subcategoryCode, subcategoryFormDTO, bindingResult, model);
         }
-        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
 
         subcategory.toMerge(subcategoryFormDTO);
         subcategoryRepository.save(subcategory);
@@ -101,8 +103,7 @@ public class SubcategoryController {
     @ResponseStatus(code= HttpStatus.OK)
     public void toogleSubcategoryVisibility(@PathVariable String subcategoryCode) {
 
-        Subcategory subcategory = subcategoryRepository.findByCode(subcategoryCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Subcategory subcategory = subcategoryService.findByCode(subcategoryRepository, subcategoryCode);
 
         subcategory.toggleVisibility();
         subcategoryRepository.save(subcategory);

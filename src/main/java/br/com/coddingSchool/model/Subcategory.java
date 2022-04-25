@@ -27,7 +27,7 @@ public class Subcategory {
     private boolean active;
     @NotNull(message = "The category can't be null")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", name = "category_id", nullable = false)
     private Category category;
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
