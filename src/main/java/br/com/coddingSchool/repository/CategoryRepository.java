@@ -5,7 +5,9 @@ import br.com.coddingSchool.projections.CategoryProjection;
 import br.com.coddingSchool.projections.login.CategoryProjectionLogin;
 import br.com.coddingSchool.projections.publicView.CategoryProjectionView;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,5 +47,12 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
          where c.code = :code AND c.active = true and s.active = true and x.visible = true
     """)
     Optional<CategoryProjectionView> findCategoryProjectionByCode(String code);
+
+    @Transactional
+    @Modifying
+    @Query(value = """
+        DELETE c FROM Category c
+    """, nativeQuery = true)
+    void removeAll();
 
 }
