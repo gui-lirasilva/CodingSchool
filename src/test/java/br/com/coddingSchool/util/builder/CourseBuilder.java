@@ -67,4 +67,94 @@ public class CourseBuilder {
     public Course build() {
         return new Course(name, code, estimatedTime, visible, instructor, subcategory);
     }
+
+    public static Course newCourseJava(Subcategory subCategory) {
+        Course javaPoo = new CourseBuilder()
+                .withName("Java e POO")
+                .withCode("java-poo")
+                .withEstimatedTime(15)
+                .withVisible(true)
+                .withTarget("Iniciantes")
+                .withInstructor("Rodrigo")
+                .withDescription("Java e orientação a objetos")
+                .withDevelopedSkills("Os principais conceitos do Java e do paradigma de POO")
+                .withSubcategory(subCategory)
+                .completeBuild();
+        return javaPoo;
+    }
+
+    public static Course newCourseJavaAndSpringBoot(Subcategory subCategory) {
+        Course javaAndSpringBoot = new CourseBuilder()
+                .withName("Java e Spring boot")
+                .withCode("java-spring")
+                .withEstimatedTime(18)
+                .withVisible(false)
+                .withTarget("Desenvolvedores juniores")
+                .withInstructor("Rodrigo")
+                .withDescription("Java e Spring Boot, o framwork mais usado")
+                .withDevelopedSkills("Spring boot, Java EE, SQL, JPA")
+                .withSubcategory(subCategory)
+                .completeBuild();
+        return javaAndSpringBoot;
+    }
+
+    public static Course newCourseKotlinInitial(Subcategory subCategory) {
+        Course kotlinInitial = new CourseBuilder()
+                .withName("Iniciando com Kotlin")
+                .withCode("kotlin-inicial")
+                .withEstimatedTime(12)
+                .withVisible(true)
+                .withTarget("Iniciantes")
+                .withInstructor("Alex")
+                .withDescription("")
+                .withDevelopedSkills("Spring boot, Java EE, SQL, JPA")
+                .withSubcategory(subCategory)
+                .completeBuild();
+        return kotlinInitial;
+    }
+
+    public static Course newCourseGitAndGithub(Subcategory subCategory) {
+        Course gitAndGithub = new CourseBuilder()
+                .withName("Git e GitHub")
+                .withCode("git-github")
+                .withEstimatedTime(10)
+                .withVisible(true)
+                .withTarget("Iniciantes")
+                .withInstructor("Mila")
+                .withDescription("")
+                .withDevelopedSkills("Conceitos iniciais de versionamento de código")
+                .withSubcategory(subCategory)
+                .completeBuild();
+        return gitAndGithub;
+    }
+
+    public static Course newCourseAws(Subcategory subCategory) {
+        Course aws = new CourseBuilder()
+                .withName("AWS EC2")
+                .withCode("aws-ec2")
+                .withEstimatedTime(10)
+                .withVisible(false)
+                .withTarget("Ninjas")
+                .withInstructor("Mila")
+                .withDescription("")
+                .withDevelopedSkills("Tudo sobre as ferramentas da AWS")
+                .withSubcategory(subCategory)
+                .completeBuild();
+        return aws;
+    }
+
+    public static Course newCourseEntrepreneur(Subcategory subCategory) {
+        Course entrepreneur = new CourseBuilder()
+                .withName("Empreendedorismo")
+                .withCode("empreendedorismo")
+                .withEstimatedTime(10)
+                .withVisible(true)
+                .withTarget("Empreendedores")
+                .withInstructor("Pricila")
+                .withDescription("")
+                .withDevelopedSkills("Como abrir seu primeiro e-commerce")
+                .withSubcategory(subCategory)
+                .completeBuild();
+        return entrepreneur;
+    }
 }

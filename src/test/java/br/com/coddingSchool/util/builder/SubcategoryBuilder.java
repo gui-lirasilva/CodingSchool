@@ -23,7 +23,7 @@ public class SubcategoryBuilder {
         return this;
     }
 
-    public SubcategoryBuilder withOrder(int order) {
+    public SubcategoryBuilder withOrderInSystem(int order) {
         this.orderInSystem = order;
         return this;
     }
@@ -54,5 +54,70 @@ public class SubcategoryBuilder {
 
     public Subcategory build() {
         return new Subcategory(name, code, active, category);
+    }
+
+    public static Subcategory newSubcategoryJava(Category category) {
+        Subcategory java = new SubcategoryBuilder()
+                .withName("Java")
+                .withCode("java")
+                .withOrderInSystem(1)
+                .withDescription("Projetos em java")
+                .withActive(true)
+                .withCategory(category)
+                .withStudyGuide("")
+                .completeBuild();
+        return java;
+    }
+
+    public static Subcategory newSubcategoryKotlin(Category category) {
+        Subcategory kotlin = new SubcategoryBuilder()
+                .withName("Kotlin")
+                .withCode("kotlin")
+                .withOrderInSystem(2)
+                .withDescription("Projetos web com kotlin")
+                .withActive(true)
+                .withCategory(category)
+                .withStudyGuide("")
+                .completeBuild();
+        return kotlin;
+    }
+
+    public static Subcategory newSubcategoryGit(Category category) {
+        Subcategory git = new SubcategoryBuilder()
+                .withName("Git")
+                .withCode("git")
+                .withOrderInSystem(3)
+                .withDescription("Aprenda comandos de terminal")
+                .withActive(true)
+                .withCategory(category)
+                .withStudyGuide("")
+                .completeBuild();
+        return git;
+    }
+
+    public static Subcategory newSubcategoryAws(Category category) {
+        Subcategory aws = new SubcategoryBuilder()
+                .withName("AWS")
+                .withCode("aws")
+                .withOrderInSystem(4)
+                .withDescription("A cloud mais utilizada")
+                .withActive(false)
+                .withCategory(category)
+                .withStudyGuide("")
+                .completeBuild();
+        return aws;
+    }
+
+    public static Subcategory newSubcategorySucesso(Category category) {
+        Subcategory sucesso = new SubcategoryBuilder()
+                .withName("Sucesso profissional")
+                .withCode("sucesso-profissional")
+                .withOrderInSystem(5)
+                .withDescription("Como atingir os objetivos profissionais")
+                .withActive(true)
+                .withCategory(category)
+                .withStudyGuide("")
+                .completeBuild();
+        return sucesso;
     }
 }
