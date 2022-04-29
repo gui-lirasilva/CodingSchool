@@ -37,7 +37,7 @@ class CategoryRepositoryTest {
 
     @BeforeEach
     private void setup() {
-        GeneralSetup generalSetup = new GeneralSetup(categoryRepository, subcategoryRepository, courseRepository);
+        GeneralSetup generalSetup = new GeneralSetup(categoryRepository);
         generalSetup.setupCategories();
     }
 

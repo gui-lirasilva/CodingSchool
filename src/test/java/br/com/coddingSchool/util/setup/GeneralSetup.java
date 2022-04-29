@@ -31,6 +31,10 @@ public class GeneralSetup {
         this.courseRepository = courseRepository;
     }
 
+    public GeneralSetup(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     public GeneralSetup(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
