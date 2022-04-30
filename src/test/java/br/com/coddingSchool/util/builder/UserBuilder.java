@@ -26,13 +26,4 @@ public class UserBuilder {
     public User build() {
         return new User(name, email, password);
     }
-
-    public static User newUser() {
-         User user = new UserBuilder()
-                 .withName("User name")
-                 .withEmail("newuser@gmail.com")
-                 .withPassword("123456")
-                 .build();
-         return user;
-    }
 }

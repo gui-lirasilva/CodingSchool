@@ -106,6 +106,10 @@ public class Subcategory {
         return courses;
     }
 
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "Subcategory{" +

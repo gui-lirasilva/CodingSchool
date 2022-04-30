@@ -60,46 +60,4 @@ public class CategoryBuilder {
     public Category build() {
         return new Category(name, code, orderInSystem, colorCode, studyGuide);
     }
-
-    public static Category newCategoryBusiness() {
-        Category businessCategory = new CategoryBuilder()
-                .withName("Business")
-                .withCode("business")
-                .withDescription("Categoria Business")
-                .withActive(true)
-                .withOrderInSystem(2)
-                .withIconpath("www.imgur.com")
-                .withColorCode("#FFFFFF")
-                .withStudyGuide("")
-                .buildComplete();
-        return businessCategory;
-    }
-
-    public static Category newCategoryProgramming(){
-        Category programmingCategory = new CategoryBuilder()
-                .withName("Programação")
-                .withCode("programacao")
-                .withDescription("Categoria programacao")
-                .withActive(true)
-                .withOrderInSystem(3)
-                .withIconpath("www.imgur.com")
-                .withColorCode("#FFFFFF")
-                .withStudyGuide("")
-                .buildComplete();
-        return programmingCategory;
-    }
-
-    public static Category newCategoryDevops(){
-        Category devOpsCategory = new CategoryBuilder()
-                .withName("DevOps")
-                .withCode("devops")
-                .withDescription("Categoria Devops")
-                .withActive(false)
-                .withOrderInSystem(1)
-                .withIconpath("www.imgur.com")
-                .withColorCode("#FFFFFF")
-                .withStudyGuide("")
-                .buildComplete();
-        return devOpsCategory;
-    }
 }

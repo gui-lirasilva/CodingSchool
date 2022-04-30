@@ -2,7 +2,6 @@ package br.com.coddingSchool.repository;
 
 import br.com.coddingSchool.dto.CourseDTO;
 import br.com.coddingSchool.model.Course;
-import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.projections.InstructorProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

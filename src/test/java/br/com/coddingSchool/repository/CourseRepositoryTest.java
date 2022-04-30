@@ -1,50 +1,56 @@
 package br.com.coddingSchool.repository;
 
+import br.com.coddingSchool.DatabaseTestEnvironment;
+import br.com.coddingSchool.dto.CourseDTO;
+import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Course;
+import br.com.coddingSchool.model.Subcategory;
 import br.com.coddingSchool.projections.InstructorProjection;
-import br.com.coddingSchool.util.setup.GeneralSetup;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@DataJpaTest
-class CourseRepositoryTest {
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private SubcategoryRepository subcategoryRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
+class CourseRepositoryTest extends DatabaseTestEnvironment {
 
     @BeforeEach
     private void setup() {
-        GeneralSetup generalSetup = new GeneralSetup(categoryRepository, subcategoryRepository, courseRepository);
-        generalSetup.setupCourses();
-    }
+        Category devops = newCategoryDevops();
+        Category business = newCategoryBusiness();
+        Category programming = newCategoryProgramming();
 
-    @AfterEach
-    void cleanDatabase() {
-        courseRepository.deleteAll();
-        subcategoryRepository.deleteAll();
-        categoryRepository.deleteAll();
+        Subcategory java = newSubcategoryJava(programming);
+        Subcategory kotlin = newSubcategoryKotlin(programming);
+        Subcategory git = newSubcategoryGit(devops);
+        Subcategory aws = newSubcategoryAws(devops);
+        Subcategory success = newSubcategorySucesso(business);
+
+        devops.setSubcategories(List.of(git, aws));
+        business.setSubcategories(List.of(success));
+        programming.setSubcategories(List.of(java, kotlin));
+
+        Course javaPoo = newCourseJava(java);
+        Course javaAndSpring = newCourseJavaAndSpringBoot(java);
+        Course kotlinInitial = newCourseKotlinInitial(kotlin);
+        Course awsEc2 = newCourseAws(aws);
+        Course gitGithub = newCourseGitAndGithub(git);
+        Course entrepreneur = newCourseEntrepreneur(success);
+
+        java.setCourses(List.of(javaPoo, javaAndSpring));
+        kotlin.setCourses(List.of(kotlinInitial));
+        git.setCourses(List.of(gitGithub));
+        aws.setCourses(List.of(awsEc2));
+        success.setCourses(List.of(entrepreneur));
     }
 
     @Test
@@ -55,14 +61,28 @@ class CourseRepositoryTest {
         assertEquals(2, instructorWithMoreCourses.getCoursesNumber());
     }
 
-    @Test // TODO: Entender como testar com o Pageable
-    void findAllBySubcategory_Code() {
+    @Test
+    void findAllBySubcategory_Code__shouldBeDevolveCorrectCoursesAndCorrectNumber() {
+        Page<Course> javaCourses = courseRepository
+                .findAllBySubcategory_Code("java", Pageable.unpaged());
 
+        assertAll("javaCourses",
+                () -> assertEquals(2, javaCourses.getNumberOfElements()),
+                () -> assertEquals("java-poo", javaCourses.getContent().get(0).getCode()),
+                () -> assertEquals("java-spring", javaCourses.getContent().get(1).getCode())
+        );
     }
 
-    @Test // TODO: Entender como testar com o Pageable
-    void findAllDtoBySubcategory_Code() {
+    @Test
+    void findAllDtoBySubcategory_Code__shouldBeDevolveCorrectCoursesAndCorrectNumber() {
+        Page<CourseDTO> javaCoursesDto = courseRepository
+                .findAllDtoBySubcategory_Code("java", Pageable.unpaged());
 
+        assertAll("javaCoursesDto",
+                () -> assertEquals(2, javaCoursesDto.getNumberOfElements()),
+                () -> assertEquals("java-poo", javaCoursesDto.getContent().get(0).getCode()),
+                () -> assertEquals("java-spring", javaCoursesDto.getContent().get(1).getCode())
+        );
     }
 
     @Test
@@ -77,4 +97,6 @@ class CourseRepositoryTest {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         assertEquals("Java e POO", course.getName());
     }
+
+
 }

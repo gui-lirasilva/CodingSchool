@@ -34,7 +34,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/api/categories").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/categories/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/cache/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/category/**").hasAnyRole("STUDENT", "ADMIN")
