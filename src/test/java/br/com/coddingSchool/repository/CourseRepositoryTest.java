@@ -54,7 +54,7 @@ class CourseRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findInstructorWithMoreCourses() {
+    void findInstructorWithMoreCourses__shouldBeDevolveCorrectInstructorAndCoursesNumber() {
         assertDoesNotThrow(() -> courseRepository.findInstructorWithMoreCourses());
         InstructorProjection instructorWithMoreCourses = courseRepository.findInstructorWithMoreCourses();
         assertEquals("Rodrigo", instructorWithMoreCourses.getName());
@@ -86,13 +86,19 @@ class CourseRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findByCode() {
+    void findByCode__shouldBeNotThrowAnyExceptionIfRecievesValidCode() {
         assertDoesNotThrow(() -> courseRepository.findByCode("java-poo")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
 
+    @Test
+    void findByCode__shouldBeThrowExceptionIfRecievesInvalidCode() {
         assertThrows(ResponseStatusException.class, () -> courseRepository.findByCode("invalid-code")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
 
+    @Test
+    void findByCode__shouldBeDevolveCorrectCourse() {
         Course course = courseRepository.findByCode("java-poo")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         assertEquals("Java e POO", course.getName());

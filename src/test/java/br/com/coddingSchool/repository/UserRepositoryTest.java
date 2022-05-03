@@ -13,12 +13,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Transactional
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserRepositoryTest extends DatabaseTestEnvironment {
-
-    @Autowired
-    UserRepository userRepository;
 
     @BeforeEach
     private void setup() {
@@ -26,14 +24,19 @@ class UserRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    @Transactional
-    void findByEmail() {
+    void findByEmail__shouldBeNotThrowAnyExceptionIfRecievesValidEmail() {
         assertDoesNotThrow(() -> userRepository.findByEmail("newuser@gmail.com")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
 
+    @Test
+    void findByEmail__shouldBeThrowExceptionIfRecievesInvalidEmail() {
         assertThrows(ResponseStatusException.class, () -> userRepository.findByEmail("invalid@gmail.com")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
 
+    @Test
+    void findByEmail__ShouldBeDevolveCorrectUser() {
         User user = userRepository.findByEmail("newuser@gmail.com")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         assertEquals("User name", user.getName());

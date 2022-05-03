@@ -195,17 +195,20 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
         }
 
         @Test
-        void findCategoryProjectionByCode() {
+        void findCategoryProjectionByCode__shouldBeNotThrowAnyExceptionIfRecievesValidCategoryCode() {
             assertDoesNotThrow(() -> categoryRepository.findCategoryProjectionByCode("programacao")
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        }
 
+        @Test
+        void findCategoryProjectionByCode__shouldBeThrowExceptionIfRecievesInvalidCategoryCode() {
             assertThrows(ResponseStatusException.class, () -> categoryRepository
                     .findCategoryProjectionByCode("inexistent")
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         }
 
         @Test
-        void findCategoryProjectionByCode__() {
+        void findCategoryProjectionByCode__shouldBeDevolveCorrectCategory() {
             CategoryProjectionView programacao = categoryRepository.findCategoryProjectionByCode("programacao")
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             assertEquals("Programação", programacao.getName());

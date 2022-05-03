@@ -64,11 +64,18 @@ class SubcategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeDevolveCorrectSubcategoriesAndcoursesNumber() {
+    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeNotThrowAnyExceptionIfRecievesValidCategoryCode() {
         assertDoesNotThrow(() -> subcategoryRepository
                 .findAllByCategory_CodeOrderByOrderInSystem("programacao"));
+    }
 
+    @Test
+    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeDevolveEmptyListIfRecieveInvalidCode() {
         assertTrue(subcategoryRepository.findAllByCategory_CodeOrderByOrderInSystem("invalid-code").isEmpty());
+    }
+
+        @Test
+    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeDevolveCorrectSubcategoriesAndcoursesNumber() {
 
         List<Subcategory> programacaoSubcategories = subcategoryRepository
                 .findAllByCategory_CodeOrderByOrderInSystem("programacao");
@@ -119,14 +126,19 @@ class SubcategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findByCode__shouldBeThrowExceptionIfRecieveInvalidCodeAndNotThrowIfRecieveValidCode() {
-
+    void findByCode__shouldBeThrowExceptionIfRecieveInvalidCode() {
         assertThrows(ResponseStatusException.class, () -> subcategoryRepository.findByCode("invalid-code")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
 
+    @Test
+    void findByCode__shouldBeNotThrowAnyExceptionIfRecieveValidCode() {
         assertDoesNotThrow(() -> subcategoryRepository.findByCode("java")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
 
+    @Test
+    void findByCode__shouldBeDevolveCorrectSubcategory() {
         Subcategory subcategory = subcategoryRepository.findByCode("java")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         assertEquals("Java", subcategory.getName());
