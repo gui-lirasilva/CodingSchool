@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,15 +37,13 @@ class CategoryApiControllerTest extends ControllerTestEnvironment {
     }
 
     @Test
-    void categories__shouldBeNotThrowAnyException() {
-        assertDoesNotThrow(() -> {
+    void categories__should_be_not_throw_any_exception() throws Exception {
             mockMvc.perform(get("/api/categories").accept(MediaType.APPLICATION_JSON));
             mockMvc.perform(get("/api/categories").accept(MediaType.APPLICATION_XML));
-        });
     }
 
     @Test
-    void categories__shouldBeReturnCorrectDataOfCategories() throws Exception {
+    void categories__should_be_return_correct_data_of_categories() throws Exception {
         mockMvc.perform(get("/api/categories").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Programação"))
@@ -59,11 +56,9 @@ class CategoryApiControllerTest extends ControllerTestEnvironment {
     }
 
     @Test
-    void invalidateCaches__shouldBeDevolveCorrectHttpStatus() {
-        assertDoesNotThrow(() -> {
+    void invalidateCaches__should_be_devolve_correct_http_status() throws Exception {
             mockMvc.perform(get("/api/cache/bGltcGEtby1jYWNoZS1kYS1hcGktYWU")
             .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        });
     }
 
 }

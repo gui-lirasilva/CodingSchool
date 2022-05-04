@@ -11,11 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,15 +53,14 @@ class CourseRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findInstructorWithMoreCourses__shouldBeDevolveCorrectInstructorAndCoursesNumber() {
-        assertDoesNotThrow(() -> courseRepository.findInstructorWithMoreCourses());
+    void findInstructorWithMoreCourses__should_be_devolve_correct_instructor_and_courses_number() {
         InstructorProjection instructorWithMoreCourses = courseRepository.findInstructorWithMoreCourses();
         assertEquals("Rodrigo", instructorWithMoreCourses.getName());
         assertEquals(2, instructorWithMoreCourses.getCoursesNumber());
     }
 
     @Test
-    void findAllBySubcategory_Code__shouldBeDevolveCorrectCoursesAndCorrectNumber() {
+    void findAllBySubcategory_Code__should_be_devolve_correct_courses_and_correct_number() {
         Page<Course> javaCourses = courseRepository
                 .findAllBySubcategory_Code("java", Pageable.unpaged());
 
@@ -74,7 +72,7 @@ class CourseRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findAllDtoBySubcategory_Code__shouldBeDevolveCorrectCoursesAndCorrectNumber() {
+    void findAllDtoBySubcategory_Code__should_be_devolve_correct_courses_and_correct_number() {
         Page<CourseDTO> javaCoursesDto = courseRepository
                 .findAllDtoBySubcategory_Code("java", Pageable.unpaged());
 
@@ -86,22 +84,16 @@ class CourseRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findByCode__shouldBeNotThrowAnyExceptionIfRecievesValidCode() {
-        assertDoesNotThrow(() -> courseRepository.findByCode("java-poo")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    void findByCode__should_be_return_nothing_if_receives_invalid_code() {
+        Optional<Course> course = courseRepository.findByCode("invalid-code");
+        assertFalse(course.isPresent());
     }
 
     @Test
-    void findByCode__shouldBeThrowExceptionIfRecievesInvalidCode() {
-        assertThrows(ResponseStatusException.class, () -> courseRepository.findByCode("invalid-code")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-    }
-
-    @Test
-    void findByCode__shouldBeDevolveCorrectCourse() {
-        Course course = courseRepository.findByCode("java-poo")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        assertEquals("Java e POO", course.getName());
+    void findByCode__should_be_devolve_correct_course() {
+        Optional<Course> course = courseRepository.findByCode("java-poo");
+        assertTrue(course.isPresent());
+        assertEquals("Java e POO", course.get().getName());
     }
 
 

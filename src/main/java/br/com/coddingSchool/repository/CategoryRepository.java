@@ -48,11 +48,4 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     """)
     Optional<CategoryProjectionView> findCategoryProjectionByCode(String code);
 
-    @Transactional
-    @Modifying
-    @Query(value = """
-        DELETE c FROM Category c
-    """, nativeQuery = true)
-    void removeAll();
-
 }

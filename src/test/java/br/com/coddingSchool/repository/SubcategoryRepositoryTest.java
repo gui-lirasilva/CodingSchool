@@ -7,11 +7,10 @@ import br.com.coddingSchool.model.Subcategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,8 +49,7 @@ class SubcategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findAllByOrderByName__shouldBeDevolveCorrectSubcategories() {
-        assertDoesNotThrow(() -> subcategoryRepository.findAllByOrderByName());
+    void findAllByOrderByName__should_be_devolve_correct_subcategories() {
         List<Subcategory> subcategoryList = subcategoryRepository.findAllByOrderByName();
         assertAll("subcategoryList",
                 () -> assertEquals(5, subcategoryList.size()),
@@ -64,18 +62,14 @@ class SubcategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeNotThrowAnyExceptionIfRecievesValidCategoryCode() {
-        assertDoesNotThrow(() -> subcategoryRepository
-                .findAllByCategory_CodeOrderByOrderInSystem("programacao"));
+    void findAllByCategory_CodeOrderByOrderInSystem__should_be_devolve_empty_list_if_receives_invalid_code() {
+        List<Subcategory> subcategoryList = subcategoryRepository
+                .findAllByCategory_CodeOrderByOrderInSystem("invalid-code");
+        assertTrue(subcategoryList.isEmpty());
     }
 
     @Test
-    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeDevolveEmptyListIfRecieveInvalidCode() {
-        assertTrue(subcategoryRepository.findAllByCategory_CodeOrderByOrderInSystem("invalid-code").isEmpty());
-    }
-
-        @Test
-    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeDevolveCorrectSubcategoriesAndcoursesNumber() {
+    void findAllByCategory_CodeOrderByOrderInSystem__should_be_devolve_correct_subcategories_and_courses_number() {
 
         List<Subcategory> programacaoSubcategories = subcategoryRepository
                 .findAllByCategory_CodeOrderByOrderInSystem("programacao");
@@ -102,7 +96,7 @@ class SubcategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findAllByCategory_CodeOrderByOrderInSystem__shouldBeDevolveCorrectSubcategoriesAndCourses() {
+    void findAllByCategory_CodeOrderByOrderInSystem__should_be_devolve_correct_subcategories_and_courses() {
 
         List<Subcategory> programacaoSubcategories = subcategoryRepository
                 .findAllByCategory_CodeOrderByOrderInSystem("programacao");
@@ -126,21 +120,15 @@ class SubcategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findByCode__shouldBeThrowExceptionIfRecieveInvalidCode() {
-        assertThrows(ResponseStatusException.class, () -> subcategoryRepository.findByCode("invalid-code")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    void findByCode__should_be_return_nothing_if_receives_invalid_subcategory_code() {
+        Optional<Subcategory> subcategory = subcategoryRepository.findByCode("invalid-code");
+        assertFalse(subcategory.isPresent());
     }
 
     @Test
-    void findByCode__shouldBeNotThrowAnyExceptionIfRecieveValidCode() {
-        assertDoesNotThrow(() -> subcategoryRepository.findByCode("java")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-    }
-
-    @Test
-    void findByCode__shouldBeDevolveCorrectSubcategory() {
-        Subcategory subcategory = subcategoryRepository.findByCode("java")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        assertEquals("Java", subcategory.getName());
+    void findByCode__should_be_devolve_correct_subcategory() {
+        Optional<Subcategory> subcategory = subcategoryRepository.findByCode("java");
+        assertTrue(subcategory.isPresent());
+        assertEquals("Java", subcategory.get().getName());
     }
 }

@@ -11,12 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,13 +31,13 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
         newCategoryProgramming();
     }
     @Test
-    void findAllByOrderByName__shouldBeDevolveCorrectCategoriesNumber() {
+    void findAllByOrderByName__should_be_devolve_correct_categories_number() {
         List<Category> categoryList = categoryRepository.findAllByOrderByName();
         assertEquals(3, categoryList.size());
     }
 
     @Test
-    void findAllByOrderByName__shouldBeDevolveCorrectCategories() {
+    void findAllByOrderByName__should_be_devolve_correct_categories() {
         List<Category> categoryList = categoryRepository.findAllByOrderByName();
         assertAll("categoryList",
                 () -> assertEquals("Business", categoryList.get(0).getName()),
@@ -48,29 +47,20 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findCategoryByActiveIsTrue__shouldBeDevolveCorrectCategoriesNumber() {
+    void findCategoryByActiveIsTrue__should_be_devolve_only_active_categories() {
         List<Category> categoryList = categoryRepository.findCategoryByActiveIsTrue();
-        assertEquals(2, categoryList.size());
+        assertAll("categoryList",
+                () -> assertEquals(2, categoryList.size()),
+                () -> assertTrue(categoryList.get(0).isActive()),
+                () -> assertTrue(categoryList.get(1).isActive())
+        );
     }
 
     @Test
-    void findCategoryByActiveIsTrue__shouldBeDevolveOnlyActiveCategories() {
-        List<Category> categoryList = categoryRepository.findCategoryByActiveIsTrue();
-        assertTrue(categoryList.get(0).isActive());
-        assertTrue(categoryList.get(1).isActive());
-    }
-
-    @Test
-    void findAllByOrder__shouldBeDevolveCorrectCategoriesNumberAndNotThrowsException() {
-        assertDoesNotThrow(() -> categoryRepository.findAllByOrder(), "Throw exception");
-        List<Category> categoryList = categoryRepository.findAllByOrder();
-        assertEquals(3, categoryList.size());
-    }
-
-    @Test
-    void findAllByOrder__shouldBeDevolveAllCategoriesOrderByOrerInSystem() {
+    void findAllByOrder__should_be_devolve_all_categories_order_by_order_in_system() {
         List<Category> categoryList = categoryRepository.findAllByOrder();
         assertAll("categoryList",
+                () -> assertEquals(3, categoryList.size()),
                 () -> assertEquals("DevOps", categoryList.get(0).getName()),
                 () -> assertEquals("Business", categoryList.get(1).getName()),
                 () -> assertEquals("Programação", categoryList.get(2).getName())
@@ -78,19 +68,16 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
     }
 
     @Test
-    void findByCode__shouldBeNotThrowsExceptionIfRecievesValidCategoryCodeAndThrowsIfReceiveInvalidCode() {
-        assertDoesNotThrow(() -> categoryRepository.findByCode("programacao")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)), "Category not found");
-
-        assertThrows(ResponseStatusException.class, () -> categoryRepository.findByCode("invalid-code")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    void findByCode__should_be_return_nothing_if_receives_invalid_category_code() {
+        Optional<Category> invalidCategory = categoryRepository.findByCode("invalid-code");
+        assertFalse(invalidCategory.isPresent());
     }
 
     @Test
-    void findByCode__shouldBeDevolveCorrectCategory() {
-        Category category = categoryRepository.findByCode("programacao")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        assertEquals("Programação", category.getName());
+    void findByCode__should_be_devolve_correct_category() {
+        Optional<Category> category = categoryRepository.findByCode("programacao");
+        assertTrue(category.isPresent());
+        assertEquals("Programação", category.get().getName());
     }
 
     @Transactional
@@ -131,7 +118,7 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
         }
 
         @Test
-        void findCategoryAndCourses__shouldBeDevolveCorrectCategoriesInCorrectOrder() {
+        void findCategoryAndCourses__should_be_devolve_correct_categories_in_correct_order() {
             List<CategoryProjection> categoryAndCourses = categoryRepository.findCategoryAndCourses();
             assertAll("categoryAndCourses",
                     () -> assertEquals(3, categoryAndCourses.size()),
@@ -142,7 +129,7 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
         }
 
         @Test
-        void findCategoryAndCourses__shouldBeDevolveCorrectCoursesNumber() {
+        void findCategoryAndCourses__should_be_devolve_correct_courses_number() {
             List<CategoryProjection> categoryAndCourses = categoryRepository.findCategoryAndCourses();
             assertAll("categoryAndCourses",
                     () -> assertEquals(3, categoryAndCourses.get(0).getCoursesNumber()),
@@ -152,70 +139,57 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
         }
 
         @Test
-        void categoriesProjectionLoginPage__shouldBeDevolveCorrectCategoriesNumber() {
-            List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
-            assertEquals(2, categoryProjectionLogin.size());
-        }
-
-        @Test
-        void categoriesProjectionLoginPage__shouldBeDevolveOnlyActiveCategories() {
-            List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
-
-            Category category1 = categoryRepository.findByCode(categoryProjectionLogin.get(0).getCode())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            assertTrue(category1.isActive());
-
-            Category category2 = categoryRepository.findByCode(categoryProjectionLogin.get(1).getCode())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            assertTrue(category2.isActive());
-        }
-
-        @Test
-        void categoriesProjectionLoginPage__shouldBeDevolveCorrectSubcategoriesNumber() {
-            List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
-            assertEquals(2, categoryProjectionLogin.get(0).getSubcategories().size());
-            assertEquals(1, categoryProjectionLogin.get(1).getSubcategories().size());
-        }
-
-        @Test
-        void categoriesProjectionLoginPage__shouldBeDevolveCorrectCategories() {
-            List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
-            assertEquals("Programação", categoryProjectionLogin.get(0).getName());
-            assertEquals("Business", categoryProjectionLogin.get(1).getName());
-        }
-
-        @Test
-        void categoriesProjectionLoginPage__shouldBeDevolveCorrectSubcategories() {
+        void categoriesProjectionLoginPage__should_be_devolve_correct_categories() {
             List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
             assertAll("categoryProjectionLogin",
-                () -> assertEquals("Java", categoryProjectionLogin.get(0).getSubcategories().get(0).getName()),
-                () -> assertEquals("Sucesso profissional", categoryProjectionLogin.get(1).getSubcategories()
-                        .get(0).getName())
+                    () -> assertEquals(2, categoryProjectionLogin.size()),
+                    () -> assertEquals("Programação", categoryProjectionLogin.get(0).getName()),
+                    () -> assertEquals("Business", categoryProjectionLogin.get(1).getName())
             );
         }
 
         @Test
-        void findCategoryProjectionByCode__shouldBeNotThrowAnyExceptionIfRecievesValidCategoryCode() {
-            assertDoesNotThrow(() -> categoryRepository.findCategoryProjectionByCode("programacao")
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        void categoriesProjectionLoginPage__should_be_devolve_correct_subcategories() {
+            List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
+            assertAll("categoryProjectionLogin",
+                    () -> assertEquals(2, categoryProjectionLogin.get(0).getSubcategories().size()),
+                    () -> assertEquals(1, categoryProjectionLogin.get(1).getSubcategories().size()),
+                    () -> assertEquals("Java", categoryProjectionLogin.get(0).getSubcategories().get(0).getName()),
+                    () -> assertEquals("Sucesso profissional", categoryProjectionLogin.get(1).getSubcategories()
+                            .get(0).getName())
+            );
         }
 
         @Test
-        void findCategoryProjectionByCode__shouldBeThrowExceptionIfRecievesInvalidCategoryCode() {
-            assertThrows(ResponseStatusException.class, () -> categoryRepository
-                    .findCategoryProjectionByCode("inexistent")
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        void categoriesProjectionLoginPage__should_be_devolve_onlyActiveCategories() {
+            List<CategoryProjectionLogin> categoryProjectionLogin = categoryRepository.categoriesProjectionLoginPage();
+
+            Optional<Category> category1 = categoryRepository.findByCode(categoryProjectionLogin.get(0).getCode());
+            assertTrue(category1.isPresent());
+            assertTrue(category1.get().isActive());
+
+            Optional<Category> category2 = categoryRepository.findByCode(categoryProjectionLogin.get(1).getCode());
+            assertTrue(category2.isPresent());
+            assertTrue(category2.get().isActive());
         }
 
         @Test
-        void findCategoryProjectionByCode__shouldBeDevolveCorrectCategory() {
-            CategoryProjectionView programacao = categoryRepository.findCategoryProjectionByCode("programacao")
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            assertEquals("Programação", programacao.getName());
+        void findCategoryProjectionByCode__should_be_return_nothing_if_receives_invalid_categoryCode() {
+            Optional<CategoryProjectionView> invalid = categoryRepository
+                    .findCategoryProjectionByCode("inexist-code");
+            assertFalse(invalid.isPresent());
+        }
 
-            CategoryProjectionView devops = categoryRepository.findCategoryProjectionByCode("business")
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            assertEquals("Business", devops.getName());
+        @Test
+        void findCategoryProjectionByCode__should_be_devolve_correct_category() {
+            Optional<CategoryProjectionView> programacao = categoryRepository
+                    .findCategoryProjectionByCode("programacao");
+            assertTrue(programacao.isPresent());
+            assertEquals("Programação", programacao.get().getName());
+
+            Optional<CategoryProjectionView> business = categoryRepository.findCategoryProjectionByCode("business");
+            assertTrue(business.isPresent());
+            assertEquals("Business", business.get().getName());
         }
 
     }
