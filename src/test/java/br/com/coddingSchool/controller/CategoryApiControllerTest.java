@@ -37,12 +37,6 @@ class CategoryApiControllerTest extends ControllerTestEnvironment {
     }
 
     @Test
-    void categories__should_be_not_throw_any_exception() throws Exception {
-            mockMvc.perform(get("/api/categories").accept(MediaType.APPLICATION_JSON));
-            mockMvc.perform(get("/api/categories").accept(MediaType.APPLICATION_XML));
-    }
-
-    @Test
     void categories__should_be_return_correct_data_of_categories() throws Exception {
         mockMvc.perform(get("/api/categories").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
