@@ -16,8 +16,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+" +
-            "(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$")
+
     private String email;
     private String password;
 
@@ -32,6 +31,12 @@ public class User implements UserDetails {
 
     public User(Long id, String name, String email, String password) {
         this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;

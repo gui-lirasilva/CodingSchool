@@ -155,6 +155,10 @@ public class Category {
         return subcategories;
     }
 
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
