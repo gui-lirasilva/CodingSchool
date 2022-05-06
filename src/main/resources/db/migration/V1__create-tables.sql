@@ -1,7 +1,7 @@
 CREATE TABLE `Category` (
     `id` bigint NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
-    `code` varchar(255) NOT NULL,
+    `name` varchar(255) UNIQUE KEY NOT NULL,
+    `code` varchar(255) UNIQUE KEY NOT NULL,
     `order_in_system` int DEFAULT NULL,
     `description` text,
     `active` tinyint(1) DEFAULT NULL,
@@ -27,8 +27,8 @@ CREATE TABLE `User` (
 
 CREATE TABLE `Subcategory` (
    `id` bigint NOT NULL AUTO_INCREMENT,
-   `name` varchar(255) NOT NULL,
-   `code` varchar(255) NOT NULL,
+   `name` varchar(255) UNIQUE KEY NOT NULL,
+   `code` varchar(255) UNIQUE KEY NOT NULL,
    `order_in_system` int DEFAULT NULL,
    `description` text,
    `active` boolean DEFAULT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE `user_profile` (
 
 CREATE TABLE `Course` (
     `id` bigint NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
-    `code` varchar(255) NOT NULL,
+    `name` varchar(255) UNIQUE KEY NOT NULL,
+    `code` varchar(255) UNIQUE KEY NOT NULL,
     `estimated_time` int DEFAULT NULL,
     `visible` tinyint(1) DEFAULT NULL,
     `target` text,

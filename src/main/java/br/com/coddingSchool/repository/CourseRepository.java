@@ -28,4 +28,12 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     };
 
     Optional<Course> findByCode(String code);
+
+    boolean existsByName(String name);
+
+    boolean existsByCode(String code);
+
+    boolean existsByNameAndIdNot(String name, Long id);
+
+    boolean existsByCodeAndIdNot(String code, Long id);
 }

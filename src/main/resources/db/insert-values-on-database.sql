@@ -146,3 +146,12 @@ INSERT INTO Course VALUES (
     1,
     ''
 );
+
+INSERT INTO `User` (`id`, `name`, `email`, `password`) VALUES (1, 'root', 'root@gmail.com', '$2a$10$wDnEKq1mEfRqbMC/tT57weGzdsWmfAB4x.4aAbzlqqBtyo4Vnzq4i');
+INSERT INTO `User` (`id`, `name`, `email`, `password`) VALUES (2, 'aluno', 'aluno@gmail.com', '$2a$10$wDnEKq1mEfRqbMC/tT57weGzdsWmfAB4x.4aAbzlqqBtyo4Vnzq4i');
+
+INSERT INTO `Profile` (`id`, `name`) VALUE (1, 'ROLE_ADMIN');
+INSERT INTO `Profile` (`id`, `name`) VALUE (2, 'ROLE_STUDENT');
+
+INSERT INTO `user_profile` (`user_id`, `profile_id`) VALUE (1, 1);
+INSERT INTO `user_profile` (`user_id`, `profile_id`) VALUE (2, 2);

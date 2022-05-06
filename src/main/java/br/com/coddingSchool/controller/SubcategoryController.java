@@ -8,10 +8,12 @@ import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
 import br.com.coddingSchool.service.CategoryService;
 import br.com.coddingSchool.service.SubcategoryService;
+import br.com.coddingSchool.validators.SubcategoryFormDTOValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,12 +27,22 @@ public class SubcategoryController {
     private final CategoryRepository categoryRepository;
     private final SubcategoryService subcategoryService;
     private final CategoryService categoryService;
+    private final SubcategoryFormDTOValidator subcategoryFormDTOValidator;
 
-    public SubcategoryController(SubcategoryRepository subcategoryRepository, CategoryRepository categoryRepository, SubcategoryService subcategoryService, CategoryService categoryService) {
+    public SubcategoryController(SubcategoryRepository subcategoryRepository, CategoryRepository categoryRepository,
+                                 SubcategoryService subcategoryService, CategoryService categoryService,
+                                 SubcategoryFormDTOValidator subcategoryFormDTOValidator) {
+
         this.subcategoryRepository = subcategoryRepository;
         this.categoryRepository = categoryRepository;
         this.subcategoryService = subcategoryService;
         this.categoryService = categoryService;
+        this.subcategoryFormDTOValidator = subcategoryFormDTOValidator;
+    }
+
+    @InitBinder("subcategoryFormDTO")
+    void initBinderCategoryFormDto(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(subcategoryFormDTOValidator);
     }
 
     @GetMapping("/{categoryCode}")

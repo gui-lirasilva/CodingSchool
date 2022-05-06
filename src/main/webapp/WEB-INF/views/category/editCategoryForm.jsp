@@ -14,8 +14,8 @@
             <div class="row">
                 <h2>Editar categoria</h2>
             </div>
-            <%--@elvariable id="updateCategoryForm" type="updateCategoryForm"--%>
-            <form:form action="/admin/categories/${category.code}" method="post" modelAttribute="updateCategoryForm">
+            <%--@elvariable id="categoryFormDTO" type="categoryFormDTO"--%>
+            <form:form action="/admin/categories/${category.code}" method="post" modelAttribute="categoryFormDTO">
                 <input type="hidden" name="id" value="${category.id}"/>
                 <div class="mb-3 row">
                     <label class="form-label">Nome</label>

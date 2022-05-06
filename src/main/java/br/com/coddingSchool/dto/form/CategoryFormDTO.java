@@ -7,18 +7,27 @@ import javax.validation.constraints.Pattern;
 
 public class CategoryFormDTO {
 
+    private Long id;
+
     @NotBlank(message = "{name.empty.null}")
     private String name;
+
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
+
     private int orderInSystem;
+
     @NotBlank(message = "{description.empty.null}")
     private String description;
+
     private boolean active;
+
     @NotBlank(message = "{icon.path.empty.null}")
     private String iconPath;
+
     @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "{code.hexadecimal.pattern}")
     private String colorCode;
+
     private String studyGuide;
 
     public CategoryFormDTO() {
@@ -112,5 +121,13 @@ public class CategoryFormDTO {
 
     public void setStudyGuide(String studyGuide) {
         this.studyGuide = studyGuide;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

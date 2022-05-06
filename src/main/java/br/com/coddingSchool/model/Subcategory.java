@@ -1,7 +1,6 @@
 package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.dto.form.SubcategoryFormDTO;
-import br.com.coddingSchool.dto.form.UpdateCategoryForm;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
