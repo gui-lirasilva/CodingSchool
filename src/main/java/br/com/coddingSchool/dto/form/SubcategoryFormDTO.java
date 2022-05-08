@@ -26,17 +26,6 @@ public class SubcategoryFormDTO {
     public SubcategoryFormDTO() {
     }
 
-    public SubcategoryFormDTO(Long id, String name, String code, boolean active, int orderInSystem, String studyGuide, String description, Category category) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.active = active;
-        this.orderInSystem = orderInSystem;
-        this.studyGuide = studyGuide;
-        this.description = description;
-        this.category = category;
-    }
-
     public SubcategoryFormDTO(Subcategory subcategory) {
         this.id = subcategory.getId();
         this.name = subcategory.getName();

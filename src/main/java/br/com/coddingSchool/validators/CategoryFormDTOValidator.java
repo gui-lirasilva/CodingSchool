@@ -24,19 +24,27 @@ public class CategoryFormDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         CategoryFormDTO form = (CategoryFormDTO) target;
         if (form.getId() == null) {
-            if (categoryRepository.existsByName(form.getName())) {
-                errors.rejectValue("name", "category.name.exists");
-            }
-            if (categoryRepository.existsByCode(form.getCode())) {
-                errors.rejectValue("code", "category.code.exists");
-            }
+            existsByNameAndExistsByCode(errors, form);
         } else {
-            if (categoryRepository.existsByNameAndIdNot(form.getName(), form.getId())) {
-                errors.rejectValue("name", "category.name.exists");
-            }
-            if (categoryRepository.existsByCodeAndIdNot(form.getCode(), form.getId())) {
-                errors.rejectValue("code", "category.code.exists");
-            }
+            existsByNameAndIdNotAndExistsByCodeAndIdNot(errors, form);
+        }
+    }
+
+    private void existsByNameAndExistsByCode(Errors errors, CategoryFormDTO form) {
+        if (categoryRepository.existsByName(form.getName())) {
+            errors.rejectValue("name", "category.name.exists");
+        }
+        if (categoryRepository.existsByCode(form.getCode())) {
+            errors.rejectValue("code", "category.code.exists");
+        }
+    }
+
+    private void existsByNameAndIdNotAndExistsByCodeAndIdNot(Errors errors, CategoryFormDTO form) {
+        if (categoryRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
+            errors.rejectValue("name", "category.name.exists");
+        }
+        if (categoryRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
+            errors.rejectValue("code", "category.code.exists");
         }
     }
 }

@@ -110,7 +110,7 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
             Course gitGithub = newCourseGitAndGithub(git);
             Course entrepreneur = newCourseEntrepreneur(success);
 
-            java.setCourses(List.of(javaPoo, javaAndSpring));
+                java.setCourses(List.of(javaPoo, javaAndSpring));
             kotlin.setCourses(List.of(kotlinInitial));
             git.setCourses(List.of(gitGithub));
             aws.setCourses(List.of(awsEc2));

@@ -34,6 +34,7 @@ public class CategoryFormDTO {
     }
 
     public CategoryFormDTO(Category category) {
+        this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
         this.active = category.isActive();
@@ -41,18 +42,6 @@ public class CategoryFormDTO {
         this.iconPath = category.getIconPath();
         this.colorCode = category.getColorCode();
         this.studyGuide = category.getStudyGuide();
-    }
-
-    public CategoryFormDTO(String name, String code, int orderInSystem, String description, boolean active,
-                           String iconPath, String colorCode, String studyGuide) {
-        this.name = name;
-        this.code = code;
-        this.orderInSystem = orderInSystem;
-        this.description = description;
-        this.active = active;
-        this.iconPath = iconPath;
-        this.colorCode = colorCode;
-        this.studyGuide = studyGuide;
     }
 
     public Category toEntity() {

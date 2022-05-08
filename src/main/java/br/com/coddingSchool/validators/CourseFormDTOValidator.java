@@ -15,7 +15,6 @@ public class CourseFormDTOValidator implements Validator {
         this.courseRepository = courseRepository;
     }
 
-
     @Override
     public boolean supports(Class<?> aClass) {
         return CourseFormDTO.class.isAssignableFrom(aClass);
@@ -25,19 +24,27 @@ public class CourseFormDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         CourseFormDTO form = (CourseFormDTO) target;
         if (form.getId() == null) {
-            if (courseRepository.existsByName(form.getName())) {
-                errors.rejectValue("name", "course.name.exists");
-            }
-            if (courseRepository.existsByCode(form.getCode())) {
-                errors.rejectValue("code", "course.code.exists");
-            }
+            existsByNameAndExistsByCode(errors, form);
         } else {
-            if (courseRepository.existsByNameAndIdNot(form.getName(), form.getId())) {
-                errors.rejectValue("name", "course.name.exists");
-            }
-            if (courseRepository.existsByCodeAndIdNot(form.getCode(), form.getId())) {
-                errors.rejectValue("code", "course.code.exists");
-            }
+            existsByNameAndIdNotAndExistsByCodeAndIdNot(errors, form);
+        }
+    }
+
+    private void existsByNameAndExistsByCode(Errors errors, CourseFormDTO form) {
+        if (courseRepository.existsByName(form.getName())) {
+            errors.rejectValue("name", "course.name.exists");
+        }
+        if (courseRepository.existsByCode(form.getCode())) {
+            errors.rejectValue("code", "course.code.exists");
+        }
+    }
+
+    private void existsByNameAndIdNotAndExistsByCodeAndIdNot(Errors errors, CourseFormDTO form) {
+        if (courseRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
+            errors.rejectValue("name", "course.name.exists");
+        }
+        if (courseRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
+            errors.rejectValue("code", "course.code.exists");
         }
     }
 }
