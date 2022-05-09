@@ -42,8 +42,8 @@ public abstract class ControllerTestEnvironment {
 
     protected Category newCategoryInative(){
         Category inativeCategory = new CategoryBuilder()
-                .withName("Programação")
-                .withCode("programacao")
+                .withName("Inactive Category")
+                .withCode("inactive")
                 .withDescription("Categoria programacao")
                 .withActive(false)
                 .withOrderInSystem(3)

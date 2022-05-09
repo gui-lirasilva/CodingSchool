@@ -1,6 +1,9 @@
 package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.dto.form.SubcategoryFormDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,28 +11,47 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class Subcategory {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
     @NotBlank(message = "{name.empty.null}")
     private String name;
+
+    @Setter
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
+
+    @Setter
     @Column(name = "`order_in_system`")
     private int orderInSystem;
+
+    @Setter
     @NotBlank(message = "The category description can't be empty or null")
     @Column(columnDefinition = "text")
     private String description;
+
+    @Setter
     private boolean active;
+
+    @Setter
     @NotNull(message = "The category can't be null")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", name = "category_id", nullable = false)
     private Category category;
+
+    @Setter
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
+
+    @Setter
     @OneToMany(mappedBy = "subcategory")
     private List<Course> courses;
 
@@ -61,52 +83,8 @@ public class Subcategory {
         this.studyGuide = subcategoryFormDTO.getStudyGuide();
     }
 
-    public Subcategory() {
-
-    }
-
     public void toggleVisibility() {
         this.active = !isActive();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 
     @Override

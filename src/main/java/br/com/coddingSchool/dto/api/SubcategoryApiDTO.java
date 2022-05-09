@@ -3,9 +3,11 @@ package br.com.coddingSchool.dto.api;
 import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class SubcategoryApiDTO {
 
     private String name;
@@ -31,29 +33,5 @@ public class SubcategoryApiDTO {
 
     public static List<SubcategoryApiDTO> toDTO(List<Subcategory> subcategories) {
         return subcategories.stream().map(SubcategoryApiDTO::new).toList();
-    }
-
-    public List<CourseApiDTO> getActiveCourses() {
-        return activeCourses;
-    }
-
-    public int getCoursesNumber() {
-        return coursesNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
     }
 }

@@ -2,12 +2,18 @@ package br.com.coddingSchool.dto.form;
 
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class SubcategoryFormDTO {
 
     private Long id;
@@ -23,9 +29,6 @@ public class SubcategoryFormDTO {
     @NotNull(message = "{category.null}")
     private Category category;
 
-    public SubcategoryFormDTO() {
-    }
-
     public SubcategoryFormDTO(Subcategory subcategory) {
         this.id = subcategory.getId();
         this.name = subcategory.getName();
@@ -39,70 +42,6 @@ public class SubcategoryFormDTO {
 
     public static List<SubcategoryFormDTO> toDTO(List<Subcategory> subcategories) {
         return subcategories.stream().map(SubcategoryFormDTO::new).toList();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public void setOrderInSystem(int orderInSystem) {
-        this.orderInSystem = orderInSystem;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public Subcategory toEntity() {

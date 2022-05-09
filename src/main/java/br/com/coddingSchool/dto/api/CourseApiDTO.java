@@ -1,9 +1,11 @@
 package br.com.coddingSchool.dto.api;
 
 import br.com.coddingSchool.model.Course;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class CourseApiDTO {
 
     private String name;
@@ -25,21 +27,5 @@ public class CourseApiDTO {
 
     public static List<CourseApiDTO> toDTO(List<Course> courses) {
         return courses.stream().map(CourseApiDTO::new).toList();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public String getDevelopedSkills() {
-        return developedSkills;
     }
 }

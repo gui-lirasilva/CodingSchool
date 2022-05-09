@@ -2,9 +2,11 @@ package br.com.coddingSchool.dto.api;
 
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class CategoryApiDTO {
 
     private String name;
@@ -33,33 +35,5 @@ public class CategoryApiDTO {
 
     public static List<CategoryApiDTO> toDTO(List<Category> categoryList) {
         return categoryList.stream().map(CategoryApiDTO::new).toList();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public List<SubcategoryApiDTO> getActiveSubcategories() {
-        return activeSubcategories;
-    }
-
-    public int getCategoryCoursesNumber() {
-        return categoryCoursesNumber;
     }
 }

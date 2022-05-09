@@ -29,7 +29,6 @@ class CategoryApiControllerTest extends ControllerTestEnvironment {
     @BeforeEach
     void setup() {
         Category programming = newCategoryProgramming();
-        Category inative = newCategoryInative();
         Subcategory kotlin = newSubcategoryKotlin(programming);
         programming.setSubcategories(List.of(kotlin));
         Course kotlinInitial = newCourseKotlinInitial(kotlin);
