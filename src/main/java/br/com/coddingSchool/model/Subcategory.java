@@ -1,6 +1,7 @@
 package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.dto.form.SubcategoryFormDTO;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,6 +56,7 @@ public class Subcategory {
     @OneToMany(mappedBy = "subcategory")
     private List<Course> courses;
 
+    @Builder
     public Subcategory(String name, String code, int orderInSystem, String description, boolean active, Category category,
                        String studyGuide) {
         this.name = name;

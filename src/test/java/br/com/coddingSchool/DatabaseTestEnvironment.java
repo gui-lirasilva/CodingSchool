@@ -8,10 +8,6 @@ import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.repository.CourseRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
 import br.com.coddingSchool.repository.UserRepository;
-import br.com.coddingSchool.util.builder.CategoryBuilder;
-import br.com.coddingSchool.util.builder.CourseBuilder;
-import br.com.coddingSchool.util.builder.SubcategoryBuilder;
-import br.com.coddingSchool.util.builder.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -31,207 +27,207 @@ public abstract class DatabaseTestEnvironment {
     protected UserRepository userRepository;
 
     protected Category newCategoryBusiness() {
-        Category businessCategory = new CategoryBuilder()
-                .withName("Business")
-                .withCode("business")
-                .withDescription("Categoria Business")
-                .withActive(true)
-                .withOrderInSystem(2)
-                .withIconpath("www.imgur.com")
-                .withColorCode("#FFFFFF")
-                .withStudyGuide("")
-                .buildComplete();
+        Category businessCategory = Category.builder()
+                .name("Business")
+                .code("business")
+                .description("Categoria Business")
+                .active(true)
+                .orderInSystem(2)
+                .iconPath("www.imgur.com")
+                .colorCode("#FFFFFF")
+                .studyGuide("")
+                .build();
         return  categoryRepository.save(businessCategory);
     }
 
     protected Category newCategoryProgramming(){
-        Category programmingCategory = new CategoryBuilder()
-                .withName("Programação")
-                .withCode("programacao")
-                .withDescription("Categoria programacao")
-                .withActive(true)
-                .withOrderInSystem(3)
-                .withIconpath("www.imgur.com")
-                .withColorCode("#FFFFFF")
-                .withStudyGuide("")
-                .buildComplete();
+        Category programmingCategory = Category.builder()
+                .name("Programação")
+                .code("programacao")
+                .description("Categoria programacao")
+                .active(true)
+                .orderInSystem(3)
+                .iconPath("www.imgur.com")
+                .colorCode("#FFFFFF")
+                .studyGuide("")
+                .build();
         return categoryRepository.save(programmingCategory);
     }
 
     protected Category newCategoryDevops(){
-        Category devOpsCategory = new CategoryBuilder()
-                .withName("DevOps")
-                .withCode("devops")
-                .withDescription("Categoria Devops")
-                .withActive(false)
-                .withOrderInSystem(1)
-                .withIconpath("www.imgur.com")
-                .withColorCode("#FFFFFF")
-                .withStudyGuide("")
-                .buildComplete();
+        Category devOpsCategory = Category.builder()
+                .name("DevOps")
+                .code("devops")
+                .description("Categoria Devops")
+                .active(false)
+                .orderInSystem(1)
+                .iconPath("www.imgur.com")
+                .colorCode("#FFFFFF")
+                .studyGuide("")
+                .build();
         return categoryRepository.save(devOpsCategory);
     }
 
     protected Subcategory newSubcategoryJava(Category category) {
-        Subcategory java = new SubcategoryBuilder()
-                .withName("Java")
-                .withCode("java")
-                .withOrderInSystem(1)
-                .withDescription("Projetos em java")
-                .withActive(true)
-                .withCategory(category)
-                .withStudyGuide("")
-                .completeBuild();
+        Subcategory java = Subcategory.builder()
+                .name("Java")
+                .code("java")
+                .orderInSystem(1)
+                .description("Projetos em java")
+                .active(true)
+                .category(category)
+                .studyGuide("")
+                .build();
         return subcategoryRepository.save(java);
     }
 
     protected Subcategory newSubcategoryKotlin(Category category) {
-        Subcategory kotlin = new SubcategoryBuilder()
-                .withName("Kotlin")
-                .withCode("kotlin")
-                .withOrderInSystem(2)
-                .withDescription("Projetos web com kotlin")
-                .withActive(true)
-                .withCategory(category)
-                .withStudyGuide("")
-                .completeBuild();
+        Subcategory kotlin = Subcategory.builder()
+                .name("Kotlin")
+                .code("kotlin")
+                .orderInSystem(2)
+                .description("Projetos web com kotlin")
+                .active(true)
+                .category(category)
+                .studyGuide("")
+                .build();
         return subcategoryRepository.save(kotlin);
     }
 
     protected Subcategory newSubcategoryGit(Category category) {
-        Subcategory git = new SubcategoryBuilder()
-                .withName("Git")
-                .withCode("git")
-                .withOrderInSystem(3)
-                .withDescription("Aprenda comandos de terminal")
-                .withActive(true)
-                .withCategory(category)
-                .withStudyGuide("")
-                .completeBuild();
+        Subcategory git = Subcategory.builder()
+                .name("Git")
+                .code("git")
+                .orderInSystem(3)
+                .description("Aprenda comandos de terminal")
+                .active(true)
+                .category(category)
+                .studyGuide("")
+                .build();
         return subcategoryRepository.save(git);
     }
 
     protected Subcategory newSubcategoryAws(Category category) {
-        Subcategory aws = new SubcategoryBuilder()
-                .withName("AWS")
-                .withCode("aws")
-                .withOrderInSystem(4)
-                .withDescription("A cloud mais utilizada")
-                .withActive(false)
-                .withCategory(category)
-                .withStudyGuide("")
-                .completeBuild();
+        Subcategory aws = Subcategory.builder()
+                .name("AWS")
+                .code("aws")
+                .orderInSystem(4)
+                .description("A cloud mais utilizada")
+                .active(false)
+                .category(category)
+                .studyGuide("")
+                .build();
         return subcategoryRepository.save(aws);
     }
 
     protected Subcategory newSubcategorySucesso(Category category) {
-        Subcategory sucesso = new SubcategoryBuilder()
-                .withName("Sucesso profissional")
-                .withCode("sucesso-profissional")
-                .withOrderInSystem(5)
-                .withDescription("Como atingir os objetivos profissionais")
-                .withActive(true)
-                .withCategory(category)
-                .withStudyGuide("")
-                .completeBuild();
+        Subcategory sucesso = Subcategory.builder()
+                .name("Sucesso profissional")
+                .code("sucesso-profissional")
+                .orderInSystem(5)
+                .description("Como atingir os objetivos profissionais")
+                .active(true)
+                .category(category)
+                .studyGuide("")
+                .build();
         return subcategoryRepository.save(sucesso);
     }
 
     protected Course newCourseJava(Subcategory subCategory) {
-        Course javaPoo = new CourseBuilder()
-                .withName("Java e POO")
-                .withCode("java-poo")
-                .withEstimatedTime(15)
-                .withVisible(true)
-                .withTarget("Iniciantes")
-                .withInstructor("Rodrigo")
-                .withDescription("Java e orientação a objetos")
-                .withDevelopedSkills("Os principais conceitos do Java e do paradigma de POO")
-                .withSubcategory(subCategory)
-                .completeBuild();
+        Course javaPoo = Course.builder()
+                .name("Java e POO")
+                .code("java-poo")
+                .estimatedTime(15)
+                .visible(true)
+                .target("Iniciantes")
+                .instructor("Rodrigo")
+                .description("Java e orientação a objetos")
+                .developedSkills("Os principais conceitos do Java e do paradigma de POO")
+                .subcategory(subCategory)
+                .build();
         return courseRepository.save(javaPoo);
     }
 
     protected Course newCourseKotlinInitial(Subcategory subCategory) {
-        Course kotlinInitial = new CourseBuilder()
-                .withName("Iniciando com Kotlin")
-                .withCode("kotlin-inicial")
-                .withEstimatedTime(12)
-                .withVisible(true)
-                .withTarget("Iniciantes")
-                .withInstructor("Alex")
-                .withDescription("")
-                .withDevelopedSkills("Spring boot, Java EE, SQL, JPA")
-                .withSubcategory(subCategory)
-                .completeBuild();
+        Course kotlinInitial = Course.builder()
+                .name("Iniciando com Kotlin")
+                .code("kotlin-inicial")
+                .estimatedTime(12)
+                .visible(true)
+                .target("Iniciantes")
+                .instructor("Alex")
+                .description("")
+                .developedSkills("Spring boot, Java EE, SQL, JPA")
+                .subcategory(subCategory)
+                .build();
         return courseRepository.save(kotlinInitial);
     }
 
     protected Course newCourseJavaAndSpringBoot(Subcategory subCategory) {
-        Course javaAndSpringBoot = new CourseBuilder()
-                .withName("Java e Spring boot")
-                .withCode("java-spring")
-                .withEstimatedTime(18)
-                .withVisible(false)
-                .withTarget("Desenvolvedores juniores")
-                .withInstructor("Rodrigo")
-                .withDescription("Java e Spring Boot, o framwork mais usado")
-                .withDevelopedSkills("Spring boot, Java EE, SQL, JPA")
-                .withSubcategory(subCategory)
-                .completeBuild();
+        Course javaAndSpringBoot = Course.builder()
+                .name("Java e Spring boot")
+                .code("java-spring")
+                .estimatedTime(18)
+                .visible(false)
+                .target("Desenvolvedores juniores")
+                .instructor("Rodrigo")
+                .description("Java e Spring Boot, o framwork mais usado")
+                .developedSkills("Spring boot, Java EE, SQL, JPA")
+                .subcategory(subCategory)
+                .build();
         return courseRepository.save(javaAndSpringBoot);
     }
 
     protected Course newCourseGitAndGithub(Subcategory subCategory) {
-        Course gitAndGithub = new CourseBuilder()
-                .withName("Git e GitHub")
-                .withCode("git-github")
-                .withEstimatedTime(10)
-                .withVisible(true)
-                .withTarget("Iniciantes")
-                .withInstructor("Mila")
-                .withDescription("")
-                .withDevelopedSkills("Conceitos iniciais de versionamento de código")
-                .withSubcategory(subCategory)
-                .completeBuild();
+        Course gitAndGithub = Course.builder()
+                .name("Git e GitHub")
+                .code("git-github")
+                .estimatedTime(10)
+                .visible(true)
+                .target("Iniciantes")
+                .instructor("Mila")
+                .description("")
+                .developedSkills("Conceitos iniciais de versionamento de código")
+                .subcategory(subCategory)
+                .build();
         return courseRepository.save(gitAndGithub);
     }
 
     protected Course newCourseAws(Subcategory subCategory) {
-        Course aws = new CourseBuilder()
-                .withName("AWS EC2")
-                .withCode("aws-ec2")
-                .withEstimatedTime(10)
-                .withVisible(false)
-                .withTarget("Ninjas")
-                .withInstructor("Mila")
-                .withDescription("")
-                .withDevelopedSkills("Tudo sobre as ferramentas da AWS")
-                .withSubcategory(subCategory)
-                .completeBuild();
+        Course aws = Course.builder()
+                .name("AWS EC2")
+                .code("aws-ec2")
+                .estimatedTime(10)
+                .visible(false)
+                .target("Ninjas")
+                .instructor("Mila")
+                .description("")
+                .developedSkills("Tudo sobre as ferramentas da AWS")
+                .subcategory(subCategory)
+                .build();
         return courseRepository.save(aws);
     }
 
     protected Course newCourseEntrepreneur(Subcategory subCategory) {
-        Course entrepreneur = new CourseBuilder()
-                .withName("Empreendedorismo")
-                .withCode("empreendedorismo")
-                .withEstimatedTime(10)
-                .withVisible(true)
-                .withTarget("Empreendedores")
-                .withInstructor("Pricila")
-                .withDescription("")
-                .withDevelopedSkills("Como abrir seu primeiro e-commerce")
-                .withSubcategory(subCategory)
-                .completeBuild();
+        Course entrepreneur = Course.builder()
+                .name("Empreendedorismo")
+                .code("empreendedorismo")
+                .estimatedTime(10)
+                .visible(true)
+                .target("Empreendedores")
+                .instructor("Pricila")
+                .description("")
+                .developedSkills("Como abrir seu primeiro e-commerce")
+                .subcategory(subCategory)
+                .build();
         return courseRepository.save(entrepreneur);
     }
 
     protected User newUser() {
-        User user = new UserBuilder()
-                .withName("User name")
-                .withEmail("newuser@gmail.com")
-                .withPassword("123456")
+        User user = User.builder()
+                .name("User name")
+                .email("newuser@gmail.com")
+                .password("123456")
                 .build();
         return userRepository.save(user);
     }

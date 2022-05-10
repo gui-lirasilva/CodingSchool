@@ -1,10 +1,7 @@
 package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.dto.form.CategoryFormDTO;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -68,6 +65,7 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
+    @Builder
     public Category(String name, String code, int orderInSystem, String description, boolean active, String iconPath,
                     String colorCode, String studyGuide) {
 

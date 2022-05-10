@@ -2,6 +2,7 @@ package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.dto.form.CourseFormDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,6 +58,7 @@ public class Course {
     @JoinColumn(referencedColumnName = "id", name = "subcategory_id", nullable = false)
     private Subcategory subcategory;
 
+    @Builder
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor,
                   String description, String developedSkills, Subcategory subcategory) {
 

@@ -30,8 +30,6 @@ class SubcategoryFormDTOValidatorTest extends DatabaseTestEnvironment {
     private final String subcategoryNameMessage = "subcategory.name.exists";
     private final String subcategoryCodeMessage = "subcategory.code.exists";
 
-
-
     @BeforeEach
     void setup() {
         subcategoryRepository = mock(SubcategoryRepository.class);
