@@ -23,14 +23,15 @@ public class CourseFormDTOValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CourseFormDTO form = (CourseFormDTO) target;
-        if (form.getId() == null) {
-            existsByNameAndExistsByCode(errors, form);
-        } else {
-            existsByNameAndIdNotAndExistsByCodeAndIdNot(errors, form);
-        }
+        existsByNameAndExistsByCode(errors, form);
     }
 
     private void existsByNameAndExistsByCode(Errors errors, CourseFormDTO form) {
+        if(form.hasId()) {
+            existsByNameAndIdNotAndExistsByCodeAndIdNot(errors, form);
+            return;
+        }
+
         if (courseRepository.existsByName(form.getName())) {
             errors.rejectValue("name", "course.name.exists");
         }
@@ -40,10 +41,10 @@ public class CourseFormDTOValidator implements Validator {
     }
 
     private void existsByNameAndIdNotAndExistsByCodeAndIdNot(Errors errors, CourseFormDTO form) {
-        if (courseRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
+        if (courseRepository.existsByNameAndIdNot(form.getName(), form.getId())) {
             errors.rejectValue("name", "course.name.exists");
         }
-        if (courseRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
+        if (courseRepository.existsByCodeAndIdNot(form.getCode(), form.getId())) {
             errors.rejectValue("code", "course.code.exists");
         }
     }

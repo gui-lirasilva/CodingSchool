@@ -47,4 +47,8 @@ public class SubcategoryFormDTO {
     public Subcategory toEntity() {
         return new Subcategory(name, code, orderInSystem, description, active, category, studyGuide);
     }
+
+    public boolean hasId() {
+        return this.id != null;
+    }
 }

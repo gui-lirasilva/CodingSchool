@@ -23,14 +23,15 @@ public class CategoryFormDTOValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CategoryFormDTO form = (CategoryFormDTO) target;
-        if (form.getId() == null) {
-            existsByNameAndExistsByCode(errors, form);
-        } else {
-            existsByNameAndIdNotAndExistsByCodeAndIdNot(errors, form);
-        }
+        existsByNameAndExistsByCode(errors, form);
     }
 
     private void existsByNameAndExistsByCode(Errors errors, CategoryFormDTO form) {
+        if(form.hasId()) {
+            existsByNameAndIdNotAndExistsByCodeAndIdNot(errors, form);
+            return;
+        }
+
         if (categoryRepository.existsByName(form.getName())) {
             errors.rejectValue("name", "category.name.exists");
         }
@@ -40,10 +41,10 @@ public class CategoryFormDTOValidator implements Validator {
     }
 
     private void existsByNameAndIdNotAndExistsByCodeAndIdNot(Errors errors, CategoryFormDTO form) {
-        if (categoryRepository.existsByNameWithDifferentId(form.getName(), form.getId())) {
+        if (categoryRepository.existsByNameAndIdNot(form.getName(), form.getId())) {
             errors.rejectValue("name", "category.name.exists");
         }
-        if (categoryRepository.existsByCodeWithDifferentId(form.getCode(), form.getId())) {
+        if (categoryRepository.existsByCodeAndIdNot(form.getCode(), form.getId())) {
             errors.rejectValue("code", "category.code.exists");
         }
     }

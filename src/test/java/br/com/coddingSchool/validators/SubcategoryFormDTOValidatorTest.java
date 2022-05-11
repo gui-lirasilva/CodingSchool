@@ -71,8 +71,8 @@ class SubcategoryFormDTOValidatorTest extends DatabaseTestEnvironment {
             errors = mock(Errors.class);
             subcategoryFormDTO = new SubcategoryFormDTO();
 
-            when(subcategoryRepository.existsByNameWithDifferentId(eq(javaName), not(eq(1L)))).thenReturn(true);
-            when(subcategoryRepository.existsByCodeWithDifferentId(eq(javaCode), not(eq(1L)))).thenReturn(true);
+            when(subcategoryRepository.existsByNameAndIdNot(eq(javaName), not(eq(1L)))).thenReturn(true);
+            when(subcategoryRepository.existsByCodeAndIdNot(eq(javaCode), not(eq(1L)))).thenReturn(true);
         }
 
         @Test

@@ -50,4 +50,8 @@ public class CategoryFormDTO {
     public Category toEntity() {
         return new Category(name, code, orderInSystem, description, active, iconPath, colorCode, studyGuide);
     }
+
+    public boolean hasId() {
+       return this.id != null;
+    }
 }

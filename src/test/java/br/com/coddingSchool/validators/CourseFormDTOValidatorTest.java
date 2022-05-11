@@ -68,8 +68,8 @@ class CourseFormDTOValidatorTest {
             errors = mock(Errors.class);
             courseFormDTO = new CourseFormDTO();
 
-            when(courseRepository.existsByNameWithDifferentId(eq(javaCourseName), not(eq(1L)))).thenReturn(true);
-            when(courseRepository.existsByCodeWithDifferentId(eq(javaCourseCode), not(eq(1L)))).thenReturn(true);
+            when(courseRepository.existsByNameAndIdNot(eq(javaCourseName), not(eq(1L)))).thenReturn(true);
+            when(courseRepository.existsByCodeAndIdNot(eq(javaCourseCode), not(eq(1L)))).thenReturn(true);
         }
 
         @Test

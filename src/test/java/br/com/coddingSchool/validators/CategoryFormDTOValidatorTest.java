@@ -73,10 +73,10 @@ class CategoryFormDTOValidatorTest {
             errors = mock(Errors.class);
             categoryFormDTO = new CategoryFormDTO();
 
-            when(categoryRepository.existsByNameWithDifferentId(eq(programmingName), not(eq(1L))))
+            when(categoryRepository.existsByNameAndIdNot(eq(programmingName), not(eq(1L))))
                     .thenReturn(true);
 
-            when(categoryRepository.existsByCodeWithDifferentId(eq(programmingCode), not(eq(1L))))
+            when(categoryRepository.existsByCodeAndIdNot(eq(programmingCode), not(eq(1L))))
                     .thenReturn(true);
         }
 

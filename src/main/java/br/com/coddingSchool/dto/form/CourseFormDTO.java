@@ -53,4 +53,8 @@ public class CourseFormDTO {
     public Course toEntity() {
         return new Course(name, code, estimatedTime, visible, target, instructor, description, developedSkills, subcategory);
     }
+
+    public boolean hasId() {
+        return this.id != null;
+    }
 }
