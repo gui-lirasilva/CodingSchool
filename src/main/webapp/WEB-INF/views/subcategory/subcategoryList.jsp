@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:list-template title="Lista de subcategorias">
+<templates:starts-template title="Lista de cursos"/>
     <h4>${Category.name}</h4>
     <h2>Subcategorias</h2>
     <br><br>
@@ -46,4 +46,4 @@
         </c:forEach>
         </tbody>
     </table>
-</templates:list-template>
+<templates:finish-template/>

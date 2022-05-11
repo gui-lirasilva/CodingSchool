@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template title="Cadastrar nova subcategoria" subtitle="Nova subcategoria">
+<templates:starts-template title="Cadastrar nova subcategoria" subtitle="Nova subcategoria"/>
 
   <%--@elvariable id="subcategoryFormDTO" type="subcategoryFormDTO"--%>
   <form:form action="/admin/subcategories" method="post" modelAttribute="subcategoryFormDTO">
@@ -66,4 +66,4 @@
       <input type="submit" class="btn btn-success" value="Enviar"/>
     </div>
   </form:form>
-</templates:admin-template>
+<templates:finish-template/>

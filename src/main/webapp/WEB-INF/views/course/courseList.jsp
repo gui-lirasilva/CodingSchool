@@ -2,7 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:list-template title="Lista de Cursos">
+<templates:starts-template title="Lista de cursos"/>
+
     <h4>${subcategoryDto.name}</h4>
     <h2>Cursos</h2>
     <br><br>
@@ -55,4 +56,4 @@
             </li>
         </ul>
     </nav>
-</templates:list-template>
+<templates:finish-template/>

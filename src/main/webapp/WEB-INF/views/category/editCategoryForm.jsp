@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template title="Editar categoria" subtitle="Editar categoria">
+<templates:starts-template title="Editar categoria" subtitle="Editar categoria"/>
 
     <%--@elvariable id="categoryFormDTO" type="categoryFormDTO"--%>
     <form:form action="/admin/categories/${category.code}" method="post" modelAttribute="categoryFormDTO">
@@ -73,4 +73,4 @@
             <input type="submit" class="btn btn-success" value="Enviar">
         </div>
     </form:form>
-</templates:admin-template>
+<templates:finish-template/>

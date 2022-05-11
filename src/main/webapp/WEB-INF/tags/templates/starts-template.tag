@@ -1,7 +1,7 @@
 <%@tag language="java" pageEncoding="utf-8" %>
 
 <%@attribute name="title" required="true" %>
-<%@attribute name="subtitle" required="true" %>
+<%@attribute name="subtitle" required="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,10 +13,4 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <h2>${subtitle}</h2>
-            </div>
-            <jsp:doBody />
-        </div>
-    </body>
-</html>
+        <h2>${subtitle}</h2>

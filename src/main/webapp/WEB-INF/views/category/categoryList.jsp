@@ -2,10 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:list-template title="Lista de categorias">
-    <h2>Categorias</h2>
-    <br><br>
-    <a href="/admin/categories/new">
+<templates:starts-template title="Lista de categorias" subtitle="Lista de categorias"/>
+
+<a href="/admin/categories/new">
         <button type="button" class="btn btn-primary"> Nova categoria </button>
     </a>
     <br><br>
@@ -45,4 +44,4 @@
             </c:forEach>
         </tbody>
     </table>
-</templates:list-template>
+<templates:finish-template/>

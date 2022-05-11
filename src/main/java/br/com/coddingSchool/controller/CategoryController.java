@@ -7,6 +7,7 @@ import br.com.coddingSchool.projections.publicView.CategoryProjectionView;
 import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.service.CategoryService;
 import br.com.coddingSchool.validators.CategoryFormDTOValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,20 +20,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
     private final CategoryService categoryService;
     private final CategoryFormDTOValidator categoryFormDTOValidator;
-
-
-    public CategoryController(CategoryRepository categoryRepository, CategoryService categoryService,
-                              CategoryFormDTOValidator categoryFormDTOValidator) {
-
-        this.categoryRepository = categoryRepository;
-        this.categoryService = categoryService;
-        this.categoryFormDTOValidator = categoryFormDTOValidator;
-    }
 
     @InitBinder("categoryFormDTO")
     void initBinderCategoryFormDto(WebDataBinder webDataBinder) {
