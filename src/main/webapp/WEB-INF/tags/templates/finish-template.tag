@@ -3,6 +3,6 @@
 
         </div>
         <script src="/assets/js/jquery-3.6.0.min.js" type="text/javascript"></script>
-        <script src="/assets/js/scripts.js"></script>
+        <jsp:doBody/>
     </body>
 </html>

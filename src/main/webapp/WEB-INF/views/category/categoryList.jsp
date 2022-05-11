@@ -44,4 +44,6 @@
             </c:forEach>
         </tbody>
     </table>
-<templates:finish-template/>
+<templates:finish-template>
+    <script src="/assets/js/scripts.js"></script>
+</templates:finish-template>
