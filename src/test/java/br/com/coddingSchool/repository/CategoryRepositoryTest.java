@@ -88,6 +88,7 @@ class CategoryRepositoryTest extends DatabaseTestEnvironment {
         void setup() {
 
             categoryRepository.deleteAll();
+            List<Category> all = categoryRepository.findAll();
 
             Category devops = newCategoryDevops();
             Category business = newCategoryBusiness();

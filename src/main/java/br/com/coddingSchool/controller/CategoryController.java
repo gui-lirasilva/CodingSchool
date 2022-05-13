@@ -2,34 +2,34 @@ package br.com.coddingSchool.controller;
 
 import br.com.coddingSchool.dto.CategoryDTO;
 import br.com.coddingSchool.dto.form.CategoryFormDTO;
-import br.com.coddingSchool.dto.form.UpdateCategoryForm;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.projections.publicView.CategoryProjectionView;
 import br.com.coddingSchool.repository.CategoryRepository;
 import br.com.coddingSchool.service.CategoryService;
+import br.com.coddingSchool.validators.CategoryFormDTOValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
     private final CategoryService categoryService;
+    private final CategoryFormDTOValidator categoryFormDTOValidator;
 
-
-    public CategoryController(CategoryRepository categoryRepository, CategoryService categoryService) {
-        this.categoryRepository = categoryRepository;
-        this.categoryService = categoryService;
+    @InitBinder("categoryFormDTO")
+    void initBinderCategoryFormDto(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(categoryFormDTOValidator);
     }
 
     @GetMapping("/admin/categories")
@@ -55,7 +55,7 @@ public class CategoryController {
     }
 
     @GetMapping("/admin/categories/{code}")
-    public String update(@PathVariable String code, UpdateCategoryForm updateCategoryForm, Model model) {
+    public String update(@PathVariable String code, CategoryFormDTO categoryFormDTO, Model model) {
         CategoryDTO categoryDTO = categoryService.findDtoByCode(code);
         model.addAttribute("category", categoryDTO);
         return "category/editCategoryForm";
@@ -63,13 +63,13 @@ public class CategoryController {
 
     @Transactional
     @PostMapping("/admin/categories/{code}")
-    public String updateCategory(@PathVariable String code, @Valid UpdateCategoryForm updateCategoryForm,
+    public String updateCategory(@PathVariable String code, @Valid CategoryFormDTO categoryFormDTO,
                                  BindingResult bindResult, Model model) {
         if(bindResult.hasErrors()) {
-            return update(code, updateCategoryForm, model);
+            return update(code, categoryFormDTO, model);
         }
         Category category = categoryService.findByCode(code);
-        category.toMerge(updateCategoryForm);
+        category.toMerge(categoryFormDTO);
         categoryRepository.save(category);
         return "redirect:/admin/categories";
     }

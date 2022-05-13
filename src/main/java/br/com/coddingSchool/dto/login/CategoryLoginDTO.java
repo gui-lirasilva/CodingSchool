@@ -3,9 +3,11 @@ package br.com.coddingSchool.dto.login;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class CategoryLoginDTO {
 
     private String name;
@@ -25,21 +27,5 @@ public class CategoryLoginDTO {
 
     public static List<CategoryLoginDTO> toDTO(List<Category> categoryList) {
         return categoryList.stream().map(CategoryLoginDTO::new).toList();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getIconPath() {
-        return iconPath;
-    }
-
-    public List<SubcategoryLoginDTO> getSubcategories() {
-        return subcategories;
     }
 }

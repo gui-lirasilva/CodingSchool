@@ -2,6 +2,7 @@ package br.com.coddingSchool.controller;
 
 import br.com.coddingSchool.dto.api.CategoryApiDTO;
 import br.com.coddingSchool.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -14,16 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class CategoryApiController {
 
     private final CategoryRepository categoryRepository;
-
-    public CategoryApiController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Cacheable(value = "categoriesApi")
     @GetMapping(path = "/categories", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

@@ -2,12 +2,18 @@ package br.com.coddingSchool.dto.form;
 
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Subcategory;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class SubcategoryFormDTO {
 
     private Long id;
@@ -22,20 +28,6 @@ public class SubcategoryFormDTO {
     private String description;
     @NotNull(message = "{category.null}")
     private Category category;
-
-    public SubcategoryFormDTO() {
-    }
-
-    public SubcategoryFormDTO(Long id, String name, String code, boolean active, int orderInSystem, String studyGuide, String description, Category category) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.active = active;
-        this.orderInSystem = orderInSystem;
-        this.studyGuide = studyGuide;
-        this.description = description;
-        this.category = category;
-    }
 
     public SubcategoryFormDTO(Subcategory subcategory) {
         this.id = subcategory.getId();
@@ -52,71 +44,11 @@ public class SubcategoryFormDTO {
         return subcategories.stream().map(SubcategoryFormDTO::new).toList();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public void setOrderInSystem(int orderInSystem) {
-        this.orderInSystem = orderInSystem;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public Subcategory toEntity() {
         return new Subcategory(name, code, orderInSystem, description, active, category, studyGuide);
+    }
+
+    public boolean hasId() {
+        return this.id != null;
     }
 }

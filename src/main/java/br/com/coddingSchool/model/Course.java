@@ -2,38 +2,63 @@ package br.com.coddingSchool.model;
 
 import br.com.coddingSchool.dto.form.CourseFormDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
     @NotBlank(message = "{name.empty.null}")
     private String name;
+
+    @Setter
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
+
+    @Setter
     @Min(value = 1, message = "{estimatedTime.min}")
     @Max(value = 20, message = "{estimatedTime.max}")
     @Column(name = "estimated_time")
     private int estimatedTime;
+
+    @Setter
     private Boolean visible = false;
+
+    @Setter
     @Column(columnDefinition = "text")
     private String target;
+
+    @Setter
     @NotBlank(message = "{instructor.null.empty}")
     private String instructor;
+
+    @Setter
     @Column(columnDefinition = "text")
     private String description;
+
+    @Setter
     @Column(name = "developed_skills", columnDefinition = "text")
     private String developedSkills;
+
+    @Setter
     @NotNull(message = "{subcategory.null}")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", name = "subcategory_id", nullable = false)
     private Subcategory subcategory;
 
+    @Builder
     public Course(String name, String code, int estimatedTime, boolean visible, String target, String instructor,
                   String description, String developedSkills, Subcategory subcategory) {
 
@@ -58,9 +83,6 @@ public class Course {
         this.subcategory = subcategory;
     }
 
-    public Course() {
-    }
-
     public void toMerge(CourseFormDTO courseFormDto) {
         this.name = courseFormDto.getName();
         this.code = courseFormDto.getCode();
@@ -71,54 +93,6 @@ public class Course {
         this.description = courseFormDto.getDescription();
         this.developedSkills = courseFormDto.getDevelopedSkills();
         this.subcategory = courseFormDto.getSubcategory();
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public Boolean getVisible() {
-        return visible;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getDevelopedSkills() {
-        return developedSkills;
-    }
-
-    public Subcategory getSubcategory() {
-        return subcategory;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

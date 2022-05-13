@@ -9,16 +9,16 @@ import br.com.coddingSchool.repository.CourseRepository;
 import br.com.coddingSchool.repository.SubcategoryRepository;
 import br.com.coddingSchool.service.CourseService;
 import br.com.coddingSchool.service.SubcategoryService;
+import br.com.coddingSchool.validators.CourseFormDTOValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -27,18 +27,18 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/courses")
+@RequiredArgsConstructor
 public class CourseController {
 
     private final CourseRepository courseRepository;
     private final SubcategoryRepository subcategoryRepository;
     private final CourseService courseService;
     private final SubcategoryService subcategoryService;
+    private final CourseFormDTOValidator courseFormDTOValidator;
 
-    public CourseController(CourseRepository courseRepository, SubcategoryRepository subcategoryRepository, CourseService courseService, SubcategoryService subcategoryService) {
-        this.courseRepository = courseRepository;
-        this.subcategoryRepository = subcategoryRepository;
-        this.courseService = courseService;
-        this.subcategoryService = subcategoryService;
+    @InitBinder("courseFormDTO")
+    void initBinderCategoryFormDto(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(courseFormDTOValidator);
     }
 
     @GetMapping("/{categoryCode}/{subcategoryCode}")

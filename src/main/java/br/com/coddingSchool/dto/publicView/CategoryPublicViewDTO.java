@@ -3,9 +3,11 @@ package br.com.coddingSchool.dto.publicView;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class CategoryPublicViewDTO {
 
     private Long id;
@@ -38,45 +40,5 @@ public class CategoryPublicViewDTO {
 
     public static List<CategoryPublicViewDTO> toDTO(List<Category> categoryList) {
         return categoryList.stream().map(CategoryPublicViewDTO::new).toList();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getIconPath() {
-        return iconPath;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public List<SubcategoryPublicViewDTO> getSubcategories() {
-        return subcategories;
     }
 }

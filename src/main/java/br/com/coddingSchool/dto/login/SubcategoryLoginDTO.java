@@ -3,9 +3,11 @@ package br.com.coddingSchool.dto.login;
 import br.com.coddingSchool.model.Category;
 import br.com.coddingSchool.model.Course;
 import br.com.coddingSchool.model.Subcategory;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class SubcategoryLoginDTO {
 
     private Long id;
@@ -34,29 +36,5 @@ public class SubcategoryLoginDTO {
 
     public List<CourseLoginDTO> getCourses() {
         return courses;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 }

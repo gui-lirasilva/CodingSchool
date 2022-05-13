@@ -1,9 +1,11 @@
 package br.com.coddingSchool.dto;
 
 import br.com.coddingSchool.model.Category;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class CategoryDTO {
 
     private Long id;
@@ -32,45 +34,5 @@ public class CategoryDTO {
 
     public static List<CategoryDTO> toDTO(List<Category> categoryList) {
         return categoryList.stream().map(CategoryDTO::new).toList();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getIconPath() {
-        return iconPath;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public List<SubcategoryDTO> getSubcategories() {
-        return subcategories;
     }
 }

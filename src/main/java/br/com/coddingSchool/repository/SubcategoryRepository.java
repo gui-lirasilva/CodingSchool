@@ -13,4 +13,12 @@ public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> 
     List<Subcategory> findAllByCategory_CodeOrderByOrderInSystem(String code);
 
     Optional<Subcategory> findByCode(String subcategoryCode);
+
+    boolean existsByName(String name);
+
+    boolean existsByCode(String code);
+
+    boolean existsByNameAndIdNot(String name, Long id);
+
+    boolean existsByCodeAndIdNot(String code, Long id);
 }

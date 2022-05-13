@@ -1,37 +1,59 @@
 package br.com.coddingSchool.model;
 
-import br.com.coddingSchool.dto.form.UpdateCategoryForm;
+import br.com.coddingSchool.dto.form.CategoryFormDTO;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
     @NotBlank(message = "{name.empty.null}")
     private String name;
+
+    @Setter
     @Pattern(regexp = "[a-z0-9^-]+", message = "{code.invalid.pattern}")
     private String code;
+
+    @Setter
     @Column(name = "order_in_system")
     private int orderInSystem;
+
+    @Setter
     @NotBlank(message = "{description.empty.null}")
     @Column(columnDefinition = "text")
     private String description;
+
+    @Setter
     private boolean active;
+
+    @Setter
     @NotBlank(message = "{icon.path.empty.null}")
     @Column(name = "icon_path")
     private String iconPath;
+
+    @Setter
     @NotBlank
     @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "{code.hexadecimal.pattern}")
     @Column(name = "color_code")
     private String colorCode;
+
+    @Setter
     @Column(name = "study_guide", columnDefinition = "text")
     private String studyGuide;
+
+    @Setter
     @OneToMany(mappedBy = "category")
     private List<Subcategory> subcategories;
 
@@ -43,7 +65,10 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
-    public Category(String name, String code, int orderInSystem, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+    @Builder
+    public Category(String name, String code, int orderInSystem, String description, boolean active, String iconPath,
+                    String colorCode, String studyGuide) {
+
         this.name = name;
         this.code = code;
         this.orderInSystem = orderInSystem;
@@ -54,7 +79,9 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
-    public Category(Long id, String name, String code, int orderInSystem, String description, boolean active, String iconPath, String colorCode, String studyGuide) {
+    public Category(Long id, String name, String code, int orderInSystem, String description, boolean active,
+                    String iconPath, String colorCode, String studyGuide) {
+
         this.id = id;
         this.name = name;
         this.code = code;
@@ -66,97 +93,19 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
-    public Category() {}
-
     public void toggleVisibility() {
         this.active = !isActive();
     }
 
-    public void toMerge(UpdateCategoryForm updateCategoryForm) {
-        this.name = updateCategoryForm.getName();
-        this.code = updateCategoryForm.getCode();
-        this.orderInSystem = updateCategoryForm.getOrderInSystem();
-        this.description = updateCategoryForm.getDescription();
-        this.active = updateCategoryForm.isActive();
-        this.iconPath = updateCategoryForm.getIconPath();
-        this.colorCode = updateCategoryForm.getColorCode();
-        this.studyGuide = updateCategoryForm.getStudyGuide();
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setOrderInSystem(int order) {
-        this.orderInSystem = order;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setIconPath(String iconPath) {
-        this.iconPath = iconPath;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public Integer getOrderInSystem() {
-        return orderInSystem;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getIconPath() {
-        return iconPath;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public List<Subcategory> getSubcategories() {
-        return subcategories;
-    }
-
-    public void setSubcategories(List<Subcategory> subcategories) {
-        this.subcategories = subcategories;
+    public void toMerge(@Valid CategoryFormDTO categoryFormDTO) {
+        this.name = categoryFormDTO.getName();
+        this.code = categoryFormDTO.getCode();
+        this.orderInSystem = categoryFormDTO.getOrderInSystem();
+        this.description = categoryFormDTO.getDescription();
+        this.active = categoryFormDTO.isActive();
+        this.iconPath = categoryFormDTO.getIconPath();
+        this.colorCode = categoryFormDTO.getColorCode();
+        this.studyGuide = categoryFormDTO.getStudyGuide();
     }
 
     @Override
